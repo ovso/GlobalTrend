@@ -1,18 +1,25 @@
 package io.github.ovso.globaltrend
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.prof.rssparser.Parser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,6 +37,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val url = "https://trends.google.co.kr/trends/trendingsearches/daily/rss?geo=KR"
+//        val parser = Parser()
+//        val articleList = parser.getArticles(url)
+
+
+        coroutineScope.launch(Dispatchers.Main) {
+            try {
+                val parser = Parser()
+                val articleList = parser.getArticles(url)
+                Timber.d(articleList.toString())
+                //setArticleList(articleList)
+            } catch (e: Exception) {
+                e.printStackTrace()
+//                _snackbar.value = "An error has occurred. Please retry"
+//                setArticleList(mutableListOf())
+            }
+        }
     }
 
     override fun onBackPressed() {

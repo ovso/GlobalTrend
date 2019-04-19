@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "348520085310",
+    "firebase_url": "https://globaltrend-34090.firebaseio.com",
+    "project_id": "globaltrend-34090",
+    "storage_bucket": "globaltrend-34090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348520085310:android:353d124cb8e3fc60",
+        "android_client_info": {
+          "package_name": "io.github.ovso.globaltrend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348520085310-itgf9nrnttg3gii5agn4qt8818n3lkj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIaAUi_PValfNMUCSrq3rHy6wZSN6Skbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348520085310-itgf9nrnttg3gii5agn4qt8818n3lkj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
