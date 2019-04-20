@@ -1,6 +1,7 @@
 package io.github.ovso.globaltrend
 
 import android.app.Application
+import io.github.ovso.globaltrend.utils.AppInit
 
 class App : Application() {
   override fun onCreate() {

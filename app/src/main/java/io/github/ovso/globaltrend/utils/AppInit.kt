@@ -1,9 +1,10 @@
-package io.github.ovso.globaltrend
+package io.github.ovso.globaltrend.utils
 
 import android.content.Context
 import android.content.ContextWrapper
 import com.google.android.gms.ads.MobileAds
 import com.pixplicity.easyprefs.library.Prefs
+import io.github.ovso.globaltrend.BuildConfig
 import timber.log.Timber
 
 object AppInit {

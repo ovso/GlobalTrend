@@ -36,6 +36,8 @@ versions.easyprefs = '1.9.0'
 versions.firebase_ads = '17.2.0'
 versions.google_service = '4.2.0'
 versions.rssparser = '2.0.3'
+versions.jsoup = '1.11.3'
+versions.coroutines = '1.1.0'
 
 def deps = [:]
 
@@ -49,11 +51,11 @@ androidx.paging_rxjava2 = "androidx.paging:paging-rxjava2:$versions.paging"
 androidx.annotation = "androidx.annotation:annotation:$versions.annotation"
 androidx.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
 androidx.lifecycle_viewmodel_ktx =
-    "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_viewmodel_ktx"
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_viewmodel_ktx"
 androidx.lifecycle_extensions =
-    "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
+        "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
 androidx.legacy_preference_v14 =
-    "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
+        "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
 deps.androidx = androidx
 
 def firebase = [:]
@@ -106,6 +108,11 @@ rx.rxandroid = "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
 rx.rxkotlin2 = "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin2"
 deps.rx = rx
 
+def coroutines = [:]
+coroutines.core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines_core"
+coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines_core"
+deps.coroutines = coroutines
+
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.jsr250_api = "javax.annotation:jsr250-api:$versions.jsr250_api"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
@@ -114,6 +121,7 @@ deps.easydeviceinfo = "com.github.nisrulz:easydeviceinfo:$versions.easydeviceinf
 deps.licensedialog = "de.psdev.licensesdialog:licensesdialog:$versions.licensedialog"
 deps.easyprefs = "com.pixplicity.easyprefs:library:$versions.easyprefs"
 deps.rssparser = "com.prof.rssparser:rssparser:$versions.rssparser"
+deps.jsoup = "org.jsoup:jsoup:$versions.jsoup"
 
 ext.deps = deps
 
@@ -136,12 +144,12 @@ config.version_patch = 0
 ext.config = config
 
 static def addRepos(RepositoryHandler handler) {
-  handler.google()
-  handler.jcenter()
-  handler.mavenCentral()
-  handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-  handler.maven { url 'https://maven.fabric.io/public' }
-  handler.maven { url "https://jitpack.io" }
+    handler.google()
+    handler.jcenter()
+    handler.mavenCentral()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven { url 'https://maven.fabric.io/public' }
+    handler.maven { url "https://jitpack.io" }
 }
 
 ext.addRepos = this.&addRepos

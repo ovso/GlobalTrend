@@ -1,4 +1,6 @@
-package io.github.ovso.globaltrend
+package io.github.ovso.globaltrend.utils
+
+import io.github.ovso.globaltrend.BuildConfig
 
 enum class Ads(val value: String) {
   ADMOB_APP_ID(
