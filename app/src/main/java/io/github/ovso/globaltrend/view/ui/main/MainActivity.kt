@@ -1,12 +1,12 @@
 package io.github.ovso.globaltrend.view.ui.main
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.navigation.NavigationView
 import io.github.ovso.globaltrend.R
@@ -43,25 +43,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   }
 
   private fun setupTabsAndViewPager() {
-    viewpager_main.adapter = ViewPagerAdapter()
+    viewpager_main.adapter = ViewPagerAdapter(
+      supportFragmentManager,
+      resources.getStringArray(R.array.tab_names)
+    )
     tabs_main.setupWithViewPager(viewpager_main)
   }
 
-  /*
-      Thread {
-      val doc = Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
-        .data("geo", URLEncoder.encode(LocaleUtils.country, Encoding.UTF_8.toString()))
-        .parser(Parser.xmlParser())
-        .timeout(3000)
-        .get()
-      var elementsByTag = doc.getElementsByTag("item")
-      elementsByTag.first()
-      for (element in elementsByTag) {
-        println(element.getElementsByTag("title"))
-      }
-    }.start()
-
-  */
   override fun onBackPressed() {
     if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
       drawer_layout.closeDrawer(GravityCompat.START)
@@ -114,11 +102,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   }
 
   inner class ViewPagerAdapter(
-    private val titles: Array<String> = resources.getStringArray(
-      R.array.tab_names
-    )
+    fragmentManager: FragmentManager,
+    private val titles: Array<String>
   ) :
-    FragmentPagerAdapter(supportFragmentManager) {
+    FragmentPagerAdapter(fragmentManager) {
     override fun getItem(position: Int) = when (position) {
       0 -> DailyTrendFragment.newInstance()
       1 -> RealTimeTrendFragment.newInstance()
