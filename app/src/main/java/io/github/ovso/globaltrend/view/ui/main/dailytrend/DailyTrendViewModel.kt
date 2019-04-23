@@ -1,7 +1,6 @@
 package io.github.ovso.globaltrend.view.ui.main.dailytrend
 
 import android.util.Xml.Encoding
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.ovso.globaltrend.utils.LocaleUtils

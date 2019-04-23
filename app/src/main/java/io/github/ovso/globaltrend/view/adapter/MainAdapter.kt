@@ -6,33 +6,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_trend.*
+import org.jsoup.nodes.Element
+import org.jsoup.select.Elements
 
 class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
-  override fun onCreateViewHolder(
-    parent: ViewGroup,
-    viewType: Int
-  ): MainViewHolder {
-    TODO("not implemented")
-  }
+  var elements: Elements? = null
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MainViewHolder.create(parent)
 
-  override fun getItemCount(): Int {
-    TODO("not implemented")
-  }
+  override fun getItemCount() = elements?.size ?: 0
 
   override fun onBindViewHolder(
     holder: MainViewHolder,
     position: Int
   ) {
-    TODO("not implemented")
+    holder.bind(elements!![position])
   }
 
-  class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private companion object {
+  class MainViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
+
+    companion object {
       fun create(parent: ViewGroup): MainViewHolder {
-        var inflate = LayoutInflater.from(parent.context)
-          .inflate(R.layout.fragment_blank, parent, false)
-        return MainViewHolder(inflate)
+        return MainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_trend, parent, false))
       }
     }
+
+    fun bind(element: Element) {
+      textview_item_rank.text = element.getElementsByTag("title").text()
+    }
+
   }
 }

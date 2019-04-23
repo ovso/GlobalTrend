@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.view.adapter.MainAdapter
+import kotlinx.android.synthetic.main.fragment_daily_trend.*
 
 class DailyTrendFragment : Fragment() {
+  private val adapter: MainAdapter = MainAdapter()
 
   companion object {
     fun newInstance() = DailyTrendFragment()
@@ -29,9 +32,9 @@ class DailyTrendFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProviders.of(this)
       .get(DailyTrendViewModel::class.java)
-
     viewModel.elementsLiveData.observe(this, Observer {
-
+      adapter.elements = it
+      recyclerview_daily_trend.adapter = adapter
     })
 
     viewModel.fetchList()
