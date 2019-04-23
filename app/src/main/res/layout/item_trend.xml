@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="?android:attr/actionBarSize"
-  android:orientation="horizontal">
+  android:layout_height="100dp"
+  android:orientation="vertical"
+>
+  <TextView
+    android:id="@+id/textview_item_traffic"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:ellipsize="end"
+    android:gravity="start"
+    android:maxLines="1"
+    android:textSize="15sp"
+    app:layout_constraintStart_toEndOf="@+id/textview_item_rank"
+    app:layout_constraintTop_toBottomOf="@+id/textview_item_title"
+    tools:text="1만+회 검색"
+    android:layout_marginEnd="8dp"
+    app:layout_constraintEnd_toStartOf="@+id/imageview_item_thumb"/>
+  <TextView
+    android:id="@+id/textview_item_title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:ellipsize="end"
+    android:gravity="left"
+    android:maxLines="1"
+    android:singleLine="true"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="@+id/textview_item_rank"
+    app:layout_constraintStart_toEndOf="@+id/textview_item_rank"
+    app:layout_constraintTop_toTopOf="@+id/textview_item_rank"
+    tools:text="윤지오"
+    android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/imageview_item_thumb"/>
   <TextView
     android:id="@+id/textview_item_rank"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="45dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
     android:gravity="center"
+    android:textSize="20sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="1"
   />
-</LinearLayout>
+  <ImageView
+    android:id="@+id/imageview_item_thumb"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintDimensionRatio="h,1:1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@android:drawable/ic_menu_report_image"
+  />
+</androidx.constraintlayout.widget.ConstraintLayout>
