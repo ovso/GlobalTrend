@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.item_trend.*
 import kotlinx.android.synthetic.main.item_trend.view.*
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import timber.log.Timber
 
 class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
   var elements: Elements? = null
@@ -47,14 +48,17 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       this.element = element
       textview_item_title.text = title
       textview_item_traffic.text = traffic
-      Glide.with(imageview_item_thumb).load(imageUrl).into(imageview_item_thumb)
+      Glide.with(imageview_item_thumb)
+        .load(imageUrl)
+        .into(imageview_item_thumb)
+      itemView.setOnClickListener { Timber.d("onClick")}
     }
 
-    val imageUrl: String
+    private val imageUrl: String
       get() = element.getElementsByTag("ht:picture").text()
-    val title: String
+    private val title: String
       get() = element.getElementsByTag("title").text()
-    val traffic
+    private val traffic: String
       get() = element.getElementsByTag("ht:approx_traffic").text()
   }
 }
