@@ -17,7 +17,7 @@ import timber.log.Timber
 
 class DetailActivity : AppCompatActivity() {
 
-  val compositeDisposable: CompositeDisposable = CompositeDisposable()
+  private val compositeDisposable: CompositeDisposable = CompositeDisposable()
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     addDisposable(
@@ -42,6 +42,15 @@ class DetailActivity : AppCompatActivity() {
 
   fun addDisposable(d: Disposable) {
     compositeDisposable.add(d)
+  }
+
+  fun clearDisposable() {
+    compositeDisposable.clear()
+  }
+
+  override fun onDestroy() {
+    clearDisposable()
+    super.onDestroy()
   }
 
   companion object {
