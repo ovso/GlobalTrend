@@ -5,8 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.utils.rx.RxBus2
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
+import io.github.ovso.globaltrend.view.ui.detail.DetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_trend.*
 import kotlinx.android.synthetic.main.item_trend.view.*
@@ -32,14 +35,14 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
   }
 
   class MainViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(
-    containerView!!
+      containerView!!
   ), LayoutContainer {
     private lateinit var element: Element
 
     companion object {
       fun create(parent: ViewGroup): MainViewHolder {
         return MainViewHolder(
-          LayoutInflater.from(parent.context).inflate(R.layout.item_trend, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_trend, parent, false)
         )
       }
     }
@@ -49,9 +52,12 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       textview_item_title.text = title
       textview_item_traffic.text = traffic
       Glide.with(imageview_item_thumb)
-        .load(imageUrl)
-        .into(imageview_item_thumb)
-      itemView.setOnClickListener { Timber.d("onClick")}
+          .load(imageUrl)
+          .into(imageview_item_thumb)
+      itemView.setOnClickListener {
+        App.rxBus2.send(this.element)
+        DetailActivity.start(itemView.context)
+      }
     }
 
     private val imageUrl: String

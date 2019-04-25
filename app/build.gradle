@@ -46,7 +46,7 @@ android {
           def formattedDate = new Date().format('yyyyMMddHHmmss')
           def appName = variant.getApplicationId().split(/[.]/)[3]
           outputFileName =
-            "${appName}-${variant.name}-${variant.versionCode}-${variant.versionName}-${formattedDate}.apk"
+              "${appName}-${variant.name}-${variant.versionCode}-${variant.versionName}-${formattedDate}.apk"
         }
       }
     }
@@ -99,6 +99,7 @@ dependencies {
   implementation deps.rssparser
 
   implementation deps.glide.runtime
+  implementation 'com.google.android.material:material:1.0.0'
   annotationProcessor deps.glide.compiler
 
   implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
