@@ -13,7 +13,6 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.layout
 import io.github.ovso.globaltrend.R.string
-import io.github.ovso.globaltrend.view.BlankFragment
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
 import io.github.ovso.globaltrend.view.ui.main.realtimetrend.RealTimeTrendFragment
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
@@ -29,10 +28,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     setSupportActionBar(toolbar)
 
     val toggle = ActionBarDrawerToggle(
-      this,
-      drawer_layout, toolbar,
-      string.navigation_drawer_open,
-      string.navigation_drawer_close
+        this,
+        drawer_layout, toolbar,
+        string.navigation_drawer_open,
+        string.navigation_drawer_close
     )
     drawer_layout.addDrawerListener(toggle)
     toggle.syncState()
@@ -44,8 +43,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
   private fun setupTabsAndViewPager() {
     viewpager_main.adapter = ViewPagerAdapter(
-      supportFragmentManager,
-      resources.getStringArray(R.array.tab_names)
+        supportFragmentManager,
+        resources.getStringArray(R.array.tab_names)
     )
     tabs_main.setupWithViewPager(viewpager_main)
   }
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fragmentManager: FragmentManager,
     private val titles: Array<String>
   ) :
-    FragmentPagerAdapter(fragmentManager) {
+      FragmentPagerAdapter(fragmentManager) {
     override fun getItem(position: Int) = when (position) {
       0 -> DailyTrendFragment.newInstance()
       1 -> RealTimeTrendFragment.newInstance()
