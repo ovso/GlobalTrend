@@ -18,7 +18,6 @@ versions.rxjava2 = "2.2.6"
 versions.rxkotlin2 = '2.3.0'
 versions.rxandroid = "2.1.0"
 versions.easyprefs = '1.9.0'
-versions.lottie = '2.8.0'
 versions.material = '1.1.0-alpha03'
 versions.lottie = '2.8.0'
 versions.viewpager2 = '1.0.0-alpha01'

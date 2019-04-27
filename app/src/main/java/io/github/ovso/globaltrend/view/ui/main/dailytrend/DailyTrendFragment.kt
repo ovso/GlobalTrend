@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentDailyTrendBinding
 import io.github.ovso.globaltrend.view.adapter.MainAdapter
-import kotlinx.android.synthetic.main.fragment_daily_trend.*
+import kotlinx.android.synthetic.main.fragment_daily_trend.recyclerview_daily_trend
 
 class DailyTrendFragment : Fragment() {
   private val adapter: MainAdapter = MainAdapter()
@@ -68,5 +68,4 @@ class DailyTrendFragment : Fragment() {
   private fun setupRev() {
     recyclerview_daily_trend.adapter = adapter
   }
-
 }

@@ -97,6 +97,7 @@ dependencies {
   implementation deps.timber
   implementation deps.easyprefs
   implementation deps.rssparser
+  implementation deps.lottie
 
   implementation deps.glide.runtime
   implementation 'com.google.android.material:material:1.0.0'
@@ -107,6 +108,8 @@ dependencies {
   implementation deps.retrofit.rxjava2
   implementation deps.okhttp.runtime
   implementation deps.okhttp.logging_interceptor
+
+  implementation 'com.hbb20:ccp:2.2.9'
 
   implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
   implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
