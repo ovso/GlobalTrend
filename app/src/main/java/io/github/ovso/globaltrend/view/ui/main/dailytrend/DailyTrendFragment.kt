@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.databinding.FragmentDailyTrendBinding
 import io.github.ovso.globaltrend.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.fragment_daily_trend.*
 
@@ -25,31 +27,46 @@ class DailyTrendFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    return inflater.inflate(R.layout.fragment_daily_trend, container, false)
+    val binding = inflateDataBinding(inflater, container)
+    viewModel = provideViewModel()
+    binding.viewModel = viewModel
+    return binding.root
+  }
+
+  private fun provideViewModel(): DailyTrendViewModel {
+    return ViewModelProviders.of(this)
+      .get(DailyTrendViewModel::class.java)
+  }
+
+  private fun inflateDataBinding(
+    inflater: LayoutInflater,
+    container: ViewGroup?
+  ): FragmentDailyTrendBinding {
+    return DataBindingUtil.inflate(
+      inflater,
+      R.layout.fragment_daily_trend,
+      container,
+      false
+    )
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProviders.of(this)
-      .get(DailyTrendViewModel::class.java)
-    viewModel.elementsLiveData.observe(this, Observer {
-      adapter.elements = it
-      recyclerview_daily_trend.adapter = adapter
-    })
-    viewModel.refreshLiveData.observe(this, Observer {
-      refreshlayout_daily_trend.isRefreshing = it
-    })
-    refreshlayout_daily_trend.setOnRefreshListener {
-      clearRev()
-      viewModel.fetchList()
-    }
+    setupRev()
+    obRevListData()
 
     viewModel.fetchList()
   }
 
-  fun clearRev() {
-    adapter.elements = null
-    adapter.notifyDataSetChanged()
+  private fun obRevListData() {
+    viewModel.elementsLiveData.observe(this, Observer {
+      adapter.elements = it
+      adapter.notifyDataSetChanged()
+    })
+  }
+
+  private fun setupRev() {
+    recyclerview_daily_trend.adapter = adapter
   }
 
 }

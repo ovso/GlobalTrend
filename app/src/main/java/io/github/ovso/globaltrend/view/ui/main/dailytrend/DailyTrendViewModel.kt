@@ -1,8 +1,11 @@
 package io.github.ovso.globaltrend.view.ui.main.dailytrend
 
 import android.util.Xml.Encoding
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,12 +20,17 @@ import timber.log.Timber
 import java.net.URLEncoder
 
 class DailyTrendViewModel : ViewModel() {
-  private val  compositeDisposable = CompositeDisposable()
+  private val compositeDisposable = CompositeDisposable()
   val elementsLiveData = MutableLiveData<Elements>()
-  val refreshLiveData = MutableLiveData<Boolean>()
+  val isLoading = ObservableBoolean()
+
+  fun onRefresh() {
+    elementsLiveData.value = null
+    fetchList()
+  }
 
   fun fetchList() {
-    refreshLiveData.value = true
+    isLoading.set(true)
     addDisposable(
       Single.fromCallable {
         Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
@@ -36,10 +44,10 @@ class DailyTrendViewModel : ViewModel() {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeBy(onError = {
           Timber.e(it)
-          refreshLiveData.value = false
+          isLoading.set(false)
         }, onSuccess = {
           elementsLiveData.value = it
-          refreshLiveData.value = false
+          isLoading.set(false)
         })
     )
   }
