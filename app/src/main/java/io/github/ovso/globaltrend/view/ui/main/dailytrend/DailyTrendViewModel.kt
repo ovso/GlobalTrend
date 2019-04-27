@@ -17,10 +17,12 @@ import timber.log.Timber
 import java.net.URLEncoder
 
 class DailyTrendViewModel : ViewModel() {
-  val compositeDisposable = CompositeDisposable()
+  private val  compositeDisposable = CompositeDisposable()
   val elementsLiveData = MutableLiveData<Elements>()
+  val refreshLiveData = MutableLiveData<Boolean>()
 
   fun fetchList() {
+    refreshLiveData.value = true
     addDisposable(
       Single.fromCallable {
         Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
@@ -34,8 +36,10 @@ class DailyTrendViewModel : ViewModel() {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeBy(onError = {
           Timber.e(it)
+          refreshLiveData.value = false
         }, onSuccess = {
           elementsLiveData.value = it
+          refreshLiveData.value = false
         })
     )
   }

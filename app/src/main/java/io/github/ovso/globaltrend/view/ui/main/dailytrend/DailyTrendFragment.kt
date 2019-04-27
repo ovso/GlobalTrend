@@ -36,8 +36,20 @@ class DailyTrendFragment : Fragment() {
       adapter.elements = it
       recyclerview_daily_trend.adapter = adapter
     })
+    viewModel.refreshLiveData.observe(this, Observer {
+      refreshlayout_daily_trend.isRefreshing = it
+    })
+    refreshlayout_daily_trend.setOnRefreshListener {
+      clearRev()
+      viewModel.fetchList()
+    }
 
     viewModel.fetchList()
+  }
+
+  fun clearRev() {
+    adapter.elements = null
+    adapter.notifyDataSetChanged()
   }
 
 }
