@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
-import com.hbb20.CountryCodePicker
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.layout
@@ -31,11 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_main)
-    viewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(applicationContext) as T
-      }
-    }).get(MainViewModel::class.java)
+    viewModel = provideViewModel()
     viewModel.init()
     setSupportActionBar(toolbar)
 
@@ -52,15 +47,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     setupTabsAndViewPager()
 
-    test()
   }
 
-  private fun test() {
-    toolbar.setOnClickListener {
-      val countryCodePicker = CountryCodePicker(this)
-      val builder = AlertDialog.Builder(this)
-      builder.setView(countryCodePicker).show()
-    }
+  @Suppress("UNCHECKED_CAST")
+  private fun provideViewModel(): MainViewModel {
+    return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return MainViewModel(applicationContext) as T
+      }
+    }).get(MainViewModel::class.java)
   }
 
   private fun setupTabsAndViewPager() {
@@ -141,6 +136,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun getCount() = 2
-    override fun getPageTitle(position: Int) = titles.get(position)
+    override fun getPageTitle(position: Int) = titles[position]
   }
 }

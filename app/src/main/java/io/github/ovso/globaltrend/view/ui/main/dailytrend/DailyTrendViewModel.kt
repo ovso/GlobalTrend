@@ -1,9 +1,13 @@
 package io.github.ovso.globaltrend.view.ui.main.dailytrend
 
+import android.content.Context
 import android.util.Xml.Encoding
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.ovso.globaltrend.App
+import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.view.ui.main.MainViewModel.RxBusCountryIndex
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,13 +19,28 @@ import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
 import java.net.URLEncoder
-import java.util.Locale
 
-class DailyTrendViewModel : ViewModel() {
+class DailyTrendViewModel(var context: Context) : ViewModel() {
   private val compositeDisposable = CompositeDisposable()
   val elementsLiveData = MutableLiveData<Elements>()
-  val localeLivedata = MutableLiveData<Locale>(Locale.getDefault())
+  private var country = "KR"
   val isLoading = ObservableBoolean()
+
+  init {
+    toRxBusObservable()
+  }
+
+  private fun toRxBusObservable() {
+    addDisposable(
+      App.rxBus2.toObservable().subscribeBy {
+        (it as? RxBusCountryIndex).let {
+          country = context.resources.getStringArray(R.array.country_codes)[it!!.index]
+          onRefresh()
+        }
+      }
+    )
+  }
+
   fun onRefresh() {
     elementsLiveData.value = null
     fetchList()
@@ -32,7 +51,7 @@ class DailyTrendViewModel : ViewModel() {
     addDisposable(
       Single.fromCallable {
         Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
-          .data("geo", URLEncoder.encode(localeLivedata.value!!.country, Encoding.UTF_8.toString()))
+          .data("geo", URLEncoder.encode(country, Encoding.UTF_8.toString()))
           .parser(Parser.xmlParser())
           .timeout(1000 * 10)
           .get()

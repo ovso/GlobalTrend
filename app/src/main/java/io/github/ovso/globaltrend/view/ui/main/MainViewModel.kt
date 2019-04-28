@@ -2,12 +2,15 @@ package io.github.ovso.globaltrend.view.ui.main
 
 import android.content.Context
 import android.content.DialogInterface
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.ovso.globaltrend.App
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 class MainViewModel(private var context: Context) : ViewModel() {
   var checkedItem: Int = 0
+  val checkedItemLiveData = MutableLiveData<Int>()
   private val compositeDisposable = CompositeDisposable()
 
   fun init() {
@@ -16,7 +19,7 @@ class MainViewModel(private var context: Context) : ViewModel() {
   var onDialogClickListener = DialogInterface.OnClickListener { dialog, which ->
     dialog?.dismiss()
     checkedItem = which
-
+    App.rxBus2.send(RxBusCountryIndex(which))
   }
 
   fun addDisposable(d: Disposable) {
@@ -30,5 +33,8 @@ class MainViewModel(private var context: Context) : ViewModel() {
   override fun onCleared() {
     super.onCleared()
     clearDisposable()
+  }
+
+  class RxBusCountryIndex(var index: Int) {
   }
 }
