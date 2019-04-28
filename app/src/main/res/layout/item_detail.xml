@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    >
+  <ImageView
+      android:id="@+id/imageview_detail_item_thumb"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintDimensionRatio="h,1:1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@android:drawable/ic_menu_report_image"
+      />
+  <TextView
+      android:id="@+id/textview_detail_item_news_title"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="24dp"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:textSize="15sp"
+      app:layout_constraintBottom_toTopOf="@+id/textview_detail_item_time"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/imageview_detail_item_thumb"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="여야 4당, 패스트트랙 4법 발의 완료…전자입법발의시스템 활용"
+      />
+  <TextView
+      android:id="@+id/textview_detail_item_time"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textSize="15sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/textview_detail_item_news_title"
+      tools:text="매일경제 1시간전"
+      />
+  <TextView
+      android:id="@+id/textview_detail_item_picture_source"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      app:layout_constraintBottom_toBottomOf="@+id/imageview_detail_item_thumb"
+      app:layout_constraintEnd_toEndOf="@+id/imageview_detail_item_thumb"
+      app:layout_constraintStart_toStartOf="@+id/imageview_detail_item_thumb"
+      tools:text="매일경제"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="tab_names">
+    <item>Daily trending</item>
+    <item>Real-time trending</item>
+  </string-array>
+</resources>
