@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
 
@@ -37,11 +36,7 @@ class SearchFragment : Fragment() {
 
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): SearchViewModel {
-    return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SearchViewModel(requireContext().applicationContext) as T
-      }
-    })
+    return ViewModelProviders.of(this, AndroidViewModelFactory.getInstance(activity?.application!!))
       .get(SearchViewModel::class.java)
   }
 
