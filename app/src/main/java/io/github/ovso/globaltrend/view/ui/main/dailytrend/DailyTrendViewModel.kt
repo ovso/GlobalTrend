@@ -19,6 +19,7 @@ import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
 import java.net.URLEncoder
+import io.reactivex.rxkotlin.subscribeBy as subscribeBy1
 
 class DailyTrendViewModel(var context: Context) : ViewModel() {
   private val compositeDisposable = CompositeDisposable()
@@ -32,7 +33,7 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
 
   private fun toRxBusObservable() {
     addDisposable(
-      App.rxBus2.toObservable().subscribeBy {
+      App.rxBus.toObservable().subscribeBy1 {
         (it as? RxBusCountryIndex).let {
           country = context.resources.getStringArray(R.array.country_codes)[it!!.index]
           onRefresh()

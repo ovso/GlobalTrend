@@ -19,7 +19,7 @@ class MainViewModel(private var context: Context) : ViewModel() {
   var onDialogClickListener = DialogInterface.OnClickListener { dialog, which ->
     dialog?.dismiss()
     checkedItem = which
-    App.rxBus2.send(RxBusCountryIndex(which))
+    App.rxBus.send(RxBusCountryIndex(which))
   }
 
   fun addDisposable(d: Disposable) {

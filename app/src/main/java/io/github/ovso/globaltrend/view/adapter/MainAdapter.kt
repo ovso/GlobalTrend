@@ -53,7 +53,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
         .load(imageUrl)
         .into(imageview_item_thumb)
       itemView.setOnClickListener {
-        App.rxBus2.send(this.element)
+        App.rxBus2.send(RxBusElement(this.element))
         SearchActivity.start(itemView.context)
       }
     }
@@ -64,5 +64,9 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       get() = element.getElementsByTag("title").text()
     private val traffic: String
       get() = element.getElementsByTag("ht:approx_traffic").text()
+  }
+
+  class RxBusElement(val element: Element) {
+
   }
 }
