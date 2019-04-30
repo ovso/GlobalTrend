@@ -1,14 +1,15 @@
 package io.github.ovso.globaltrend.view.ui.search
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.ovso.globaltrend.App
+import io.github.ovso.globaltrend.view.adapter.MainAdapter.RxBusElement
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import org.jsoup.nodes.Element
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(val context: Context) : ViewModel() {
   private val compositeDisposable = CompositeDisposable()
   val titleLiveData = MutableLiveData<String>()
 
@@ -16,14 +17,16 @@ class SearchViewModel : ViewModel() {
     toRxBusObservable()
   }
 
+  fun fetchList() {
+
+  }
+
   private fun toRxBusObservable() {
     addDisposable(
       App.rxBus2.toObservable()
         .subscribeBy { any ->
-          (any as? Element).let {
-            it?.getElementsByTag("title")?.text().let {
-              titleLiveData.value = it!!
-            }
+          (any as? RxBusElement).let {
+            titleLiveData.value = it?.element?.getElementsByTag("title")?.text()
           }
         }
     )
@@ -38,6 +41,7 @@ class SearchViewModel : ViewModel() {
   }
 
   override fun onCleared() {
+    clearDisposable()
     super.onCleared()
   }
 }
