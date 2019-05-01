@@ -3,7 +3,6 @@ package io.github.ovso.globaltrend.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.ovso.globaltrend.R
@@ -12,8 +11,6 @@ import io.github.ovso.globaltrend.view.adapter.SearchAdapter.DetailViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_search.imageview_search_item
 import kotlinx.android.synthetic.main.item_search.textview_search_item_title
-import kotlinx.android.synthetic.main.item_trend.view.textview_item_rank
-import timber.log.Timber
 
 class SearchAdapter : RecyclerView.Adapter<DetailViewHolder>() {
   var items: List<Item>? = null
@@ -49,7 +46,7 @@ class SearchAdapter : RecyclerView.Adapter<DetailViewHolder>() {
       textview_search_item_title.text = title
       Glide.with(itemView).load(imageUrl).into(imageview_search_item)
       itemView.setOnClickListener {
-        Toast.makeText(it.context, "click", Toast.LENGTH_SHORT).show()
+
       }
     }
 

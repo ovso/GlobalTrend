@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import io.github.ovso.globaltrend.R
-import kotlinx.android.synthetic.main.activity_detail.toolbar
+import kotlinx.android.synthetic.main.activity_search.toolbar
 
 class SearchActivity : AppCompatActivity() {
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_search)
@@ -27,6 +26,10 @@ class SearchActivity : AppCompatActivity() {
     return super.onOptionsItemSelected(item)
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+
+  }
   companion object {
     fun start(context: Context) {
       val intent = Intent(context, SearchActivity::class.java)
