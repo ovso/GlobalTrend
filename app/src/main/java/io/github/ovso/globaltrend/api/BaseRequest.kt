@@ -31,7 +31,7 @@ abstract class BaseRequest<T> {
   private val baseUrl: String
     get() = EndPoint.BASE_URL.value
 
-  protected val isInterceptor: Boolean
+  protected open val isInterceptor: Boolean
     get() = BuildConfig.DEBUG
 
   private fun createRetrofit(): Retrofit {
@@ -83,7 +83,7 @@ abstract class BaseRequest<T> {
 
   //https://www.googleapis.com/customsearch/v1?key=AIzaSyAM9aaztXVlGNX40ZoFV5MYvpmg65qOCbQ&cx=012722901045059265659:m8q8x8ftuii&q=%ED%8C%A8%EC%8A%A4%ED%8A%B8%ED%8A%B8%EB%9E%99
   private enum class EndPoint(val value: String) {
-    BASE_URL("https://www.googleapis.com/customsearch/v1")
+    BASE_URL("https://www.googleapis.com")
   }
 
   companion object {

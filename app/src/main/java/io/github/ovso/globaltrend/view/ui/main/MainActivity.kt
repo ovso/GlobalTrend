@@ -129,10 +129,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val titles: Array<String>
   ) :
     FragmentPagerAdapter(fragmentManager) {
-    override fun getItem(position: Int) = when (position) {
-      0 -> DailyTrendFragment.newInstance()
-      1 -> RealTimeTrendFragment.newInstance()
-      else -> BlankFragment.newInstance("", "")
+    override fun getItem(position: Int) = when (position < 1) {
+      true -> DailyTrendFragment.newInstance()
+      false -> RealTimeTrendFragment.newInstance()
     }
 
     override fun getCount() = 2

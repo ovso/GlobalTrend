@@ -3,70 +3,59 @@ package io.github.ovso.globaltrend.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.api.model.Item
 import io.github.ovso.globaltrend.view.adapter.SearchAdapter.DetailViewHolder
-import io.github.ovso.globaltrend.view.ui.detail.DetailActivity
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_trend.imageview_item_thumb
-import kotlinx.android.synthetic.main.item_trend.textview_item_title
-import kotlinx.android.synthetic.main.item_trend.textview_item_traffic
+import kotlinx.android.synthetic.main.item_search.imageview_search_item
+import kotlinx.android.synthetic.main.item_search.textview_search_item_title
 import kotlinx.android.synthetic.main.item_trend.view.textview_item_rank
-import org.jsoup.nodes.Element
-import org.jsoup.select.Elements
+import timber.log.Timber
 
 class SearchAdapter : RecyclerView.Adapter<DetailViewHolder>() {
-  var elements: Elements? = null
+  var items: List<Item>? = null
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int
   ) = DetailViewHolder.create(parent)
 
-  override fun getItemCount() = elements?.size ?: 0
+  override fun getItemCount() = items?.size ?: 0
 
   override fun onBindViewHolder(
     holder: DetailViewHolder,
     position: Int
   ) {
-    holder.bind(elements!![position])
-    holder.itemView.textview_item_rank.text = "${position.inc()}"
+    holder.bind(items!![position])
   }
 
   class DetailViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(
-      containerView!!
+    containerView!!
   ), LayoutContainer {
-    private lateinit var element: Element
+    private lateinit var item: Item
 
     companion object {
       fun create(parent: ViewGroup): DetailViewHolder {
         return DetailViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_trend, parent, false)
+          LayoutInflater.from(parent.context).inflate(R.layout.item_search, parent, false)
         )
       }
     }
 
-    fun bind(element: Element) {
-      this.element = element
-      textview_item_title.text = title
-      textview_item_traffic.text = traffic
-      Glide.with(imageview_item_thumb)
-          .load(imageUrl)
-          .into(imageview_item_thumb)
+    fun bind(item: Item) {
+      this.item = item
+      textview_search_item_title.text = title
+      Glide.with(itemView).load(imageUrl).into(imageview_search_item)
       itemView.setOnClickListener {
-        App.rxBus2.send(this.element)
-        DetailActivity.start(itemView.context)
+        Toast.makeText(it.context, "click", Toast.LENGTH_SHORT).show()
       }
     }
 
-    private val imageUrl: String
-      get() = element.getElementsByTag("ht:picture").text()
-    private val title: String
-      get() = element.getElementsByTag("ht:news_item_title").text()
-    private val traffic: String
-      get() = element.getElementsByTag("ht:approx_traffic").text()
-    private val pictureSource
-    get() = element.getElementsByTag("ht:picture_source").text()
+    private val imageUrl: String?
+      get() = item.pagemap?.cse_thumbnail?.first()?.src
+    private val title: String?
+      get() = item.title
   }
 }
