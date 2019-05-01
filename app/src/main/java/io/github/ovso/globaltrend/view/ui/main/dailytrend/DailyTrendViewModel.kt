@@ -34,8 +34,8 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   private fun toRxBusObservable() {
     addDisposable(
       App.rxBus.toObservable().subscribeBy1 {
-        (it as? RxBusCountryIndex).let {
-          country = context.resources.getStringArray(R.array.country_codes)[it!!.index]
+        (it as? RxBusCountryIndex)?.let {
+          country = context.resources.getStringArray(R.array.country_codes)[it.index]
           onRefresh()
         }
       }
