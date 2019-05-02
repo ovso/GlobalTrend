@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentWebBinding
+import kotlinx.android.synthetic.main.fragment_web.progressbar_web
 
 class WebFragment : Fragment() {
 
@@ -35,6 +36,8 @@ class WebFragment : Fragment() {
     viewModel.titleLiveData.observe(this, Observer {
       activity?.title = it
     })
+
+    progressbar_web.hide()
   }
 
 }

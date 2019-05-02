@@ -20,5 +20,13 @@
         app:webChromeClient="@{viewModel.webChromeClient}"
         app:webViewClient="@{viewModel.webViewClient}"
         />
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressbar_web"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:progress="@{viewModel.progressObField.get()}"
+        app:showAndHide="@{viewModel.isLoadingObField.get()}"
+        style="@style/ProgressBarHorizontal"
+        />
   </FrameLayout>
 </layout>

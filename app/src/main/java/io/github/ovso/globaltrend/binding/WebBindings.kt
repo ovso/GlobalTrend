@@ -4,6 +4,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 
 object WebViewBinding {
@@ -27,5 +28,17 @@ object WebViewBinding {
   @BindingAdapter("loadUrl")
   fun loadUrl(webview: WebView, url: String) {
     webview.loadUrl(url)
+  }
+
+  @JvmStatic
+  @BindingAdapter("showAndHide")
+  fun showAndHideProgressbar(
+    progressbar: ContentLoadingProgressBar,
+    isLoading: Boolean = false
+  ) {
+    when (isLoading) {
+      true -> progressbar.show()
+      else -> progressbar.hide()
+    }
   }
 }
