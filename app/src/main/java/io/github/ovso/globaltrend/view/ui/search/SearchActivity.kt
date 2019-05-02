@@ -13,12 +13,12 @@ class SearchActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_search)
     setSupportActionBar(toolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
         .replace(R.id.container, SearchFragment.newInstance())
         .commitNow()
     }
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -26,14 +26,9 @@ class SearchActivity : AppCompatActivity() {
     return super.onOptionsItemSelected(item)
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-
-  }
   companion object {
     fun start(context: Context) {
       val intent = Intent(context, SearchActivity::class.java)
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       context.startActivity(intent)
     }
   }

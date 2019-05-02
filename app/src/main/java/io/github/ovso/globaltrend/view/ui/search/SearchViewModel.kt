@@ -49,8 +49,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     addDisposable(
       App.rxBus2.toObservable()
         .subscribeBy { any ->
-          (any as? RxBusElement).let {
-            titleLiveData.value = it?.element?.getElementsByTag("title")?.text()
+          (any as? RxBusElement)?.let {
+            titleLiveData.value = it.element.getElementsByTag("title")?.text()
             fetchList()
           }
         }

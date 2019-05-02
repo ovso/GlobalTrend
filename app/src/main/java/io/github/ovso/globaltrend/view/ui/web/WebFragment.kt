@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.databinding.FragmentWebBinding
 
 class WebFragment : Fragment() {
 
@@ -20,13 +23,18 @@ class WebFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    return inflater.inflate(R.layout.fragment_web, container, false)
+    val binding =
+      DataBindingUtil.inflate<FragmentWebBinding>(inflater, R.layout.fragment_web, container, false)
+    viewModel = ViewModelProviders.of(this).get(WebViewModel::class.java)
+    binding.viewModel = viewModel
+    return binding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProviders.of(this).get(WebViewModel::class.java)
-    // TODO: Use the ViewModel
+    viewModel.titleLiveData.observe(this, Observer {
+      activity?.title = it
+    })
   }
 
 }

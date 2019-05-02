@@ -1,16 +1,17 @@
 package io.github.ovso.globaltrend.view.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.api.model.Item
 import io.github.ovso.globaltrend.extension.startActivity
 import io.github.ovso.globaltrend.view.adapter.SearchAdapter.DetailViewHolder
 import io.github.ovso.globaltrend.view.ui.web.WebActivity
+import io.github.ovso.globaltrend.view.ui.web.WebViewModel.RxBusWeb
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_search.imageview_search_item
 import kotlinx.android.synthetic.main.item_search.textview_search_item_title
@@ -49,6 +50,7 @@ class SearchAdapter : RecyclerView.Adapter<DetailViewHolder>() {
       textview_search_item_title.text = title
       Glide.with(itemView).load(imageUrl).into(imageview_search_item)
       itemView.setOnClickListener {
+        App.rxBus2.send(RxBusWeb(title, item.formattedUrl))
         it.startActivity(WebActivity::class.java)
       }
     }
