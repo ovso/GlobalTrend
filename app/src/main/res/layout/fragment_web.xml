@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+  <data>
+    <variable
+        name="viewModel"
+        type="io.github.ovso.globaltrend.view.ui.web.WebViewModel"
+        />
+  </data>
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loadUrl="@{viewModel.urlObField.get()}"
+        app:webChromeClient="@{viewModel.webChromeClient}"
+        app:webViewClient="@{viewModel.webViewClient}"
+        />
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressbar_web"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:progress="@{viewModel.progressObField.get()}"
+        app:showAndHide="@{viewModel.isLoadingObField.get()}"
+        style="@style/ProgressBarHorizontal"
+        />
+  </FrameLayout>
+</layout>

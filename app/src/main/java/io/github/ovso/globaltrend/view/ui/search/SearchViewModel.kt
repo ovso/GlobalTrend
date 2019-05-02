@@ -1,6 +1,7 @@
 package io.github.ovso.globaltrend.view.ui.search
 
 import android.app.Application
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.github.ovso.globaltrend.App
@@ -17,20 +18,28 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
   private val compositeDisposable = CompositeDisposable()
   val titleLiveData = MutableLiveData<String>()
   val itemsLiveData = MutableLiveData<List<Item>>()
+  val isLoading = ObservableBoolean()
+  private val searchRequest = SearchRequest()
 
   init {
     toRxBusObservable()
   }
 
+  fun onRefresh() {
+    itemsLiveData.value = null
+    fetchList()
+  }
+
   private fun fetchList() {
-    val req = SearchRequest()
+    isLoading.set(true)
     addDisposable(
-      req.search(titleLiveData.value!!).subscribeOn(Schedulers.io())
+      searchRequest.search(titleLiveData.value!!).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread()).subscribeBy(
           onSuccess = {
             itemsLiveData.value = it.items
+            isLoading.set(false)
           }, onError = {
-
+            isLoading.set(false)
           }
         )
     )
@@ -40,8 +49,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     addDisposable(
       App.rxBus2.toObservable()
         .subscribeBy { any ->
-          (any as? RxBusElement).let {
-            titleLiveData.value = it?.element?.getElementsByTag("title")?.text()
+          (any as? RxBusElement)?.let {
+            titleLiveData.value = it.element.getElementsByTag("title")?.text()
             fetchList()
           }
         }

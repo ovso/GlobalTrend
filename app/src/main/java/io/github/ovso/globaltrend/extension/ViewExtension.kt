@@ -1,5 +1,6 @@
 package io.github.ovso.globaltrend.extension
 
+import android.content.Intent
 import android.view.View
 
 fun View.visible() {
@@ -12,4 +13,9 @@ fun View.inVisible() {
 
 fun View.gone() {
   visibility = View.GONE
+}
+
+fun View.startActivity(`class`: Class<*>) {
+  val intent = Intent(context, `class`)
+  context.startActivity(intent)
 }
