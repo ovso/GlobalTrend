@@ -35,6 +35,12 @@
         android:name=".view.ui.search.SearchActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
+
+    <activity
+        android:name=".view.ui.web.WebActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"/>
+
   </application>
 
 </manifest>
