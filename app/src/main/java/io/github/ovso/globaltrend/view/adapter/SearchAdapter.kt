@@ -17,20 +17,18 @@ import kotlinx.android.synthetic.main.item_search.imageview_search_item
 import kotlinx.android.synthetic.main.item_search.textview_search_item_title
 
 class SearchAdapter : RecyclerView.Adapter<DetailViewHolder>() {
-  var items: List<Item>? = null
+  var items = mutableListOf<Item>()
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int
   ) = DetailViewHolder.create(parent)
 
-  override fun getItemCount() = items?.size ?: 0
+  override fun getItemCount() = items.size
 
   override fun onBindViewHolder(
     holder: DetailViewHolder,
     position: Int
-  ) {
-    holder.bind(items!![position])
-  }
+  ) = holder.bind(items[position])
 
   class DetailViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(
     containerView!!

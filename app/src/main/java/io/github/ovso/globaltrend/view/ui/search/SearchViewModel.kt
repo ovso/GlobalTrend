@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
   private val compositeDisposable = CompositeDisposable()
   val titleLiveData = MutableLiveData<String>()
-  val itemsLiveData = MutableLiveData<List<Item>>()
+  val itemsLiveData = ListLiveData<Item>()
   val isLoading = ObservableBoolean()
   private val searchRequest = SearchRequest()
 
@@ -26,7 +26,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
   }
 
   fun onRefresh() {
-    itemsLiveData.value = null
+    itemsLiveData.clear(true)
     fetchList()
   }
 
@@ -36,7 +36,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
       searchRequest.search(titleLiveData.value!!).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread()).subscribeBy(
           onSuccess = {
-            itemsLiveData.value = it.items
+            itemsLiveData.addAll(it.items)
             isLoading.set(false)
           }, onError = {
             isLoading.set(false)

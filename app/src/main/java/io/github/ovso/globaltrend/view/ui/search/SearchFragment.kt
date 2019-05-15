@@ -59,8 +59,10 @@ class SearchFragment : Fragment() {
 
   private fun obRevListData() {
     viewModel.itemsLiveData.observe(this, Observer {
-      adapter.items = it
-      adapter.notifyDataSetChanged()
+      val positionStart = adapter.items.size - 1
+      val itemCount = it.size
+      adapter.items.addAll(it)
+      adapter.notifyItemRangeInserted(positionStart, itemCount)
     })
   }
 
