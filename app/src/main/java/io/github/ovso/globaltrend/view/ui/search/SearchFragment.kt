@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentSearchBinding
 import io.github.ovso.globaltrend.view.adapter.SearchAdapter
+import io.github.ovso.globaltrend.view.adapter.SearchAdapter2
 import kotlinx.android.synthetic.main.fragment_search.recyclerview_search
 
 class SearchFragment : Fragment() {
   private val adapter = SearchAdapter()
+  private val adapter2 = SearchAdapter2()
 
   companion object {
     fun newInstance() = SearchFragment()
@@ -58,16 +60,23 @@ class SearchFragment : Fragment() {
   }
 
   private fun obRevListData() {
+/*
     viewModel.itemsLiveData.observe(this, Observer {
       val positionStart = adapter.items.size - 1
       val itemCount = it.size
       adapter.items.addAll(it)
       adapter.notifyItemRangeInserted(positionStart, itemCount)
     })
+*/
+
+    viewModel.fetchList()
+    viewModel.pagedList?.observe(this, Observer {
+      adapter2.submitList(it)
+    })
   }
 
   private fun setupRev() {
-    recyclerview_search.adapter = adapter
+    recyclerview_search.adapter = adapter2
   }
 
   @Suppress("UNCHECKED_CAST")

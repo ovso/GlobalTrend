@@ -81,6 +81,9 @@ dependencies {
   implementation deps.androidx.lifecycle_viewmodel_ktx
   implementation deps.androidx.annotation
   implementation deps.androidx.legacy_preference_v14
+  implementation deps.androidx.paging_runtime
+  implementation deps.androidx.paging_rxjava2
+
   implementation deps.firebase.ads
 
   implementation deps.rx.rxjava2
@@ -109,11 +112,9 @@ dependencies {
   implementation deps.okhttp.runtime
   implementation deps.okhttp.logging_interceptor
 
-  implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
-  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-  implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04'
-  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
-  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+//  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
+//  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   testImplementation deps.atsl.junit
   androidTestImplementation deps.atsl.runner
   androidTestImplementation deps.atsl.espressocore
