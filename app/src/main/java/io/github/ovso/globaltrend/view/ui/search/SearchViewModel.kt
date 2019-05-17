@@ -13,19 +13,15 @@ import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.api.SearchRequest
 import io.github.ovso.globaltrend.api.model.Item
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.RxBusElement
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
   private val compositeDisposable = CompositeDisposable()
   val titleLiveData = MutableLiveData<String>()
-  val itemsLiveData = ListLiveData<Item>()
   val isLoading = ObservableBoolean()
-  private val searchRequest = SearchRequest()
   var pagedList: LiveData<PagedList<Item>>? = null
 
   init {
@@ -33,27 +29,13 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
   }
 
   fun onRefresh() {
-    itemsLiveData.clear(true)
     //fetchList()
   }
 
-  fun fetchList() {
-    //isLoading.set(true)
-/*
-    addDisposable(
-      searchRequest.search(titleLiveData.value!!, 1).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread()).subscribeBy(
-          onSuccess = {
-            itemsLiveData.addAll(it.items)
-            isLoading.set(false)
-          }, onError = {
-            isLoading.set(false)
-          }
-        )
-    )
-*/
+  private fun fetchList() {
+    isLoading.set(true)
     pagedList = LivePagedListBuilder<Int, Item>(
-      MyDataSourceFactory(),
+      MyDataSourceFactory(titleLiveData.value!!),
       PagedList.Config.Builder().setPageSize(10).setEnablePlaceholders(false).build()
     ).build()
 
@@ -65,7 +47,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         .subscribeBy { any ->
           (any as? RxBusElement)?.let {
             titleLiveData.value = it.element.getElementsByTag("title")?.text()
-            //fetchList()
+            fetchList()
           }
         }
     )
@@ -84,19 +66,16 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     super.onCleared()
   }
 
-  class MyDataSourceFactory() :
+  class MyDataSourceFactory(val q: String) :
     DataSource.Factory<Int, Item>() {
 
     override fun create(): DataSource<Int, Item> {
-      return MyDataSource()
+      return MyDataSource(q)
     }
   }
 
-  class MyDataSource : PositionalDataSource<Item>() {
+  class MyDataSource(val q: String) : PositionalDataSource<Item>() {
     private var searchRequest: SearchRequest = SearchRequest()
-    private val q
-      get() = "나이키"
-
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Item>) {
       var disposable =
         searchRequest

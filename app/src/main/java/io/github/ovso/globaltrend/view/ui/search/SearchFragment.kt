@@ -60,18 +60,9 @@ class SearchFragment : Fragment() {
   }
 
   private fun obRevListData() {
-/*
-    viewModel.itemsLiveData.observe(this, Observer {
-      val positionStart = adapter.items.size - 1
-      val itemCount = it.size
-      adapter.items.addAll(it)
-      adapter.notifyItemRangeInserted(positionStart, itemCount)
-    })
-*/
-
-    viewModel.fetchList()
     viewModel.pagedList?.observe(this, Observer {
       adapter2.submitList(it)
+      viewModel.isLoading.set(false)
     })
   }
 
