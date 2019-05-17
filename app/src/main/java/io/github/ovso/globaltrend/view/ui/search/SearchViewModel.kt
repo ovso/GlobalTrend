@@ -74,33 +74,34 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
   }
 
-  class MyDataSource(val q: String) : PositionalDataSource<Item>() {
+  @Suppress("UNNECESSARY_SAFE_CALL")
+  class MyDataSource(private val q: String) : PositionalDataSource<Item>() {
     private var searchRequest: SearchRequest = SearchRequest()
+    private var disposable: Disposable? = null
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Item>) {
-      var disposable =
-        searchRequest
-          .search(q, 1)
-          .subscribeBy(
-            onSuccess = {
-              callback.onResult(it.items, 0)
-            },
-            onError = Timber::e
-          )
+      Timber.d("loadInitial ThreadName = ${Thread.currentThread().name}")
+      disposable = searchRequest
+        .search(q, 1)
+        .filter { it -> it.items?.size > 0 }
+        .subscribeBy(
+          onSuccess = {
+            callback.onResult(it.items, 0)
+          },
+          onError = Timber::e
+        )
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Item>) {
-      var disposable =
-        searchRequest
-          .search(q, params.startPosition)
-          .subscribeBy(
-            onSuccess = {
-              callback.onResult(it.items)
-            },
-            onError = Timber::e
-          )
-
+      Timber.d("loadRange ThreadName = ${Thread.currentThread().name}")
+      disposable = searchRequest
+        .search(q, params.startPosition)
+        .filter { it -> it.items?.size > 0 }
+        .subscribeBy(
+          onSuccess = {
+            callback.onResult(it.items)
+          },
+          onError = Timber::e
+        )
     }
-
   }
-
 }
