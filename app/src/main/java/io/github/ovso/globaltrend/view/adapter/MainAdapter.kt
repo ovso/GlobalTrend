@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.extension.startActivity
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
-import io.github.ovso.globaltrend.view.ui.search.SearchActivity
+import io.github.ovso.globaltrend.view.ui.web.WebActivity
+import io.github.ovso.globaltrend.view.ui.web.WebViewModel.RxBusWeb
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_trend.*
-import kotlinx.android.synthetic.main.item_trend.view.*
+import kotlinx.android.synthetic.main.item_trend.imageview_item_thumb
+import kotlinx.android.synthetic.main.item_trend.textview_item_title
+import kotlinx.android.synthetic.main.item_trend.textview_item_traffic
+import kotlinx.android.synthetic.main.item_trend.view.textview_item_rank
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
@@ -53,8 +57,8 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
         .load(imageUrl)
         .into(imageview_item_thumb)
       itemView.setOnClickListener {
-        App.rxBus2.send(RxBusElement(this.element))
-        SearchActivity.start(itemView.context)
+        App.rxBus2.send(RxBusWeb(title, "https://google.co.kr/search?q=$title"))
+        it.startActivity(WebActivity::class.java)
       }
     }
 
