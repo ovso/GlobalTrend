@@ -78,16 +78,20 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
   class MyDataSource(private val q: String) : PositionalDataSource<Item>() {
     private var searchRequest: SearchRequest = SearchRequest()
     private var disposable: Disposable? = null
+
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Item>) {
       Timber.d("loadInitial ThreadName = ${Thread.currentThread().name}")
-      disposable = searchRequest
+      var subscribeBy = searchRequest
         .search(q, 1)
         .filter { it -> it.items?.size > 0 }
         .subscribeBy(
           onSuccess = {
             callback.onResult(it.items, 0)
           },
-          onError = Timber::e
+          onError = {
+            Timber.e(it.message)
+            Timber.e(it.localizedMessage)
+          }
         )
     }
 

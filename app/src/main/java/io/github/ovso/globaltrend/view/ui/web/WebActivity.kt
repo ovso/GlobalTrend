@@ -5,7 +5,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import io.github.ovso.globaltrend.R
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_web.toolbar
 
 class WebActivity : AppCompatActivity() {
