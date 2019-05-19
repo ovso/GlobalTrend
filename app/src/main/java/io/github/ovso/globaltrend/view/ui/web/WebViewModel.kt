@@ -5,6 +5,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,18 +20,22 @@ class WebViewModel : ViewModel() {
   val urlObField = ObservableField<String>()
   val progressObField = ObservableField<Int>()
   val isLoadingObField = ObservableField<Boolean>()
-  val progressVisibleObField = ObservableField<Int>(View.INVISIBLE)
+  val canGoBackObField = ObservableBoolean()
+  val canGoForwObField = ObservableBoolean()
+
   val webViewClient = object : WebViewClient() {
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
       super.onPageStarted(view, url, favicon)
       isLoadingObField.set(true)
-      progressVisibleObField.set(View.VISIBLE)
     }
 
     override fun onPageFinished(view: WebView?, url: String?) {
       super.onPageFinished(view, url)
       isLoadingObField.set(false)
-      progressVisibleObField.set(View.INVISIBLE)
+      view?.let {
+        canGoBackObField.set(it.canGoBack())
+        canGoForwObField.set(it.canGoForward())
+      }
     }
   }
   val webChromeClient = object : WebChromeClient() {
@@ -71,4 +76,5 @@ class WebViewModel : ViewModel() {
   }
 
   class RxBusWeb(var title: String?, var url: String?)
+
 }

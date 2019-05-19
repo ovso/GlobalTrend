@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+  <data>
+    <import type="android.view.View"/>
+    <variable
+        name="viewModel"
+        type="io.github.ovso.globaltrend.view.ui.web.WebViewModel"
+        />
+  </data>
+  <LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@android:color/darker_gray"
+      android:gravity="center"
+      android:orientation="horizontal"
+      tools:ignore="ContentDescription"
+      >
+    <!--
+    android:color="@{isValid ? @color/green : @color/red}"
+    -->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button_web_nav_back"
+        android:scaleType="fitCenter"
+        android:visibility="@{viewModel.canGoBackObField.get() ? View.VISIBLE : View.INVISIBLE}"
+        app:enabled="@{viewModel.canGoBackObField}"
+        app:srcCompat="@drawable/ic_keyboard_arrow_left"
+        style="@style/WebviewNavigationButtonStyle"
+        />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button_web_nav_forw"
+        android:scaleType="fitCenter"
+        android:visibility="@{viewModel.canGoForwObField.get() ? View.VISIBLE : View.INVISIBLE}"
+        app:enabled="@{viewModel.canGoForwObField}"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right"
+        style="@style/WebviewNavigationButtonStyle"
+        />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button_web_nav_refresh"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_refresh"
+        style="@style/WebviewNavigationButtonStyle"
+        />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button_web_nav_share"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_share"
+        style="@style/WebviewNavigationButtonStyle"
+        />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button_web_nav_browser"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_open_in_browser"
+        style="@style/WebviewNavigationButtonStyle"
+        />
+  </LinearLayout>
+</layout>
