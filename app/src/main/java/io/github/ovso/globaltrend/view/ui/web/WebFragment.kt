@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.layout_web_navigation.button_web_nav_forw
 import kotlinx.android.synthetic.main.layout_web_navigation.button_web_nav_refresh
 import kotlinx.android.synthetic.main.layout_web_navigation.button_web_nav_share
 
-class WebFragment : Fragment() {
+class WebFragment : Fragment(), OnBackPressedListener {
 
   companion object {
     fun newInstance() = WebFragment()
@@ -49,8 +49,8 @@ class WebFragment : Fragment() {
     button_web_nav_back.setOnClickListener { webview_web.goBack() }
     button_web_nav_forw.setOnClickListener { webview_web.goForward() }
     button_web_nav_refresh.setOnClickListener { viewModel.urlObField.set(webview_web.url) }
-    button_web_nav_share.setOnClickListener { }
-    button_web_nav_browser.setOnClickListener { }
+    button_web_nav_share.setOnClickListener { startActivity(viewModel.shareIntent(webview_web.url)) }
+    button_web_nav_browser.setOnClickListener { startActivity(viewModel.browserIntent(webview_web.url)) }
   }
 
   @SuppressLint("SetJavaScriptEnabled")
@@ -68,4 +68,13 @@ class WebFragment : Fragment() {
     })
 
   }
+
+  override fun onBackPressed() {
+    if (webview_web.canGoBack()) {
+      webview_web.goBack()
+    } else {
+      activity?.finish()
+    }
+  }
 }
+

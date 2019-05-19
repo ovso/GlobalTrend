@@ -16,7 +16,7 @@ class WebActivity : AppCompatActivity() {
     toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_close)
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
-        .replace(R.id.container, WebFragment.newInstance())
+        .replace(R.id.container, WebFragment.newInstance(), WebFragment::class.java.simpleName)
         .commitNow()
     }
   }
@@ -24,5 +24,9 @@ class WebActivity : AppCompatActivity() {
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     finish()
     return super.onOptionsItemSelected(item)
+  }
+
+  override fun onBackPressed() {
+    (supportFragmentManager.findFragmentByTag(WebFragment::class.java.simpleName) as? OnBackPressedListener)?.onBackPressed()
   }
 }

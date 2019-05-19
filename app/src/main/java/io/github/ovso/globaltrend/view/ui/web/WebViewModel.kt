@@ -1,7 +1,8 @@
 package io.github.ovso.globaltrend.view.ui.web
 
+import android.content.Intent
 import android.graphics.Bitmap
-import android.view.View
+import android.net.Uri
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -74,6 +75,14 @@ class WebViewModel : ViewModel() {
     super.onCleared()
     clearDisposable()
   }
+
+  fun shareIntent(url: String): Intent =
+    Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+      type = "text/plain"
+      putExtra(Intent.EXTRA_TEXT, url)
+    }, titleLiveData.value)
+
+  fun browserIntent(url: String): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
   class RxBusWeb(var title: String?, var url: String?)
 
