@@ -17,6 +17,7 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.layout
 import io.github.ovso.globaltrend.R.string
+import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
 import io.github.ovso.globaltrend.view.ui.main.realtimetrend.RealTimeTrendFragment
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.nav_view
 import kotlinx.android.synthetic.main.app_bar_main.tabs_main
 import kotlinx.android.synthetic.main.app_bar_main.toolbar
 import kotlinx.android.synthetic.main.app_bar_main.viewpager_main
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
   private lateinit var viewModel: MainViewModel
@@ -31,7 +33,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_main)
     viewModel = provideViewModel()
-    viewModel.init()
     setSupportActionBar(toolbar)
 
     val toggle = ActionBarDrawerToggle(
@@ -46,6 +47,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     nav_view.setNavigationItemSelectedListener(this)
 
     setupTabsAndViewPager()
+
+    Timber.d("country = ${LocaleUtils.country}")
+    Timber.d("language = ${LocaleUtils.language}")
 
   }
 

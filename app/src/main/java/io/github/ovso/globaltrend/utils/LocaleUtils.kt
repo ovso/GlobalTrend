@@ -6,9 +6,9 @@ import java.util.Locale
 
 object LocaleUtils {
   val language: String
-    get() = locale.getLanguage()
+    get() = locale.language
   val country: String
-    get() = locale.getCountry()
+    get() = locale.country
   private val locale: Locale
-    get() = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0)
+    get() = ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
 }

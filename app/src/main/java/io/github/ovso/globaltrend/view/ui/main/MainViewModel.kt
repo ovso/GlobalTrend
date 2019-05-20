@@ -10,11 +10,7 @@ import io.reactivex.disposables.Disposable
 
 class MainViewModel(private var context: Context) : ViewModel() {
   var checkedItem: Int = 0
-  val checkedItemLiveData = MutableLiveData<Int>()
   private val compositeDisposable = CompositeDisposable()
-
-  fun init() {
-  }
 
   var onDialogClickListener = DialogInterface.OnClickListener { dialog, which ->
     dialog?.dismiss()

@@ -1,21 +1,18 @@
 package io.github.ovso.globaltrend.binding
 
+import android.annotation.SuppressLint
 import android.webkit.WebChromeClient
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 
 object WebViewBinding {
+  @SuppressLint("SetJavaScriptEnabled")
   @JvmStatic
   @BindingAdapter("webViewClient")
   fun setWebViewClient(webview: WebView, webviewClient: WebViewClient) {
     webview.webViewClient = webviewClient
-    val settings = webview.settings
-    settings.javaScriptEnabled = true
-    settings.setAppCacheEnabled(true)
-    settings.cacheMode = WebSettings.LOAD_NO_CACHE
   }
 
   @JvmStatic
