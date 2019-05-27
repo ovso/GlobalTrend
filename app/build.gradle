@@ -83,6 +83,7 @@ dependencies {
   implementation deps.androidx.legacy_preference_v14
   implementation deps.androidx.paging_runtime
   implementation deps.androidx.paging_rxjava2
+  implementation deps.androidx.fragment
 
   implementation deps.firebase.ads
 
