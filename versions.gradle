@@ -37,6 +37,7 @@ versions.google_service = '4.2.0'
 versions.rssparser = '2.0.3'
 versions.jsoup = '1.11.3'
 versions.coroutines = '1.2.0'
+versions.fragment = '1.0.0'
 
 def deps = [:]
 
@@ -50,11 +51,12 @@ androidx.paging_rxjava2 = "androidx.paging:paging-rxjava2:$versions.paging"
 androidx.annotation = "androidx.annotation:annotation:$versions.annotation"
 androidx.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
 androidx.lifecycle_viewmodel_ktx =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_viewmodel_ktx"
+    "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_viewmodel_ktx"
 androidx.lifecycle_extensions =
-        "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
+    "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
 androidx.legacy_preference_v14 =
-        "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
+    "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
+androidx.fragment = "androidx.fragment:fragment:$versions.fragment"
 deps.androidx = androidx
 
 def firebase = [:]
@@ -143,12 +145,12 @@ config.version_patch = 0
 ext.config = config
 
 static def addRepos(RepositoryHandler handler) {
-    handler.google()
-    handler.jcenter()
-    handler.mavenCentral()
-    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-    handler.maven { url 'https://maven.fabric.io/public' }
-    handler.maven { url "https://jitpack.io" }
+  handler.google()
+  handler.jcenter()
+  handler.mavenCentral()
+  handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+  handler.maven { url 'https://maven.fabric.io/public' }
+  handler.maven { url "https://jitpack.io" }
 }
 
 ext.addRepos = this.&addRepos

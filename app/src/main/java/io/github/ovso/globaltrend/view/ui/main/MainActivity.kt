@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     setContentView(layout.activity_main)
     viewModel = provideViewModel()
     setSupportActionBar(toolbar)
+    supportActionBar?.setDisplayShowCustomEnabled(true)
 
     val toggle = ActionBarDrawerToggle(
       this,
@@ -54,13 +55,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   }
 
   @Suppress("UNCHECKED_CAST")
-  private fun provideViewModel(): MainViewModel {
-    return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(applicationContext) as T
-      }
+  private fun provideViewModel(): MainViewModel =
+    ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+      override fun <T : ViewModel?> create(modelClass: Class<T>) =
+        MainViewModel(applicationContext) as T
     }).get(MainViewModel::class.java)
-  }
 
   private fun setupTabsAndViewPager() {
     viewpager_main.adapter = ViewPagerAdapter(
@@ -70,18 +69,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     tabs_main.setupWithViewPager(viewpager_main)
   }
 
-  override fun onBackPressed() {
-    if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-      drawer_layout.closeDrawer(GravityCompat.START)
-    } else {
-      super.onBackPressed()
+  override fun onBackPressed() =
+    when (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+      true -> drawer_layout.closeDrawer(GravityCompat.START)
+      false -> super.onBackPressed()
     }
-  }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     // Inflate the menu; this adds pagedList to the action bar if it is present.
     menuInflater.inflate(R.menu.main, menu)
-    return true
+    return super.onCreateOptionsMenu(menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem) =
@@ -93,8 +90,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         AlertDialog.Builder(this)
           .setSingleChoiceItems(
             R.array.country_names,
-            viewModel.checkedItem
-            , viewModel.onDialogClickListener
+            viewModel.checkedItem,
+            viewModel.onDialogClickListener
           ).show()
         true
       }

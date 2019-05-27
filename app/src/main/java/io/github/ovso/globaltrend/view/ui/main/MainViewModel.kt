@@ -2,7 +2,6 @@ package io.github.ovso.globaltrend.view.ui.main
 
 import android.content.Context
 import android.content.DialogInterface
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.ovso.globaltrend.App
 import io.reactivex.disposables.CompositeDisposable
