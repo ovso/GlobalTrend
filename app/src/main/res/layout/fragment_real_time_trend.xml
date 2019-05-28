@@ -3,22 +3,13 @@
 
   <data>
     <variable
-      name="viewModel"
-      type="io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendViewModel"
-      />
+        name="viewModel"
+        type="io.github.ovso.globaltrend.view.ui.main.realtimetrend.RealTimeTrendViewModel"
+        />
   </data>
-  <FrameLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    <TextView
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerview_real_time"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:gravity="center"
-      android:text="Comming soon.."
       />
-
-  </FrameLayout>
 </layout>
