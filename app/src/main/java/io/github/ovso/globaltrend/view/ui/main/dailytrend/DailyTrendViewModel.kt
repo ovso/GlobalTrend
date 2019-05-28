@@ -5,8 +5,10 @@ import android.util.Xml.Encoding
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pixplicity.easyprefs.library.Prefs
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.utils.PrefsKey
 import io.github.ovso.globaltrend.view.ui.main.MainViewModel.RxBusCountryIndex
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,16 +26,20 @@ import io.reactivex.rxkotlin.subscribeBy as subscribeBy1
 class DailyTrendViewModel(var context: Context) : ViewModel() {
   private val compositeDisposable = CompositeDisposable()
   val elementsLiveData = MutableLiveData<Elements>()
-  private var country = "KR"
+  private var country: String? = null
   val isLoading = ObservableBoolean()
 
   init {
+    country = getCountry()
     toRxBusObservable()
   }
 
+  private fun getCountry() = context.resources.getStringArray(R.array.country_codes)[
+      Prefs.getInt(PrefsKey.COUNTRY_INDEX.key, 0)]
+
   private fun toRxBusObservable() {
     addDisposable(
-      App.rxBus.toObservable().subscribeBy1 {
+      App.rxBus.toObservable().subscribeBy {
         (it as? RxBusCountryIndex)?.let {
           country = context.resources.getStringArray(R.array.country_codes)[it.index]
           onRefresh()
