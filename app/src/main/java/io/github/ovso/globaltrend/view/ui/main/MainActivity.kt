@@ -1,5 +1,6 @@
 package io.github.ovso.globaltrend.view.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -18,6 +19,7 @@ import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.layout
 import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.utils.LocaleUtils
+import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
 import io.github.ovso.globaltrend.view.ui.main.realtimetrend.RealTimeTrendFragment
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
@@ -114,7 +116,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
       }
       id.nav_share -> {
-
+        startActivity(Intent(this, CountryActivity::class.java))
       }
       id.nav_send -> {
 
@@ -135,7 +137,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
       false -> RealTimeTrendFragment.newInstance()
     }
 
-    override fun getCount() = 2
+    override fun getCount() = 1
     override fun getPageTitle(position: Int) = titles[position]
   }
 }
