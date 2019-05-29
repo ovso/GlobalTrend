@@ -19,6 +19,9 @@ class CountryActivity : AppCompatActivity() {
     val inflate =
       DataBindingUtil.setContentView<ActivityCountryBinding>(this, R.layout.activity_country)
     inflate.viewModel = viewModel
+
+
+    viewModel.getObservables()
   }
 
   @Suppress("UNCHECKED_CAST")
