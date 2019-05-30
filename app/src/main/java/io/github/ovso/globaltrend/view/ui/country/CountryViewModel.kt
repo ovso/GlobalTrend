@@ -11,6 +11,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
@@ -49,7 +50,7 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
   }
 
   private val observables = mutableListOf<Observable<Document>>()
-
+  private val documents = mutableListOf<Element>()
   private var startTime = 0L
   private var endTime = 0L
   fun getObservables() {
@@ -79,14 +80,11 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
     addDisposable(
       Observable.concat(observables)
         .map {
-          Timber.d(it.getElementsByTag("item").first().getElementsByTag("title").text())
-        }
-        .subscribeBy(
+          documents.add(it.getElementsByTag("item").first())
+        }.subscribeBy(
           onError = Timber::e,
           onComplete = {
-            Timber.d("Complete")
-            endTime = Calendar.getInstance().timeInMillis
-            Timber.d("between time = ${(endTime - startTime) / 1000}")
+            Timber.d("documents size = ${documents.size}")
           })
 
     )
