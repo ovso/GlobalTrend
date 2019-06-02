@@ -6,7 +6,9 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.DisposableViewModel
+import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.jsoup.Jsoup
@@ -27,66 +29,56 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
 
   fun fetchList() {
     isLoading.set(true)
-/*
-    addDisposable(
-      Single.fromCallable {
-        Jsoup.connect(rssUrl)
-          .data("geo", URLEncoder.encode(country, Encoding.UTF_8.toString()))
-          .parser(Parser.xmlParser()).timeout(1000 * 10)
-          .get()
-      }.map {
-        it.getElementsByTag("item")
-      }.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeBy(onError = {
-          Timber.e(it)
-          isLoading.set(false)
-        }, onSuccess = {
-          elementsLiveData.value = it
-          isLoading.set(false)
-        })
-    )
-*/
   }
 
   private val observables = mutableListOf<Observable<Document>>()
   private val documents = mutableListOf<Element>()
   private var startTime = 0L
   private var endTime = 0L
+  private val titles = mutableListOf<String>()
   fun getObservables() {
     startTime = Calendar.getInstance().timeInMillis
     val countryCodes = context.resources.getStringArray(R.array.country_codes).toMutableList()
+    val observables = getObservables(countryCodes)
     addDisposable(
-      Observable.fromIterable(countryCodes)
-        .subscribeOn(Schedulers.io())
+      Flowable.fromIterable(observables)
+        .parallel()
+        .runOn(Schedulers.computation())
+        .map {
+          titles.add(it.blockingFirst().getElementsByTag("item").first().getElementsByTag("title").text())
+          titles
+        }
+        .sequential()
         .subscribeBy(
           onError = Timber::e,
-          onNext = { addObservable(it) },
-          onComplete = { concatObservables() }
+          onNext = {
+            Timber.d("it size = ${it.size}")
+          },
+          onComplete = {
+            Timber.d("onComplete")
+            Timber.d("titles size = ${titles.size}")
+            for (title in titles) {
+              Timber.d("title = $title")
+            }
+
+            endTime = Calendar.getInstance().timeInMillis
+            Timber.d("between time = ${(endTime - startTime) / 1000}")
+          }
         )
     )
   }
 
-  private fun addObservable(countryCode: String) {
-    observables.add(
-      Observable.fromCallable {
-        Jsoup.connect(rssUrl).data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
-          .parser(Parser.xmlParser()).timeout(timeout).get()
-      }
-    )
-  }
-
-  private fun concatObservables() {
-    addDisposable(
-      Observable.concat(observables)
-        .map {
-          documents.add(it.getElementsByTag("item").first())
-        }.subscribeBy(
-          onError = Timber::e,
-          onComplete = {
-            Timber.d("documents size = ${documents.size}")
-          })
-
-    )
+  private fun getObservables(countryCodes: MutableList<String>): MutableList<Observable<Document>> {
+    val mutableListOf = mutableListOf<Observable<Document>>()
+    for (countryCode in countryCodes) {
+      mutableListOf.add(
+        Observable.fromCallable {
+          Jsoup.connect(rssUrl)
+            .data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
+            .parser(Parser.xmlParser()).timeout(timeout).get()
+        }
+      )
+    }
+    return mutableListOf
   }
 }
