@@ -8,7 +8,6 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.DisposableViewModel
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.jsoup.Jsoup
@@ -24,7 +23,6 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
   private val timeout = 1000 * 10
   val isLoading = ObservableField<Boolean>()
   private val elements = Elements()
-  val elementsObField = ObservableField<Elements>()
   val elementsLiveData = MutableLiveData<Elements>()
   private var startTime = 0L
 
@@ -32,9 +30,8 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
     isLoading.set(true)
     startTime = Calendar.getInstance().timeInMillis
     val countryCodes = context.resources.getStringArray(R.array.country_codes).toMutableList()
-    val observables = getObservables(countryCodes)
     addDisposable(
-      Flowable.fromIterable(observables)
+      Flowable.fromIterable(getObservables(countryCodes))
         .parallel()
         .runOn(Schedulers.computation())
         .map {
@@ -48,11 +45,15 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
           },
           onComplete = {
             isLoading.set(false)
-            elementsObField.set(elements)
-            elementsLiveData.postValue(elements)
+            elementsLiveData.postValue(elements) // postValue -> mainThread
           }
         )
     )
+  }
+
+  fun onRefresh() {
+    elementsLiveData.value = null
+    fetchList()
   }
 
   private fun getObservables(countryCodes: MutableList<String>): MutableList<Observable<Document>> {

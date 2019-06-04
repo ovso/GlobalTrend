@@ -19,7 +19,8 @@
 
     <activity
         android:name=".view.ui.country.CountryActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"/>
 
     <meta-data
         android:name="com.google.android.gms.ads.AD_MANAGER_APP"

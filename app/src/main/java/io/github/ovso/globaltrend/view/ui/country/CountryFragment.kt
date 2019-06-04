@@ -2,6 +2,7 @@ package io.github.ovso.globaltrend.view.ui.country
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -50,6 +51,7 @@ class CountryFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+    setHasOptionsMenu(true)
     setupRev()
     obRevListData()
     viewModel.fetchList()
@@ -64,5 +66,10 @@ class CountryFragment : Fragment() {
 
   private fun setupRev() {
     recyclerview_country.adapter = adapter
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    activity?.finish()
+    return super.onOptionsItemSelected(item)
   }
 }

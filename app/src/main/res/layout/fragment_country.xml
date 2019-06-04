@@ -9,10 +9,18 @@
         type="io.github.ovso.globaltrend.view.ui.country.CountryViewModel"
         />
   </data>
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerview_country"
+  <!--android:enabled="@{viewModel.isLoading.get()}"-->
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      />
+      app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+      app:refreshing="@{viewModel.isLoading.get()}"
+      >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_country"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
