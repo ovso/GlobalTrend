@@ -17,6 +17,11 @@
       android:usesCleartextTraffic="true"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning,RtlEnabled,UnusedAttribute">
 
+    <activity
+        android:name=".view.ui.country.CountryActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"/>
+
     <meta-data
         android:name="com.google.android.gms.ads.AD_MANAGER_APP"
         android:value="true"/>
@@ -36,12 +41,10 @@
         android:name=".view.ui.search.SearchActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
-
     <activity
         android:name=".view.ui.web.WebActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
-
   </application>
 
 </manifest>

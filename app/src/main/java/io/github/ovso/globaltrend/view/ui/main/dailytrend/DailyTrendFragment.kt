@@ -60,7 +60,6 @@ class DailyTrendFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     setupRev()
     obRevListData()
-
     viewModel.fetchList()
   }
 
