@@ -1,5 +1,6 @@
 package io.github.ovso.globaltrend.view.adapter
 
+import android.content.res.Resources
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import io.github.ovso.globaltrend.view.ui.web.WebViewModel.RxBusWeb
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_country.imageview_country_item_flag
 import kotlinx.android.synthetic.main.item_country.imageview_country_item_thumb
+import kotlinx.android.synthetic.main.item_country.textview_country_item_cname
 import kotlinx.android.synthetic.main.item_country.textview_country_item_title
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -50,8 +52,9 @@ class CountryAdapter : RecyclerView.Adapter<CountryViewHolder>() {
 
     fun bind(element: Element) {
       this.element = element
-      Glide.with(itemView).load(getFlagImgUrl()).into(imageview_country_item_flag)
-      Glide.with(itemView).load(imageUrl).into(imageview_country_item_thumb)
+      Glide.with(itemView).load(flagImgUrl).into(imageview_country_item_flag)
+      Glide.with(itemView).load(trendImgUrl).into(imageview_country_item_thumb)
+      textview_country_item_cname.text = countryName
       textview_country_item_title.text = title
       itemView.setOnClickListener {
         App.rxBus2.send(RxBusWeb(title, "https://google.co.kr/search?q=$title"))
@@ -59,21 +62,26 @@ class CountryAdapter : RecyclerView.Adapter<CountryViewHolder>() {
       }
     }
 
-    private val imageUrl: String
+    private val trendImgUrl: String
       get() = element.getElementsByTag("ht:picture").text()
 
-    private fun getFlagImgUrl(): String {
-      val resources = itemView.context.resources
-      val flags = resources.getStringArray(R.array.country_flags)
-      val countryCodes = resources.getStringArray(R.array.country_codes)
-      val uri = Uri.parse(element.getElementsByTag("link").text())
-      val countryCode = uri.getQueryParameter("geo")
-      val indexOfCountryCodes = countryCodes.indexOf(countryCode)
-      return flags[indexOfCountryCodes]
-    }
+    private val flagImgUrl: String
+      get() = res.getStringArray(R.array.country_flags)[countryIndex]
 
     private val title: String
       get() = element.getElementsByTag("title").text()
-  }
 
+    private val countryName: String
+      get() = res.getStringArray(R.array.country_names)[countryIndex]
+
+    private val countryIndex: Int
+      get() = res.getStringArray(R.array.country_codes).indexOf(countryCode)
+
+    private val countryCode: String
+      get() = Uri.parse(element.getElementsByTag("link").text()).getQueryParameter("geo")!!
+
+    private val res: Resources
+      get() = itemView.resources
+
+  }
 }
