@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.pixplicity.easyprefs.library.Prefs
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
 
@@ -22,7 +23,8 @@ class MainViewModel(private var context: Context) : ViewModel() {
 
   private fun changeTitle(countryIndex: Int) {
     val countryName = context.resources.getStringArray(R.array.country_names)[countryIndex]
-    titleObField.set("$countryName 일일 급상승 검색어")
+    val suffix = context.getString(string.main_title_suffix)
+    titleObField.set("$countryName $suffix")
   }
 
   private fun getCountryIndex(): Int {
