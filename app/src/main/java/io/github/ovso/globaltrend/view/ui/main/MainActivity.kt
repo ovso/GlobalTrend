@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.layout
 import io.github.ovso.globaltrend.R.string
+import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
@@ -33,8 +35,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   private lateinit var viewModel: MainViewModel
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(layout.activity_main)
+    val binding =
+      DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     viewModel = provideViewModel()
+    binding.viewModel = viewModel
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayShowCustomEnabled(true)
 
