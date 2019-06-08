@@ -9,26 +9,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
-import io.github.ovso.globaltrend.R.layout
 import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
-import io.github.ovso.globaltrend.view.ui.main.realtimetrend.RealTimeTrendFragment
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
 import kotlinx.android.synthetic.main.activity_main.nav_view
-import kotlinx.android.synthetic.main.app_bar_main.tabs_main
 import kotlinx.android.synthetic.main.app_bar_main.toolbar
-import kotlinx.android.synthetic.main.app_bar_main.viewpager_main
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -53,11 +47,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     nav_view.setNavigationItemSelectedListener(this)
 
-    setupTabsAndViewPager()
-
     Timber.d("country = ${LocaleUtils.country}")
     Timber.d("language = ${LocaleUtils.language}")
 
+    replaceFragment()
+  }
+
+  private fun replaceFragment() {
+    supportFragmentManager.beginTransaction().replace(
+      R.id.framelayout_fragment_container,
+      DailyTrendFragment.newInstance(),
+      DailyTrendFragment::class.simpleName
+    ).commitNow()
   }
 
   @Suppress("UNCHECKED_CAST")
@@ -66,14 +67,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
       override fun <T : ViewModel?> create(modelClass: Class<T>) =
         MainViewModel(applicationContext) as T
     }).get(MainViewModel::class.java)
-
-  private fun setupTabsAndViewPager() {
-    viewpager_main.adapter = ViewPagerAdapter(
-      supportFragmentManager,
-      resources.getStringArray(R.array.tab_names)
-    )
-    tabs_main.setupWithViewPager(viewpager_main)
-  }
 
   override fun onBackPressed() =
     when (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -96,7 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         AlertDialog.Builder(this)
           .setSingleChoiceItems(
             R.array.country_names,
-            viewModel.checkedItem,
+            viewModel.checkedItemForListDialog,
             viewModel.onDialogClickListener
           ).show()
         true
@@ -131,17 +124,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     return true
   }
 
-  inner class ViewPagerAdapter(
-    fragmentManager: FragmentManager,
-    private val titles: Array<String>
-  ) :
-    FragmentPagerAdapter(fragmentManager) {
-    override fun getItem(position: Int) = when (position < 1) {
-      true -> DailyTrendFragment.newInstance()
-      false -> RealTimeTrendFragment.newInstance()
-    }
-
-    override fun getCount() = 1
-    override fun getPageTitle(position: Int) = titles[position]
-  }
 }

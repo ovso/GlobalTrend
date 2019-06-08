@@ -12,13 +12,13 @@ import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
 
 class MainViewModel(private var context: Context) : ViewModel() {
-  var checkedItem: Int = -1
+  var checkedItemForListDialog: Int = -1
   val titleObField = ObservableField<String>()
 
   init {
-    checkedItem = getCountryIndex()
-    Prefs.putInt(PrefsKey.COUNTRY_INDEX.key, checkedItem)
-    changeTitle(checkedItem)
+    checkedItemForListDialog = getCountryIndex()
+    Prefs.putInt(PrefsKey.COUNTRY_INDEX.key, checkedItemForListDialog)
+    changeTitle(checkedItemForListDialog)
   }
 
   private fun changeTitle(countryIndex: Int) {
@@ -44,7 +44,7 @@ class MainViewModel(private var context: Context) : ViewModel() {
 
   var onDialogClickListener = DialogInterface.OnClickListener { dialog, which ->
     dialog?.dismiss()
-    checkedItem = which
+    checkedItemForListDialog = which
     Prefs.putInt(PrefsKey.COUNTRY_INDEX.key, which)
     App.rxBus.send(RxBusCountryIndex(which))
     changeTitle(which)

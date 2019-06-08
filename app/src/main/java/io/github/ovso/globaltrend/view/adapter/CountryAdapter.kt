@@ -1,5 +1,6 @@
 package io.github.ovso.globaltrend.view.adapter
 
+import android.app.Activity
 import android.content.res.Resources
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
-import io.github.ovso.globaltrend.extension.startActivity
 import io.github.ovso.globaltrend.view.adapter.CountryAdapter.CountryViewHolder
-import io.github.ovso.globaltrend.view.ui.web.WebActivity
-import io.github.ovso.globaltrend.view.ui.web.WebViewModel.RxBusWeb
+import io.github.ovso.globaltrend.view.ui.main.MainViewModel.RxBusCountryIndex
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_country.imageview_country_item_flag
 import kotlinx.android.synthetic.main.item_country.imageview_country_item_thumb
@@ -57,8 +56,11 @@ class CountryAdapter : RecyclerView.Adapter<CountryViewHolder>() {
       textview_country_item_cname.text = countryName
       textview_country_item_title.text = title
       itemView.setOnClickListener {
-        App.rxBus2.send(RxBusWeb(title, "https://google.co.kr/search?q=$title"))
-        it.startActivity(WebActivity::class.java)
+        //        App.rxBus2.send(RxBusWeb(title, "https://google.co.kr/search?q=$title"))
+//        it.startActivity(WebActivity::class.java)
+        val originalIndex = res.getStringArray(R.array.country_codes).indexOf(countryCode)
+        App.rxBus.send(RxBusCountryIndex(originalIndex))
+        if (it.context is Activity) (it.context as Activity).finish()
       }
     }
 

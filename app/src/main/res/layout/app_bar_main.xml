@@ -31,18 +31,12 @@
           app:title="@{viewModel.titleObField}"
           />
 
-      <com.google.android.material.tabs.TabLayout
-          android:id="@+id/tabs_main"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          />
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager_main"
+    <FrameLayout
+        android:id="@+id/framelayout_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
