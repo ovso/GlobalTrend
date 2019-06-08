@@ -71,7 +71,7 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
   }
 
   override fun onCleared() {
-    super.onCleared()
     clearDisposable()
+    super.onCleared()
   }
 }

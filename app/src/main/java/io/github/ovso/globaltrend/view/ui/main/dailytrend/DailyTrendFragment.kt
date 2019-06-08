@@ -58,9 +58,16 @@ class DailyTrendFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+    setupTitle()
     setupRev()
     obRevListData()
     viewModel.fetchList()
+  }
+
+  private fun setupTitle() {
+    viewModel.titleLiveData.observe(this, Observer {
+      activity?.title = "$it ${getString(R.string.main_title_suffix)}"
+    })
   }
 
   private fun obRevListData() {
