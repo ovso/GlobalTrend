@@ -13,11 +13,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
+import com.pixplicity.easyprefs.library.Prefs
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.utils.LocaleUtils
+import io.github.ovso.globaltrend.utils.PrefsKey
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
   private fun replaceFragment() {
     supportFragmentManager.beginTransaction().replace(
-      R.id.framelayout_fragment_container,
+      id.framelayout_fragment_container,
       DailyTrendFragment.newInstance(),
       DailyTrendFragment::class.simpleName
     ).commitNow()
@@ -64,8 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): MainViewModel =
     ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>) =
-        MainViewModel(applicationContext) as T
+      override fun <T : ViewModel?> create(modelClass: Class<T>) = MainViewModel() as T
     }).get(MainViewModel::class.java)
 
   override fun onBackPressed() =
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         AlertDialog.Builder(this)
           .setSingleChoiceItems(
             R.array.country_names,
-            viewModel.checkedItemForListDialog,
+            Prefs.getInt(PrefsKey.COUNTRY_INDEX.key, 0),
             viewModel.onDialogClickListener
           ).show()
         true
