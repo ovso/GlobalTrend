@@ -3,36 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-  <group android:checkableBehavior="single">
+  <group
+      android:id="@+id/group_1"
+      android:checkableBehavior="none">
     <item
-        android:id="@+id/nav_camera"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="Import"/>
-    <item
-        android:id="@+id/nav_gallery"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Gallery"/>
-    <item
-        android:id="@+id/nav_slideshow"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="Slideshow"/>
-    <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="Tools"/>
+        android:id="@+id/nav_country"
+        android:icon="@drawable/earth"
+        android:title="@string/country_title"/>
   </group>
 
-  <item android:title="Communicate">
-    <menu>
-      <item
-          android:id="@+id/nav_share"
-          android:icon="@drawable/ic_menu_share"
-          android:title="국가별 인기 급상승 검색어"/>
-      <item
-          android:id="@+id/nav_send"
-          android:icon="@drawable/ic_menu_send"
-          android:title="Send"/>
-    </menu>
-  </item>
-
+  <group>
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/ic_menu_share"
+        android:title="@string/nav_app_share"/>
+    <item
+        android:id="@+id/nav_reivew"
+        android:icon="@drawable/ic_review"
+        android:title="@string/nav_reivew"/>
+  </group>
 </menu>
