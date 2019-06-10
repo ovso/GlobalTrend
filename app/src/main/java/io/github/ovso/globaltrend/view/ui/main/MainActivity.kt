@@ -1,6 +1,8 @@
 package io.github.ovso.globaltrend.view.ui.main
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -101,28 +103,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   override fun onNavigationItemSelected(item: MenuItem): Boolean {
     // Handle navigation view item clicks here.
     when (item.itemId) {
-      id.nav_camera -> {
-        // Handle the camera action
-      }
-      id.nav_gallery -> {
-
-      }
-      id.nav_slideshow -> {
-
-      }
-      id.nav_manage -> {
-
-      }
-      id.nav_share -> {
-        startActivity(Intent(this, CountryActivity::class.java))
-      }
-      id.nav_send -> {
-
-      }
+      id.nav_country -> startActivity(Intent(this, CountryActivity::class.java))
+      id.nav_share -> navigateToShare()
+      id.nav_reivew -> navigateToReview()
     }
 
     drawer_layout.closeDrawer(GravityCompat.START)
     return true
   }
 
+  private fun navigateToShare() {
+    val intent = Intent(Intent.ACTION_SEND)
+    intent.addCategory(Intent.CATEGORY_DEFAULT)
+    intent.putExtra(Intent.EXTRA_TITLE, "Share")
+    intent.type = "text/plain"
+    intent.putExtra(Intent.EXTRA_TEXT, "market://details?value=$packageName")
+    startActivity(Intent.createChooser(intent, "App share"))
+  }
+
+  private fun navigateToReview() {
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+      val uriString = "https://play.google.com/store/apps/details?id=$packageName"
+      data = Uri.parse(uriString)
+      setPackage("com.android.vending")
+    }
+    try {
+      startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+      Timber.e(e)
+    }
+  }
 }

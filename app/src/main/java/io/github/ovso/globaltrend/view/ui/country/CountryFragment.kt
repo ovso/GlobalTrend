@@ -52,6 +52,7 @@ class CountryFragment : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     setHasOptionsMenu(true)
+    activity?.title = getString(R.string.country_title)
     setupRev()
     obRevListData()
     viewModel.fetchList()
