@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">全局趋势</string>
+  <string name="navigation_drawer_open">打开导航抽屉</string>
+  <string name="navigation_drawer_close">关闭导航抽屉</string>
+  <string name="nav_header_desc">导航标题</string>
+  <string name="action_countries">选择国家/地区</string>
+  <string name="hello_blank_fragment">Hello空白片段</string>
+  <string name="main_title_suffix">趋势</string>
+  <string name="country_title">按国家划分的趋势</string>
+  <string name="nav_app_share">应用程序共享</string>
+  <string name="nav_review">评论写</string>
+</resources>
