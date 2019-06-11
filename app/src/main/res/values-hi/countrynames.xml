@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="country_names">
+    <item>ग्रीस</item>
+    <item>नाइजीरिया</item>
+    <item>दक्षिण अफ्रीका</item>
+    <item>नीदरलैण्ड</item>
+    <item>नॉर्वे</item>
+    <item>न्यूजीलैंड</item>
+    <item>ताइवान</item>
+    <item>दक्षिण कोरिया</item>
+    <item>डेनमार्क</item>
+    <item>जर्मनी</item>
+    <item>रूस</item>
+    <item>रोमानिया</item>
+    <item>मलेशिया</item>
+    <item>मेक्सिको</item>
+    <item>संयुक्त राज्य</item>
+    <item>वियतनाम</item>
+    <item>बेल्जियम</item>
+    <item>ब्राजील</item>
+    <item>सऊदी अरब</item>
+    <item>स्वीडन</item>
+    <item>स्विट्जरलैंड</item>
+    <item>सिंगापुर</item>
+    <item>अर्जेंटीना</item>
+    <item>आयरलैंड</item>
+    <item>यूनाइटेड किंगडम</item>
+    <item>ऑस्ट्रेलिया</item>
+    <item>ऑस्ट्रिया</item>
+    <item>यूक्रेन</item>
+    <item>इज़राइल</item>
+    <item>मिस्र</item>
+    <item>इटली</item>
+    <item>भारत</item>
+    <item>इंडोनेशिया</item>
+    <item>जापान</item>
+    <item>चेक गणराज्य</item>
+    <item>चिली</item>
+    <item>कनाडा</item>
+    <item>केन्या</item>
+    <item>कोलम्बिया</item>
+    <item>थाईलैंड</item>
+    <item>तुर्की</item>
+    <item>पुर्तगाल</item>
+    <item>पोलैंड</item>
+    <item>फ्रांस</item>
+    <item>फिनलैंड</item>
+    <item>फिलीपींस</item>
+    <item>हंगरी</item>
+    <item>हांगकांग</item>
+  </string-array>
+</resources>
