@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="country_names">
+    <item>اليونان</item>
+    <item>نيجيريا</item>
+    <item>جنوب إفريقيا</item>
+    <item>هولندا</item>
+    <item>النرويج</item>
+    <item>نيوزيلندا</item>
+    <item>تايوان</item>
+    <item>كوريا الجنوبية</item>
+    <item>الدنمارك</item>
+    <item>ألمانيا</item>
+    <item>روسيا</item>
+    <item>رومانيا</item>
+    <item>ماليزيا</item>
+    <item>المكسيك</item>
+    <item>الولايات المتحدة</item>
+    <item>فيتنام</item>
+    <item>بلجيكا</item>
+    <item>البرازيل</item>
+    <item>المملكة العربية السعودية</item>
+    <item>السويد</item>
+    <item>سويسرا</item>
+    <item>سنغافورة</item>
+    <item>الأرجنتين</item>
+    <item>أيرلندا</item>
+    <item>المملكة المتحدة</item>
+    <item>أستراليا</item>
+    <item>النمسا</item>
+    <item>أوكرانيا</item>
+    <item>إسرائيل</item>
+    <item>مصر</item>
+    <item>إيطاليا</item>
+    <item>الهند</item>
+    <item>إندونيسيا</item>
+    <item>اليابان</item>
+    <item>جمهورية التشيك</item>
+    <item>شيلي</item>
+    <item>كندا</item>
+    <item>كينيا</item>
+    <item>كولومبيا</item>
+    <item>تايلاند</item>
+    <item>تركيا</item>
+    <item>البرتغال</item>
+    <item>بولندا</item>
+    <item>فرنسا</item>
+    <item>فنلندا</item>
+    <item>الفلبين</item>
+    <item>المجر</item>
+    <item>هونج كونج</item>
+  </string-array>
+</resources>
