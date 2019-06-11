@@ -38,7 +38,7 @@ versions.rssparser = '2.0.3'
 versions.jsoup = '1.11.3'
 versions.coroutines = '1.2.0'
 versions.fragment = '1.0.0'
-
+versions.koltin_reflect = '1.3.31'
 def deps = [:]
 
 def androidx = [:]
@@ -58,6 +58,10 @@ androidx.legacy_preference_v14 =
     "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
 androidx.fragment = "androidx.fragment:fragment:$versions.fragment"
 deps.androidx = androidx
+
+def jetbrains = [:]
+jetbrains.kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.koltin_reflect"
+deps.jetbrains = jetbrains
 
 def firebase = [:]
 firebase.ads = "com.google.firebase:firebase-ads:$versions.firebase_ads"
