@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context=".view.ui.error.ErrorActivity"
+    >
+
+  <TextView
+      android:id="@+id/textview_error"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:keepScreenOn="true"
+      android:textColor="#33b5e5"
+      android:textSize="50sp"
+      android:textStyle="bold"
+      tools:text="일시적인 에러가 발생했습니다. 화면을 클릭하시면 앱을 재시작합니다."
+      android:text="일시적인 에러가 발생했습니다. 화면을 클릭하시면 앱을 재시작합니다."
+      />
+
+</FrameLayout>

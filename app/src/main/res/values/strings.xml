@@ -9,4 +9,8 @@
   <string name="country_title">Trend by country</string>
   <string name="nav_app_share">App share</string>
   <string name="nav_review">Review write</string>
+
+  <string name="title_activity_error">ErrorActivity</string>
+  <string name="dummy_button">Dummy Button</string>
+  <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

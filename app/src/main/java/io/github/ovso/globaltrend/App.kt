@@ -19,5 +19,6 @@ class App : Application() {
     AppInit.prefs(this)
     AppInit.ad(this)
     RxJavaPlugins.setErrorHandler(Functions.emptyConsumer())
+    AppInit.crashHandling(this)
   }
 }
