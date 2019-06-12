@@ -2,6 +2,7 @@ package io.github.ovso.globaltrend.view.ui.country
 
 import android.content.Context
 import android.util.Xml.Encoding
+import androidx.annotation.ColorRes
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import io.github.ovso.globaltrend.R
@@ -25,6 +26,7 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
   private val elements = Elements()
   val elementsLiveData = MutableLiveData<Elements>()
   private var startTime = 0L
+  @ColorRes val swipeLoadingColor = R.color.colorPrimary
 
   fun fetchList() {
     isLoading.set(true)
