@@ -13,6 +13,7 @@
       android:id="@+id/refreshlayout_daily_trend"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      app:colorSchemeResources="@{viewModel.swipeLoadingColor}"
       app:onRefreshListener="@{() -> viewModel.onRefresh()}"
       app:refreshing="@{viewModel.isLoading.get()}"
       >

@@ -2,6 +2,7 @@ package io.github.ovso.globaltrend.view.ui.main.dailytrend
 
 import android.content.Context
 import android.util.Xml.Encoding
+import androidx.annotation.ColorRes
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,6 +31,7 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   private var countryIndex: Int = 0
   val isLoading = ObservableBoolean()
   val titleLiveData = MutableLiveData<String>()
+  @ColorRes val swipeLoadingColor = R.color.colorPrimary
 
   init {
     countryIndex = getCountryIndex()
