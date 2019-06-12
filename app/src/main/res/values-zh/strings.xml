@@ -10,4 +10,5 @@
   <string name="country_title">按国家划分的趋势</string>
   <string name="nav_app_share">应用程序共享</string>
   <string name="nav_review">评论写</string>
+  <string name="error_desc">发生了临时错误。 单击屏幕以重新启动应用程序。</string>
 </resources>

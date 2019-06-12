@@ -10,4 +10,5 @@
   <string name="country_title">الاتجاه حسب البلد</string>
   <string name="nav_app_share">مشاركة التطبيق</string>
   <string name="nav_review">مراجعة الكتابة</string>
+  <string name="error_desc">لقد حدث خطأ مؤقت. انقر على الشاشة لإعادة تشغيل التطبيق.</string>
 </resources>

@@ -17,7 +17,7 @@
       android:textSize="50sp"
       android:textStyle="bold"
       tools:text="일시적인 에러가 발생했습니다. 화면을 클릭하시면 앱을 재시작합니다."
-      android:text="일시적인 에러가 발생했습니다. 화면을 클릭하시면 앱을 재시작합니다."
+      android:text="@string/error_desc"
       />
 
 </FrameLayout>

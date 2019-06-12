@@ -10,4 +10,5 @@
   <string name="country_title">Tendencia por país</string>
   <string name="nav_app_share">App share</string>
   <string name="nav_review">Review write</string>
+  <string name="error_desc">Se ha producido un error temporal. Haga clic en la pantalla para reiniciar la aplicación.</string>
 </resources>
