@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="country_names">
+    <item>Grecia</item>
+    <item>Nigeria</item>
+    <item>Sudáfrica</item>
+    <item>Países Bajos</item>
+    <item>Noruega</item>
+    <item>Nueva Zelanda</item>
+    <item>Taiwan</item>
+    <item>Corea del Sur</item>
+    <item>Dinamarca</item>
+    <item>Alemania</item>
+    <item>Rusia</item>
+    <item>Rumania</item>
+    <item>Malasia</item>
+    <item>México</item>
+    <item>Estados Unidos</item>
+    <item>Vietnam</item>
+    <item>Bélgica</item>
+    <item>Brasil</item>
+    <item>Arabia Saudita</item>
+    <item>Suecia</item>
+    <item>Suiza</item>
+    <item>Singapur</item>
+    <item>Argentina</item>
+    <item>Irlanda</item>
+    <item>Reino Unido</item>
+    <item>Australia</item>
+    <item>Austria</item>
+    <item>Ucrania</item>
+    <item>Israel</item>
+    <item>Egipto</item>
+    <item>Italia</item>
+    <item>India</item>
+    <item>Indonesia</item>
+    <item>Japón</item>
+    <item>República Checa</item>
+    <item>Chile</item>
+    <item>Canadá</item>
+    <item>Kenia</item>
+    <item>Colombia</item>
+    <item>Tailandia</item>
+    <item>Turquía</item>
+    <item>Portugal</item>
+    <item>Polonia</item>
+    <item>Francia</item>
+    <item>Finlandia</item>
+    <item>Filipinas</item>
+    <item>Hungría</item>
+    <item>Hong Kong</item>
+  </string-array>
+</resources>

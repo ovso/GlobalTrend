@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string-array name="tab_names">
-    <item>일일 인기 급상승 검색어</item>
-    <item>실시간 인기 급상승 검색어</item>
-  </string-array>
-</resources>

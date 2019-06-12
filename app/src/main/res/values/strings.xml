@@ -1,17 +1,13 @@
 <resources>
-  <string name="app_name">GlobalTrend</string>
+  <string name="app_name">Global trend</string>
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
-  <string name="nav_header_title">Android Studio</string>
-  <string name="nav_header_subtitle">Hello</string>
   <string name="nav_header_desc">Navigation header</string>
-  <string name="action_countries">국가선택</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
+  <string name="action_countries">Select country</string>
   <string name="hello_blank_fragment">Hello blank fragment</string>
-  <string name="action_total_country_trend">국가전체 급상승 검색어</string>
-  <string name="main_title_suffix">일일 급상승 검색어</string>
-  <string name="country_title">국가별 인기 급상승 검색어</string>
-  <string name="nav_app_share">앱 공유</string>
-  <string name="nav_reivew">리뷰 남기기</string>
+  <string name="main_title_suffix">trend</string>
+  <string name="country_title">Trend by country</string>
+  <string name="nav_app_share">App share</string>
+  <string name="nav_review">Review write</string>
+  <string name="error_desc">A temporary error has occurred. Click on the screen to restart the app.</string>
 </resources>

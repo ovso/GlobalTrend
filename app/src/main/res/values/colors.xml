@@ -4,6 +4,8 @@
   <color name="colorPrimaryDark">#1A237E</color>
   <color name="colorAccent">#D81B60</color>
   <color name="colorLauncherIconBg">#1A237E</color>
+
+  <color name="black_overlay">#66000000</color>
 </resources>
     <!--
     Indigo 50

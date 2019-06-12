@@ -20,6 +20,6 @@
     <item
         android:id="@+id/nav_reivew"
         android:icon="@drawable/ic_review"
-        android:title="@string/nav_reivew"/>
+        android:title="@string/nav_review"/>
   </group>
 </menu>

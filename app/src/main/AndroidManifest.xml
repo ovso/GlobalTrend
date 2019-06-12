@@ -17,11 +17,18 @@
       android:usesCleartextTraffic="true"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning,RtlEnabled,UnusedAttribute">
     <activity
+        android:name=".view.ui.error.ErrorActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
         android:name=".view.ui.splash.SplashActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.Launcher">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
+
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>

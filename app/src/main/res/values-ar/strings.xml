@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">الاتجاه العالمي</string>
+  <string name="navigation_drawer_open">افتح درج التنقل</string>
+  <string name="navigation_drawer_close">أغلق درج التنقل</string>
+  <string name="nav_header_desc">رأس التنقل</string>
+  <string name="action_countries">حدد البلد</string>
+  <string name="hello_blank_fragment">مرحبًا ، جزء فارغ</string>
+  <string name="main_title_suffix">الاتجاه</string>
+  <string name="country_title">الاتجاه حسب البلد</string>
+  <string name="nav_app_share">مشاركة التطبيق</string>
+  <string name="nav_review">مراجعة الكتابة</string>
+  <string name="error_desc">لقد حدث خطأ مؤقت. انقر على الشاشة لإعادة تشغيل التطبيق.</string>
+</resources>

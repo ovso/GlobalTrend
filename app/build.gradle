@@ -85,6 +85,8 @@ dependencies {
   implementation deps.androidx.paging_rxjava2
   implementation deps.androidx.fragment
 
+  implementation deps.jetbrains.kotlin_reflect
+
   implementation deps.firebase.ads
 
   implementation deps.rx.rxjava2
@@ -104,9 +106,6 @@ dependencies {
   implementation deps.lottie
 
   implementation deps.glide.runtime
-  implementation 'com.google.android.material:material:1.0.0'
-  implementation 'androidx.appcompat:appcompat:1.0.2'
-  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
   annotationProcessor deps.glide.compiler
 
   implementation deps.retrofit.runtime
@@ -115,13 +114,9 @@ dependencies {
   implementation deps.okhttp.runtime
   implementation deps.okhttp.logging_interceptor
 
-  //  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-  //  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
-  //  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   testImplementation deps.atsl.junit
   androidTestImplementation deps.atsl.runner
   androidTestImplementation deps.atsl.espressocore
-  implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.31"
 }
 
 apply plugin: 'com.google.gms.google-services'

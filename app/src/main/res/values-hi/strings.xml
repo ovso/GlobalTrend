@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">ग्लोबल ट्रेंड</string>
+  <string name="navigation_drawer_open">नेविगेशन नेविगेशन खोलें</string>
+  <string name="navigation_drawer_close">नेविगेशन ड्रावर बंद करें</string>
+  <string name="nav_header_desc">नेविगेशन हेडर</string>
+  <string name="action_countries">देश चुनें</string>
+  <string name="hello_blank_fragment">हैलो खाली टुकड़ा</string>
+  <string name="main_title_suffix">प्रवृत्ति </string>
+  <string name="country_title">देश द्वारा प्रवृत्ति </string>
+  <string name="nav_app_share">ऐप शेयर</string>
+  <string name="nav_review">समीक्षा लिखें</string>
+  <string name="error_desc">एक अस्थायी त्रुटि हुई है। एप्लिकेशन को पुनरारंभ करने के लिए स्क्रीन पर क्लिक करें।</string>
+</resources>
