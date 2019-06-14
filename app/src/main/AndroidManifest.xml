@@ -16,6 +16,11 @@
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="true"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning,RtlEnabled,UnusedAttribute">
+
+    <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-8679189423397017~8521853317"/>
+
     <activity
         android:name=".view.ui.error.ErrorActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
