@@ -15,6 +15,4 @@ class MainViewModel : ViewModel() {
 
   class RxBusCountryIndex(var index: Int)
 
-  val bannerUnitId = Ads.ADMOB_BANNER_UNIT_ID.value
-
 }
