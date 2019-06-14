@@ -3,6 +3,8 @@ package io.github.ovso.globaltrend.view.ui.main
 import android.content.DialogInterface
 import androidx.lifecycle.ViewModel
 import io.github.ovso.globaltrend.App
+import io.github.ovso.globaltrend.utils.Ads
+import io.github.ovso.globaltrend.utils.AppInit
 
 class MainViewModel : ViewModel() {
 
