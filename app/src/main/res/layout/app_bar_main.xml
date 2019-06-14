@@ -5,6 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
   <data>
+    <import
+        alias="ads"
+        type="io.github.ovso.globaltrend.utils.Ads"
+        />
     <variable
         name="viewModel"
         type="io.github.ovso.globaltrend.view.ui.main.MainViewModel"
@@ -32,12 +36,27 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/framelayout_fragment_container"
+    <LinearLayout
+        android:id="@+id/linearlayout_main_content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        >
+      <FrameLayout
+          android:id="@+id/framelayout_fragment_container"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          />
+<!--
+      <FrameLayout
+          android:id="@+id/framelayout_ad_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+-->
+    </LinearLayout>
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

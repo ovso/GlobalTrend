@@ -3,6 +3,8 @@ package io.github.ovso.globaltrend.view.ui.main
 import android.content.DialogInterface
 import androidx.lifecycle.ViewModel
 import io.github.ovso.globaltrend.App
+import io.github.ovso.globaltrend.utils.Ads
+import io.github.ovso.globaltrend.utils.AppInit
 
 class MainViewModel : ViewModel() {
 
@@ -12,5 +14,7 @@ class MainViewModel : ViewModel() {
   }
 
   class RxBusCountryIndex(var index: Int)
+
+  val bannerUnitId = Ads.ADMOB_BANNER_UNIT_ID.value
 
 }
