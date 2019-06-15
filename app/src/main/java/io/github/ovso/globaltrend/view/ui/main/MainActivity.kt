@@ -14,18 +14,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
-import io.github.ovso.globaltrend.utils.Ads
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
+import io.github.ovso.globaltrend.view.MyAdView
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
@@ -64,12 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
   }
 
   private fun setupAd() {
-    val adView = AdView(this)
-    adView.adSize = AdSize.BANNER
-    adView.adUnitId = Ads.ADMOB_BANNER_UNIT_ID.value
-    val adRequest = AdRequest.Builder().build()
-    adView.loadAd(adRequest)
-    linearlayout_main_content_container.addView(adView)
+    linearlayout_main_content_container.addView(MyAdView.getAdmobBannerView(this))
   }
 
   private fun replaceFragment() {
