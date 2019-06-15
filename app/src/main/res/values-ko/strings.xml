@@ -10,4 +10,5 @@
   <string name="nav_app_share">앱 공유</string>
   <string name="nav_review">리뷰 남기기</string>
   <string name="error_desc">일시적인 에러가 발생했습니다. 화면을 클릭하시면 앱을 재시작합니다.</string>
+  <string name="all_opensource_license">오픈소스 라이선스</string>
 </resources>

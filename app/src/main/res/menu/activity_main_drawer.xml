@@ -21,5 +21,9 @@
         android:id="@+id/nav_reivew"
         android:icon="@drawable/ic_review"
         android:title="@string/nav_review"/>
+    <item
+        android:id="@+id/nav_opensource"
+        android:icon="@drawable/ic_open_source"
+        android:title="@string/all_opensource_license"/>
   </group>
 </menu>

@@ -11,4 +11,5 @@
   <string name="nav_app_share">ऐप शेयर</string>
   <string name="nav_review">समीक्षा लिखें</string>
   <string name="error_desc">एक अस्थायी त्रुटि हुई है। एप्लिकेशन को पुनरारंभ करने के लिए स्क्रीन पर क्लिक करें।</string>
+  <string name="all_opensource_license">ओपन सोर्स लाइसेंस</string>
 </resources>

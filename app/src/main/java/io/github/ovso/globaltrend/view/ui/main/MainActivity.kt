@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
+import de.psdev.licensesdialog.LicensesDialog
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.string
@@ -113,10 +114,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
       id.nav_country -> startActivity(Intent(this, CountryActivity::class.java))
       id.nav_share -> navigateToShare()
       id.nav_reivew -> navigateToReview()
+      id.nav_opensource -> showOpensourceLicense()
     }
 
     drawer_layout.closeDrawer(GravityCompat.START)
     return true
+  }
+
+  private fun showOpensourceLicense() {
+    LicensesDialog.Builder(this)
+      .setNotices(R.raw.notices)
+      .build()
+      .show()
   }
 
   private fun navigateToShare() {
