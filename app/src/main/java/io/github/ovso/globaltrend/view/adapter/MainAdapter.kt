@@ -57,7 +57,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
         .load(imageUrl)
         .into(imageview_item_thumb)
       itemView.setOnClickListener {
-        App.rxBus2.send(RxBusWeb(title, "https://google.co.kr/search?q=$title"))
+        App.rxBus2.send(RxBusWeb(title, "https://google.com/search?q=$title"))
         it.startActivity(WebActivity::class.java)
       }
     }
