@@ -10,4 +10,5 @@
   <string name="nav_app_share">App share</string>
   <string name="nav_review">Review write</string>
   <string name="error_desc">A temporary error has occurred. Click on the screen to restart the app.</string>
+  <string name="all_opensource_license">Opensource license</string>
 </resources>

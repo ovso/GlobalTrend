@@ -6,11 +6,14 @@ import androidx.annotation.ColorRes
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.InterstitialAd
 import com.pixplicity.easyprefs.library.Prefs
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
+import io.github.ovso.globaltrend.view.MyAdView
 import io.github.ovso.globaltrend.view.ui.main.MainViewModel.RxBusCountryIndex
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,6 +35,7 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   val isLoading = ObservableBoolean()
   val titleLiveData = MutableLiveData<String>()
   @ColorRes val swipeLoadingColor = R.color.colorPrimary
+  private lateinit var interstitialAd: InterstitialAd
 
   init {
     countryIndex = getCountryIndex()
@@ -39,6 +43,11 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
     Prefs.putInt(PrefsKey.COUNTRY_INDEX.key, countryIndex)
     titleLiveData.value = context.resources.getStringArray(R.array.country_names)[countryIndex]
     toRxBusObservable()
+    setupInterstitialAd()
+  }
+
+  private fun setupInterstitialAd() {
+    interstitialAd = MyAdView.getAdmobInterstitialAd(context)
   }
 
   private fun getCountryIndex(): Int {
@@ -70,8 +79,20 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   }
 
   fun onRefresh() {
-    elementsLiveData.value = null
-    fetchList()
+    if (interstitialAd.isLoaded) {
+      interstitialAd.show()
+      interstitialAd.adListener = object : AdListener() {
+        override fun onAdClosed() {
+          elementsLiveData.value = null
+          fetchList()
+          reloadInterstitialAd()
+        }
+      }
+    }
+  }
+
+  fun reloadInterstitialAd() {
+    interstitialAd = MyAdView.getAdmobInterstitialAd(context)
   }
 
   fun fetchList() {

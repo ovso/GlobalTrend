@@ -11,4 +11,5 @@
   <string name="nav_app_share">应用程序共享</string>
   <string name="nav_review">评论写</string>
   <string name="error_desc">发生了临时错误。 单击屏幕以重新启动应用程序。</string>
+  <string name="all_opensource_license">开源许可证</string>
 </resources>
