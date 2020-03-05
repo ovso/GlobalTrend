@@ -24,7 +24,7 @@
           android:id="@+id/webview_web"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          app:loadUrl="@{viewModel.urlObField.get()}"
+          app:loadUrl="@{viewModel.urlObField}"
           app:webChromeClient="@{viewModel.webChromeClient}"
           app:webViewClient="@{viewModel.webViewClient}"
           />
@@ -32,8 +32,8 @@
           android:id="@+id/progressbar_web"
           android:layout_width="match_parent"
           android:layout_height="5dp"
-          android:progress="@{viewModel.progressObField.get()}"
-          app:showAndHide="@{viewModel.isLoadingObField.get()}"
+          android:progress="@{viewModel.progressObField}"
+          app:showAndHide="@{viewModel.isLoadingObField}"
           style="@style/ProgressBarHorizontal"
           />
     </FrameLayout>
