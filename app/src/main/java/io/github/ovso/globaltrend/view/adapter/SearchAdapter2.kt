@@ -18,7 +18,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_search.imageview_search_item
 import kotlinx.android.synthetic.main.item_search.textview_search_item_title
 
-class SearchAdapter2() : PagedListAdapter<Item, SearchViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter2 : PagedListAdapter<Item, SearchViewHolder>(DIFF_CALLBACK) {
 
   companion object {
     private val DIFF_CALLBACK = object : ItemCallback<Item>() {

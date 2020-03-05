@@ -1,8 +1,6 @@
 package io.github.ovso.globaltrend.view.ui.search
 
-import android.app.Application
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
@@ -12,14 +10,14 @@ import androidx.paging.PositionalDataSource
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.api.SearchRequest
 import io.github.ovso.globaltrend.api.model.Item
+import io.github.ovso.globaltrend.view.DisposableViewModel
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.RxBusElement
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
-class SearchViewModel(application: Application) : AndroidViewModel(application) {
-  private val compositeDisposable = CompositeDisposable()
+class SearchViewModel : DisposableViewModel() {
   val titleLiveData = MutableLiveData<String>()
   val isLoading = ObservableBoolean()
   var pagedList: LiveData<PagedList<Item>>? = null
@@ -51,19 +49,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
           }
         }
     )
-  }
-
-  private fun addDisposable(d: Disposable) {
-    compositeDisposable.add(d)
-  }
-
-  private fun clearDisposable() {
-    compositeDisposable.clear()
-  }
-
-  override fun onCleared() {
-    clearDisposable()
-    super.onCleared()
   }
 
   class MyDataSourceFactory(private val q: String, private val compositeDisposable: CompositeDisposable) :

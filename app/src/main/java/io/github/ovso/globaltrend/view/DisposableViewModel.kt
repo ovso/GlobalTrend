@@ -6,7 +6,7 @@ import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
 open class DisposableViewModel : ViewModel() {
-  private val compositeDisposable = CompositeDisposable()
+  val compositeDisposable = CompositeDisposable()
   fun addDisposable(d: Disposable) {
     compositeDisposable.add(d)
   }
