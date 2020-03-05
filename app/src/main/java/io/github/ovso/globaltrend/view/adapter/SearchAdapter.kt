@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_search.imageview_search_item
 import kotlinx.android.synthetic.main.item_search.textview_search_item_title
 
 class SearchAdapter : RecyclerView.Adapter<DetailViewHolder>() {
-  var items = mutableListOf<Item>()
+  private var items = mutableListOf<Item>()
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int

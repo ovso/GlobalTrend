@@ -70,7 +70,5 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       get() = element.getElementsByTag("ht:approx_traffic").text()
   }
 
-  class RxBusElement(val element: Element) {
-
-  }
+  class RxBusElement(val element: Element)
 }

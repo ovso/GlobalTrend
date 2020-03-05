@@ -86,7 +86,7 @@ class SearchViewModel : DisposableViewModel() {
       Timber.d("loadRange ThreadName = ${Thread.currentThread().name}")
       disposable = searchRequest
         .search(q, params.startPosition)
-        .filter { it -> it.items?.size > 0 }
+        .filter { it.items?.size > 0 }
         .subscribeBy(
           onSuccess = {
             callback.onResult(it.items)
