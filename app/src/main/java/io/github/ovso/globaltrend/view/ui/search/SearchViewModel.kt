@@ -35,7 +35,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
   private fun fetchList() {
     isLoading.set(true)
     pagedList = LivePagedListBuilder<Int, Item>(
-      MyDataSourceFactory(titleLiveData.value!!),
+      MyDataSourceFactory(titleLiveData.value!!, compositeDisposable),
       PagedList.Config.Builder().setPageSize(10).setEnablePlaceholders(false).build()
     ).build()
 
@@ -66,33 +66,35 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     super.onCleared()
   }
 
-  class MyDataSourceFactory(val q: String) :
+  class MyDataSourceFactory(private val q: String, private val compositeDisposable: CompositeDisposable) :
     DataSource.Factory<Int, Item>() {
 
     override fun create(): DataSource<Int, Item> {
-      return MyDataSource(q)
+      return MyDataSource(q, compositeDisposable)
     }
   }
 
   @Suppress("UNNECESSARY_SAFE_CALL")
-  class MyDataSource(private val q: String) : PositionalDataSource<Item>() {
+  class MyDataSource(private val q: String, private val compositeDisposable: CompositeDisposable) : PositionalDataSource<Item>() {
     private var searchRequest: SearchRequest = SearchRequest()
     private var disposable: Disposable? = null
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Item>) {
       Timber.d("loadInitial ThreadName = ${Thread.currentThread().name}")
-      var subscribeBy = searchRequest
+      val subscribeBy = searchRequest
         .search(q, 1)
-        .filter { it -> it.items?.size > 0 }
+        .filter { it.items?.size > 0 }
         .subscribeBy(
           onSuccess = {
             callback.onResult(it.items, 0)
           },
           onError = {
-            Timber.e(it.message)
             Timber.e(it.localizedMessage)
           }
         )
+
+      compositeDisposable.add(subscribeBy)
+
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Item>) {
