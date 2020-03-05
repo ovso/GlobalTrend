@@ -15,7 +15,7 @@
       android:layout_height="match_parent"
       app:colorSchemeResources="@{viewModel.swipeLoadingColor}"
       app:onRefreshListener="@{() -> viewModel.onRefresh()}"
-      app:refreshing="@{viewModel.isLoading.get()}"
+      app:refreshing="@{viewModel.isLoading}"
       >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_country"

@@ -13,9 +13,9 @@
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:enabled="@{viewModel.isLoading.get()}"
+      android:enabled="@{viewModel.isLoading}"
       app:onRefreshListener="@{() -> viewModel.onRefresh()}"
-      app:refreshing="@{viewModel.isLoading.get()}"
+      app:refreshing="@{viewModel.isLoading}"
       >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search"
