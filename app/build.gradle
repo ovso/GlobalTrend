@@ -9,113 +9,113 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
 
-  signingConfigs {
-    release {
-      keyAlias keystoreProperties['keyAlias']
-      keyPassword keystoreProperties['keyPassword']
-      storeFile file(keystoreProperties['storeFile'])
-      storePassword keystoreProperties['storePassword']
-    }
-  }
-
-  compileSdkVersion config.compile_sdk
-  defaultConfig {
-    applicationId config.app_id
-    minSdkVersion config.min_sdk
-    targetSdkVersion config.target_sdk
-    versionCode config.version_major * 1000000 + config.version_minor * 1000 + config.version_patch
-    versionName "${config.version_major}.${config.version_minor}.${config.version_patch}"
-    vectorDrawables.useSupportLibrary true
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  buildTypes {
-    release {
-
-      minifyEnabled true
-      shrinkResources true
-
-      proguardFile getDefaultProguardFile('proguard-android.txt')
-      proguardFile 'proguard-rules.pro'
-      proguardFile 'proguard-firebase.pro'
-
-      signingConfig signingConfigs.release
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      android.applicationVariants.all { variant ->
-        variant.outputs.all {
-          def formattedDate = new Date().format('yyyyMMddHHmmss')
-          def appName = variant.getApplicationId().split(/[.]/)[3]
-          outputFileName =
-              "${appName}-${variant.name}-${variant.versionCode}-${variant.versionName}-${formattedDate}.apk"
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
-      }
     }
-    debug {
-      minifyEnabled false
-    }
-  }
-  dataBinding {
-    enabled = true
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
 
-  androidExtensions {
-    experimental = true
-  }
+    compileSdkVersion config.compile_sdk
+    defaultConfig {
+        applicationId config.app_id
+        minSdkVersion config.min_sdk
+        targetSdkVersion config.target_sdk
+        versionCode config.version_major * 1000000 + config.version_minor * 1000 + config.version_patch
+        versionName "${config.version_major}.${config.version_minor}.${config.version_patch}"
+        vectorDrawables.useSupportLibrary true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+
+            minifyEnabled true
+            shrinkResources true
+
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFile 'proguard-rules.pro'
+            proguardFile 'proguard-firebase.pro'
+
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def formattedDate = new Date().format('yyyyMMddHHmmss')
+                    def appName = variant.getApplicationId().split(/[.]/)[3]
+                    outputFileName =
+                            "${appName}-${variant.name}-${variant.versionCode}-${variant.versionName}-${formattedDate}.apk"
+                }
+            }
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation deps.kotlin
-  implementation deps.androidx.appcompat
-  implementation deps.androidx.material
-  implementation deps.androidx.constraintlayout
-  implementation deps.androidx.core_ktx
-  implementation deps.androidx.viewpager2
-  implementation deps.androidx.paging_runtime
-  implementation deps.androidx.paging_rxjava2
-  implementation deps.androidx.lifecycle_extensions
-  implementation deps.androidx.lifecycle_viewmodel_ktx
-  implementation deps.androidx.annotation
-  implementation deps.androidx.legacy_preference_v14
-  implementation deps.androidx.paging_runtime
-  implementation deps.androidx.paging_rxjava2
-  implementation deps.androidx.fragment
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.material
+    implementation deps.androidx.constraintlayout
+    implementation deps.androidx.core_ktx
+    implementation deps.androidx.viewpager2
+    implementation deps.androidx.paging_runtime
+    implementation deps.androidx.paging_rxjava2
+    implementation deps.androidx.lifecycle_extensions
+    implementation deps.androidx.lifecycle_viewmodel_ktx
+    implementation deps.androidx.annotation
+    implementation deps.androidx.legacy_preference_v14
+    implementation deps.androidx.paging_runtime
+    implementation deps.androidx.paging_rxjava2
+    implementation deps.androidx.fragment
 
-  implementation deps.jetbrains.kotlin_reflect
+    implementation deps.jetbrains.kotlin_reflect
 
-  implementation deps.firebase.ads
+    implementation deps.firebase.ads
 
-  implementation deps.rx.rxjava2
-  implementation deps.rx.rxandroid
-  implementation deps.rx.rxkotlin2
+    implementation deps.rx.rxjava2
+    implementation deps.rx.rxandroid
+    implementation deps.rx.rxkotlin2
 
-  implementation deps.coroutines.core
-  implementation deps.coroutines.android
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
 
-  implementation deps.jsoup
+    implementation deps.jsoup
 
-  implementation deps.easydeviceinfo
-  implementation deps.licensedialog
-  implementation deps.timber
-  implementation deps.easyprefs
-  implementation deps.rssparser
-  implementation deps.lottie
+    implementation deps.easydeviceinfo
+    implementation deps.licensedialog
+    implementation deps.timber
+    implementation deps.easyprefs
+    implementation deps.rssparser
+    implementation deps.lottie
 
-  implementation deps.glide.runtime
-  annotationProcessor deps.glide.compiler
+    implementation deps.glide.runtime
+    annotationProcessor deps.glide.compiler
 
-  implementation deps.retrofit.runtime
-  implementation deps.retrofit.gson
-  implementation deps.retrofit.rxjava2
-  implementation deps.okhttp.runtime
-  implementation deps.okhttp.logging_interceptor
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.rxjava2
+    implementation deps.okhttp.runtime
+    implementation deps.okhttp.logging_interceptor
 
-  testImplementation deps.atsl.junit
-  androidTestImplementation deps.atsl.runner
-  androidTestImplementation deps.atsl.espressocore
+    testImplementation deps.atsl.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.espressocore
 }
 
 apply plugin: 'com.google.gms.google-services'
