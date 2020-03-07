@@ -20,60 +20,61 @@ import java.net.URLEncoder
 import java.util.Calendar
 
 class CountryViewModel(private var context: Context) : DisposableViewModel() {
-  private val rssUrl = "https://trends.google.co.kr/trends/trendingsearches/daily/rss"
-  private val timeout = 1000 * 10
-  val isLoading = ObservableField<Boolean>()
-  private val elements = Elements()
-  val elementsLiveData = MutableLiveData<Elements>()
-  private var startTime = 0L
-  @ColorRes val swipeLoadingColor = R.color.colorPrimary
+    private val rssUrl = "https://trends.google.co.kr/trends/trendingsearches/daily/rss"
+    private val timeout = 1000 * 10
+    val isLoading = ObservableField<Boolean>()
+    private val elements = Elements()
+    val elementsLiveData = MutableLiveData<Elements>()
+    private var startTime = 0L
+    @ColorRes
+    val swipeLoadingColor = R.color.colorPrimary
 
-  fun fetchList() {
-    isLoading.set(true)
-    startTime = Calendar.getInstance().timeInMillis
-    val countryCodes = context.resources.getStringArray(R.array.country_codes).toMutableList()
-    addDisposable(
-      Flowable.fromIterable(getObservables(countryCodes))
-        .parallel()
-        .runOn(Schedulers.computation())
-        .map {
-          elements.add(it.blockingFirst().getElementsByTag("item").first())
-        }
-        .sequential()
-        .subscribeBy(
-          onError = {
-            Timber.e(it)
-            isLoading.set(false)
-          },
-          onComplete = {
-            isLoading.set(false)
-            elementsLiveData.postValue(elements) // postValue -> mainThread
-          }
+    fun fetchList() {
+        isLoading.set(true)
+        startTime = Calendar.getInstance().timeInMillis
+        val countryCodes = context.resources.getStringArray(R.array.country_codes).toMutableList()
+        addDisposable(
+            Flowable.fromIterable(getObservables(countryCodes))
+                .parallel()
+                .runOn(Schedulers.computation())
+                .map {
+                    elements.add(it.blockingFirst().getElementsByTag("item").first())
+                }
+                .sequential()
+                .subscribeBy(
+                    onError = {
+                        Timber.e(it)
+                        isLoading.set(false)
+                    },
+                    onComplete = {
+                        isLoading.set(false)
+                        elementsLiveData.postValue(elements) // postValue -> mainThread
+                    }
+                )
         )
-    )
-  }
-
-  fun onRefresh() {
-    elementsLiveData.value = null
-    fetchList()
-  }
-
-  private fun getObservables(countryCodes: MutableList<String>): MutableList<Observable<Document>> {
-    val mutableListOf = mutableListOf<Observable<Document>>()
-    for (countryCode in countryCodes) {
-      mutableListOf.add(
-        Observable.fromCallable {
-          Jsoup.connect(rssUrl)
-            .data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
-            .parser(Parser.xmlParser()).timeout(timeout).get()
-        }
-      )
     }
-    return mutableListOf
-  }
 
-  override fun onCleared() {
-    clearDisposable()
-    super.onCleared()
-  }
+    fun onRefresh() {
+        elementsLiveData.value = null
+        fetchList()
+    }
+
+    private fun getObservables(countryCodes: MutableList<String>): MutableList<Observable<Document>> {
+        val mutableListOf = mutableListOf<Observable<Document>>()
+        for (countryCode in countryCodes) {
+            mutableListOf.add(
+                Observable.fromCallable {
+                    Jsoup.connect(rssUrl)
+                        .data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
+                        .parser(Parser.xmlParser()).timeout(timeout).get()
+                }
+            )
+        }
+        return mutableListOf
+    }
+
+    override fun onCleared() {
+        clearDisposable()
+        super.onCleared()
+    }
 }

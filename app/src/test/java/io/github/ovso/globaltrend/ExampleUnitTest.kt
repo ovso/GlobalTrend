@@ -18,7 +18,7 @@ class ExampleUnitTest {
 //  }
 
   @Test
-  fun jsoupTest(): Unit {
+  fun test_jsoup(){
     Thread {
       val get = Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
         .data("geo", URLEncoder.encode("KR", Encoding.UTF_8.name))
@@ -27,8 +27,6 @@ class ExampleUnitTest {
         .get()
 
       println(get.toString())
-      System.out.println("jsoupTest")
     }.start()
-
   }
 }
