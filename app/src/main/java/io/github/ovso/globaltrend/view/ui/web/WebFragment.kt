@@ -28,7 +28,8 @@ class WebFragment : Fragment(), OnBackPressedListener {
   private lateinit var viewModel: WebViewModel
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
     val binding =
@@ -66,7 +67,6 @@ class WebFragment : Fragment(), OnBackPressedListener {
     viewModel.titleLiveData.observe(this, Observer {
       activity?.title = it
     })
-
   }
 
   override fun onBackPressed() {
@@ -77,4 +77,3 @@ class WebFragment : Fragment(), OnBackPressedListener {
     }
   }
 }
-

@@ -21,11 +21,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import java.net.URLEncoder
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
-import java.net.URLEncoder
 
 class DailyTrendViewModel(var context: Context) : ViewModel() {
   private val compositeDisposable = CompositeDisposable()

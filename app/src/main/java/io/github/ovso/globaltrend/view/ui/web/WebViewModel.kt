@@ -58,7 +58,6 @@ class WebViewModel : ViewModel() {
                     urlObField.set(it.url)
                 }
             }, onError = {
-
             })
         )
     }
@@ -85,5 +84,4 @@ class WebViewModel : ViewModel() {
     fun browserIntent(url: String): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
     class RxBusWeb(var title: String?, var url: String?)
-
 }

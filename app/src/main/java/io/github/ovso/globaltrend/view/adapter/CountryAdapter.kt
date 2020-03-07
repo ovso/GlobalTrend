@@ -84,6 +84,5 @@ class CountryAdapter : RecyclerView.Adapter<CountryViewHolder>() {
 
     private val res: Resources
       get() = itemView.resources
-
   }
 }

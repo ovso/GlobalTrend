@@ -37,5 +37,4 @@ class ListLiveData<T> : MutableLiveData<MutableList<T>>() {
     val items = value
     value = items
   }
-
 }

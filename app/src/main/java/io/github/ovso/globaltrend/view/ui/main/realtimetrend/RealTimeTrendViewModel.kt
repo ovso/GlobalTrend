@@ -3,18 +3,18 @@ package io.github.ovso.globaltrend.view.ui.main.realtimetrend
 import android.util.Xml.Encoding
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import java.net.URLEncoder
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
-import java.net.URLEncoder
 
 class RealTimeTrendViewModel : ViewModel() {
   private val compositeDisposable = CompositeDisposable()

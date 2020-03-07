@@ -12,5 +12,4 @@ class MainViewModel : ViewModel() {
   }
 
   class RxBusCountryIndex(var index: Int)
-
 }

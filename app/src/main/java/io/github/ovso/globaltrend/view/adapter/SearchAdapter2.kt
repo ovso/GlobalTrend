@@ -70,5 +70,4 @@ class SearchAdapter2 : PagedListAdapter<Item, SearchViewHolder>(DIFF_CALLBACK) {
     private val title: String?
       get() = item.title
   }
-
 }

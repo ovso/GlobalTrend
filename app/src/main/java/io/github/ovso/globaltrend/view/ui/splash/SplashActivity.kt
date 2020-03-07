@@ -1,8 +1,8 @@
 package io.github.ovso.globaltrend.view.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import io.github.ovso.globaltrend.view.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -14,6 +14,6 @@ class SplashActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    //super.onBackPressed()
+    // super.onBackPressed()
   }
 }

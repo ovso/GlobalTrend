@@ -44,7 +44,6 @@ class MyExceptionHandler(
           if (activityCount < 0) {
             lastActivity = null
           }
-
         }
       })
   }
@@ -60,7 +59,6 @@ class MyExceptionHandler(
       startErrorActivity(this, stringWriter.toString())
     } ?: defaultExceptionHandler.uncaughtException(thread, throwable)
 
-
     android.os.Process.killProcess(android.os.Process.myPid())
     System.exit(-1)
   }
@@ -75,5 +73,4 @@ class MyExceptionHandler(
     startActivity(errorActivityIntent)
     finish()
   }
-
 }

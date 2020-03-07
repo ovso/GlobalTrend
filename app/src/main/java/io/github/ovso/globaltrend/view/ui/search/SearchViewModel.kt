@@ -27,7 +27,7 @@ class SearchViewModel : DisposableViewModel() {
   }
 
   fun onRefresh() {
-    //fetchList()
+    // fetchList()
   }
 
   private fun fetchList() {
@@ -36,7 +36,6 @@ class SearchViewModel : DisposableViewModel() {
       MyDataSourceFactory(titleLiveData.value!!, compositeDisposable),
       PagedList.Config.Builder().setPageSize(10).setEnablePlaceholders(false).build()
     ).build()
-
   }
 
   private fun toRxBusObservable() {
@@ -79,7 +78,6 @@ class SearchViewModel : DisposableViewModel() {
         )
 
       compositeDisposable.add(subscribeBy)
-
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Item>) {

@@ -56,7 +56,6 @@ class SearchFragment : Fragment() {
     viewModel.titleLiveData.observe(this, Observer {
       activity?.title = it
     })
-
   }
 
   private fun obRevListData() {
@@ -75,5 +74,4 @@ class SearchFragment : Fragment() {
     return ViewModelProviders.of(this, AndroidViewModelFactory.getInstance(activity?.application!!))
       .get(SearchViewModel::class.java)
   }
-
 }

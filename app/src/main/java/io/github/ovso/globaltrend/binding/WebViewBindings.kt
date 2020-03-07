@@ -7,7 +7,7 @@ import android.webkit.WebViewClient
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 
-object WebViewBinding {
+object WebViewBindings {
   @SuppressLint("SetJavaScriptEnabled")
   @JvmStatic
   @BindingAdapter("webViewClient")

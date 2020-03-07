@@ -3,15 +3,15 @@ package io.github.ovso.globaltrend.api
 import android.content.res.Resources
 import androidx.core.os.ConfigurationCompat
 import io.github.ovso.globaltrend.BuildConfig
+import java.util.HashMap
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.HashMap
-import java.util.Locale
-import java.util.concurrent.TimeUnit
 
 abstract class BaseRequest<T> {
   val api: T
@@ -81,7 +81,7 @@ abstract class BaseRequest<T> {
     return HashMap()
   }
 
-  //https://www.googleapis.com/customsearch/v1?key=AIzaSyAM9aaztXVlGNX40ZoFV5MYvpmg65qOCbQ&cx=012722901045059265659:m8q8x8ftuii&q=%ED%8C%A8%EC%8A%A4%ED%8A%B8%ED%8A%B8%EB%9E%99
+  // https://www.googleapis.com/customsearch/v1?key=AIzaSyAM9aaztXVlGNX40ZoFV5MYvpmg65qOCbQ&cx=012722901045059265659:m8q8x8ftuii&q=%ED%8C%A8%EC%8A%A4%ED%8A%B8%ED%8A%B8%EB%9E%99
   private enum class EndPoint(val value: String) {
     BASE_URL("https://www.googleapis.com")
   }

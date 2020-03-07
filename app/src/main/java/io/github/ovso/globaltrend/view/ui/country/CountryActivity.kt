@@ -27,5 +27,4 @@ class CountryActivity : AppCompatActivity() {
   private fun setupAds() {
     linearlayout_country_content_container.addView(MyAdView.getAdmobBannerView(this))
   }
-
 }

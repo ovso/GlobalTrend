@@ -13,5 +13,4 @@ class SearchRequest : BaseRequest<SearchService>() {
   fun search(query: String, start: Int): Single<CustomSearch> {
     return api.search(query, start)
   }
-
 }

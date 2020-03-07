@@ -23,9 +23,9 @@ class RealTimeTrendFragment : Fragment() {
     private lateinit var viewModel: RealTimeTrendViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
     ): View? {
         viewModel = provideViewModel()
         val binding = inflateDataBinding(inflater, container)
@@ -34,8 +34,8 @@ class RealTimeTrendFragment : Fragment() {
     }
 
     private fun inflateDataBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+      inflater: LayoutInflater,
+      container: ViewGroup?
     ): FragmentRealTimeTrendBinding {
         return DataBindingUtil.inflate(
             inflater,
@@ -52,7 +52,7 @@ class RealTimeTrendFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setupRev()
         obRevListData()
-        //viewModel.fetchList()
+        // viewModel.fetchList()
     }
 
     private fun obRevListData() {

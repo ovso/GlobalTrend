@@ -11,13 +11,13 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import java.net.URLEncoder
+import java.util.Calendar
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
-import java.net.URLEncoder
-import java.util.Calendar
 
 class CountryViewModel(private var context: Context) : DisposableViewModel() {
     private val rssUrl = "https://trends.google.co.kr/trends/trendingsearches/daily/rss"
