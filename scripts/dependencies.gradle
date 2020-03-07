@@ -24,7 +24,7 @@ versions.viewpager2 = '1.0.0-alpha04'
 versions.paging = '2.1.0'
 versions.easydeviceinfo = '2.4.1'
 versions.android_gradle = '3.6.1'
-versions.kotlin = '1.3.30'
+versions.kotlin = '1.3.70'
 versions.core_ktx = '1.0.1'
 versions.lifecycle_viewmodel_ktx = '2.0.0'
 versions.lifecycle_extensions = '2.0.0'
@@ -38,7 +38,7 @@ versions.rssparser = '2.0.3'
 versions.jsoup = '1.11.3'
 versions.coroutines = '1.2.0'
 versions.fragment = '1.0.0'
-versions.koltin_reflect = '1.3.31'
+versions.koltin_reflect = '1.3.70'
 def deps = [:]
 
 def androidx = [:]
