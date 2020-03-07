@@ -1,5 +1,5 @@
 buildscript {
-    apply from: './scripts/versions.gradle'
+    apply from: './scripts/dependencies.gradle'
     addRepos(repositories)
 
     repositories {
