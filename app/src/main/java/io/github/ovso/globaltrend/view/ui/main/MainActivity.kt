@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     Timber.d("country = ${LocaleUtils.country}")
     Timber.d("language = ${LocaleUtils.language}")
-
     replaceFragment()
     setupAd()
   }

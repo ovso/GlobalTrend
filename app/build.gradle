@@ -30,7 +30,14 @@ android {
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            resValue("string", "ads_app_id", "ca-app-pub-3940256099942544~3347511713")
+            resValue("string", "ads_banner_unit_id", "ca-app-pub-3940256099942544/6300978111")
+            resValue("string", "ads_interstitial_id", "ca-app-pub-3940256099942544/1033173712")
+        }
         release {
 
             minifyEnabled true
@@ -39,9 +46,13 @@ android {
             proguardFile getDefaultProguardFile('proguard-android.txt')
             proguardFile 'proguard-rules.pro'
             proguardFile 'proguard-firebase.pro'
-
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            resValue("string", "ads_app_id", "ca-app-pub-8679189423397017~8521853317")
+            resValue("string", "ads_banner_unit_id", "ca-app-pub-8679189423397017/1841551438")
+            resValue("string", "ads_interstitial_id", "ca-app-pub-8679189423397017/9803145397")
+
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
                     def formattedDate = new Date().format('yyyyMMddHHmmss')
@@ -51,13 +62,17 @@ android {
                 }
             }
         }
-        debug {
-            minifyEnabled false
-        }
+
     }
+
     dataBinding {
         enabled = true
     }
+
+    viewBinding {
+        enabled = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
