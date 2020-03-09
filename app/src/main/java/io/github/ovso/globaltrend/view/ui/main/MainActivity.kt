@@ -23,13 +23,10 @@ import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
-import io.github.ovso.globaltrend.view.MyAdView
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
-import kotlinx.android.synthetic.main.activity_main.drawer_layout
-import kotlinx.android.synthetic.main.activity_main.nav_view
-import kotlinx.android.synthetic.main.app_bar_main.linearlayout_main_content_container
-import kotlinx.android.synthetic.main.app_bar_main.toolbar
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -57,11 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     Timber.d("country = ${LocaleUtils.country}")
     Timber.d("language = ${LocaleUtils.language}")
     replaceFragment()
-    setupAd()
-  }
-
-  private fun setupAd() {
-    linearlayout_main_content_container.addView(MyAdView.getAdmobBannerView(this))
   }
 
   private fun replaceFragment() {

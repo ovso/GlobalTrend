@@ -34,7 +34,8 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   private var countryIndex: Int = 0
   val isLoading = ObservableBoolean()
   val titleLiveData = MutableLiveData<String>()
-  @ColorRes val swipeLoadingColor = R.color.colorPrimary
+  @ColorRes
+  val swipeLoadingColor = R.color.colorPrimary
   private lateinit var interstitialAd: InterstitialAd
 
   init {
@@ -99,14 +100,14 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
     isLoading.set(true)
     addDisposable(
       Single.fromCallable {
-        Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
-          .data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
-          .parser(Parser.xmlParser())
-          .timeout(1000 * 10)
-          .get()
-      }.map {
-        it.getElementsByTag("item")
-      }.subscribeOn(Schedulers.io())
+          Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
+            .data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
+            .parser(Parser.xmlParser())
+            .timeout(1000 * 10)
+            .get()
+        }.map {
+          it.getElementsByTag("item")
+        }.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeBy(onError = {
           Timber.e(it)

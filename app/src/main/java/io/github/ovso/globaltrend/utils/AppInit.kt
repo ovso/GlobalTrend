@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import com.google.android.gms.ads.MobileAds
 import com.pixplicity.easyprefs.library.Prefs
 import io.github.ovso.globaltrend.BuildConfig
+import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.app.MyExceptionHandler
 import timber.log.Timber
 
@@ -26,7 +27,7 @@ object AppInit {
   }
 
   fun ad(context: Context) {
-    MobileAds.initialize(context, Ads.ADMOB_APP_ID.value)
+    MobileAds.initialize(context, context.getString(R.string.ads_app_id))
   }
 
   fun crashHandling(app: Application) {
