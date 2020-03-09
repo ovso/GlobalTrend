@@ -38,9 +38,9 @@ class DailyTrendFragment : Fragment() {
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): DailyTrendViewModel {
     return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>) =
-        DailyTrendViewModel(requireContext().applicationContext) as T
-    })
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+          DailyTrendViewModel(requireContext().applicationContext) as T
+      })
       .get(DailyTrendViewModel::class.java)
   }
 
