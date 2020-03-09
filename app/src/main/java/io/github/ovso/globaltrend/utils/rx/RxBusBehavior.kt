@@ -3,7 +3,7 @@ package io.github.ovso.globaltrend.utils.rx
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
-class RxBus2 {
+class RxBusBehavior {
   private val bus = BehaviorSubject.create<Any>()
 
   fun send(o: Any) {
