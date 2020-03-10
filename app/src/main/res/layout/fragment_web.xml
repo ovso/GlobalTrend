@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools"
-    >
-  <data>
-    <variable
-        name="viewModel"
-        type="io.github.ovso.globaltrend.view.ui.web.WebViewModel"
-        />
-  </data>
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      >
-    <FrameLayout
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="io.github.ovso.globaltrend.view.ui.web.WebViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
-      <WebView
-          android:id="@+id/webview_web"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:loadUrl="@{viewModel.urlObField}"
-          app:webChromeClient="@{viewModel.webChromeClient}"
-          app:webViewClient="@{viewModel.webViewClient}"
-          />
-      <androidx.core.widget.ContentLoadingProgressBar
-          android:id="@+id/progressbar_web"
-          android:layout_width="match_parent"
-          android:layout_height="5dp"
-          android:progress="@{viewModel.progressObField}"
-          app:showAndHide="@{viewModel.isLoadingObField}"
-          style="@style/ProgressBarHorizontal"
-          />
-    </FrameLayout>
-    <include
-        layout="@layout/layout_web_navigation"
-        bind:viewModel="@{viewModel}"
-        />
-  </LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <WebView
+                android:id="@+id/webview_web"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:loadUrl="@{viewModel.urlObField}"
+                app:webChromeClient="@{viewModel.webChromeClient}"
+                app:webViewClient="@{viewModel.webViewClient}" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/progressbar_web"
+                style="@style/ProgressBarHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:progress="@{viewModel.progressObField}"
+                app:showAndHide="@{viewModel.isLoadingObField}" />
+        </FrameLayout>
+
+        <include layout="@layout/layout_all_ads_banner" />
+
+        <include
+            layout="@layout/layout_web_navigation"
+            bind:viewModel="@{viewModel}" />
+    </LinearLayout>
 </layout>
