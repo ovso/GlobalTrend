@@ -26,19 +26,20 @@ class WebFragment :
   }
 
   private fun setupWebViewNavi() {
+    val viewModel = binding.viewModel!!
     button_web_nav_back.setOnClickListener { webview_web.goBack() }
     button_web_nav_forw.setOnClickListener { webview_web.goForward() }
-    button_web_nav_refresh.setOnClickListener { binding.viewModel.urlObField.set(webview_web.url) }
+    button_web_nav_refresh.setOnClickListener { viewModel.urlObField.set(webview_web.url) }
     button_web_nav_share.setOnClickListener {
       startActivity(
-        binding.viewModel.shareIntent(
+        viewModel.shareIntent(
           webview_web.url
         )
       )
     }
     button_web_nav_browser.setOnClickListener {
       startActivity(
-        binding.viewModel.browserIntent(
+        viewModel.browserIntent(
           webview_web.url
         )
       )
@@ -55,7 +56,8 @@ class WebFragment :
   }
 
   private fun setupTitle() {
-    binding.viewModel.titleLiveData.observe(this, Observer {
+    val viewModel = binding.viewModel!!
+    viewModel.titleLiveData.observe(this, Observer {
       activity?.title = it
     })
   }
