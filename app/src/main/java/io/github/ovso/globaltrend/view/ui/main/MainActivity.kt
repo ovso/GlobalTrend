@@ -21,7 +21,6 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
-import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
@@ -48,11 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     )
     drawer_layout.addDrawerListener(toggle)
     toggle.syncState()
-
     nav_view.setNavigationItemSelectedListener(this)
-
-    Timber.d("country = ${LocaleUtils.country}")
-    Timber.d("language = ${LocaleUtils.language}")
     replaceFragment()
   }
 
