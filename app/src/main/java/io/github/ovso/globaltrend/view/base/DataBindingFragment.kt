@@ -31,9 +31,8 @@ abstract class DataBindingFragment<T : ViewDataBinding>(
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     val owner = this@DataBindingFragment
-
     with(binding) {
-      setVariable(BR._all, ViewModelProviders.of(owner).get(viewModelCls))
+      setVariable(BR.viewModel, ViewModelProviders.of(owner).get(viewModelCls))
       lifecycleOwner = owner
       executePendingBindings()
     }

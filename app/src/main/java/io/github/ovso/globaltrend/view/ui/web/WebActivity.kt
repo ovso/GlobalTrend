@@ -5,7 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import io.github.ovso.globaltrend.R
-import kotlinx.android.synthetic.main.activity_web.toolbar
+import kotlinx.android.synthetic.main.activity_web.*
 
 class WebActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class WebActivity : AppCompatActivity() {
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
         .replace(R.id.container, WebFragment.newInstance(), WebFragment::class.java.simpleName)
-        .commitNow()
+        .commitAllowingStateLoss()
     }
   }
 
