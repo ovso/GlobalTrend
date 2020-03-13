@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.globaltrend.BR
 
 abstract class DataBindingFragment<T : ViewDataBinding>(
@@ -32,7 +32,7 @@ abstract class DataBindingFragment<T : ViewDataBinding>(
     super.onViewCreated(view, savedInstanceState)
     val owner = this@DataBindingFragment
     with(binding) {
-      setVariable(BR.viewModel, ViewModelProviders.of(owner).get(viewModelCls))
+      setVariable(BR.viewModel, ViewModelProvider(owner).get(viewModelCls))
       lifecycleOwner = owner
       executePendingBindings()
     }

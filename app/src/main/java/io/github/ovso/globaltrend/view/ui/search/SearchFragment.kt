@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
-import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentSearchBinding
-import io.github.ovso.globaltrend.view.adapter.SearchAdapter
 import io.github.ovso.globaltrend.view.adapter.SearchAdapter2
-import kotlinx.android.synthetic.main.fragment_search.recyclerview_search
+import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : Fragment() {
-  private val adapter = SearchAdapter()
   private val adapter2 = SearchAdapter2()
 
   companion object {
@@ -53,13 +51,13 @@ class SearchFragment : Fragment() {
     setupRev()
     obRevListData()
 
-    viewModel.titleLiveData.observe(this, Observer {
+    viewModel.titleLiveData.observe(viewLifecycleOwner, Observer {
       activity?.title = it
     })
   }
 
   private fun obRevListData() {
-    viewModel.pagedList?.observe(this, Observer {
+    viewModel.pagedList?.observe(viewLifecycleOwner, Observer {
       adapter2.submitList(it)
       viewModel.isLoading.set(false)
     })
@@ -71,7 +69,10 @@ class SearchFragment : Fragment() {
 
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): SearchViewModel {
-    return ViewModelProviders.of(this, AndroidViewModelFactory.getInstance(activity?.application!!))
+    return ViewModelProvider(
+      viewModelStore,
+      AndroidViewModelFactory.getInstance(activity?.application!!)
+    )
       .get(SearchViewModel::class.java)
   }
 }

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentDailyTrendBinding
 import io.github.ovso.globaltrend.view.adapter.MainAdapter
@@ -37,7 +36,7 @@ class DailyTrendFragment : Fragment() {
 
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): DailyTrendViewModel {
-    return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+    return ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
           DailyTrendViewModel(requireContext().applicationContext) as T
       })

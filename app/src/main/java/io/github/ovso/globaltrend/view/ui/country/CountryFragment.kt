@@ -10,11 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentCountryBinding
 import io.github.ovso.globaltrend.view.adapter.CountryAdapter
-import kotlinx.android.synthetic.main.fragment_country.recyclerview_country
+import kotlinx.android.synthetic.main.fragment_country.*
 
 class CountryFragment : Fragment() {
 
@@ -28,7 +27,7 @@ class CountryFragment : Fragment() {
   @Suppress("UNCHECKED_CAST")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    viewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+    viewModel = ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
       override fun <T : ViewModel?> create(modelClass: Class<T>) =
         CountryViewModel(requireContext()) as T
     }).get(CountryViewModel::class.java)
@@ -59,7 +58,7 @@ class CountryFragment : Fragment() {
   }
 
   private fun obRevListData() {
-    viewModel.elementsLiveData.observe(this, Observer {
+    viewModel.elementsLiveData.observe(viewLifecycleOwner, Observer {
       adapter.elements = it
       adapter.notifyDataSetChanged()
     })

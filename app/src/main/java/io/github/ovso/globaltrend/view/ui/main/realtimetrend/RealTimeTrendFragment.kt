@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentRealTimeTrendBinding
 import io.github.ovso.globaltrend.view.adapter.MainAdapter
-import kotlinx.android.synthetic.main.fragment_real_time_trend.recyclerview_real_time
+import kotlinx.android.synthetic.main.fragment_real_time_trend.*
 
 class RealTimeTrendFragment : Fragment() {
     private val adapter = MainAdapter()
@@ -46,7 +46,7 @@ class RealTimeTrendFragment : Fragment() {
     }
 
     private fun provideViewModel() =
-        ViewModelProviders.of(this).get(RealTimeTrendViewModel::class.java)
+      ViewModelProvider(this).get(RealTimeTrendViewModel::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -56,7 +56,7 @@ class RealTimeTrendFragment : Fragment() {
     }
 
     private fun obRevListData() {
-        viewModel.elementsLiveData.observe(this, Observer {
+      viewModel.elementsLiveData.observe(viewLifecycleOwner, Observer {
             adapter.elements = it
             adapter.notifyDataSetChanged()
         })

@@ -13,7 +13,6 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
 import de.psdev.licensesdialog.LicensesDialog
@@ -61,8 +60,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): MainViewModel =
-    ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>) = MainViewModel() as T
+    ViewModelProvider(this, object : ViewModelProvider.Factory {
+      override fun <T : ViewModel> create(modelClass: Class<T>) = MainViewModel() as T
     }).get(MainViewModel::class.java)
 
   override fun onBackPressed() =
