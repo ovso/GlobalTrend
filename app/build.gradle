@@ -8,7 +8,6 @@ apply from: '../scripts/ktlint.gradle'
 def keystorePropertiesFile = rootProject.file("../jks/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
 
     signingConfigs {
@@ -30,7 +29,6 @@ android {
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         debug {
             minifyEnabled false
@@ -52,7 +50,6 @@ android {
             resValue("string", "ads_app_id", "ca-app-pub-8679189423397017~8521853317")
             resValue("string", "ads_banner_unit_id", "ca-app-pub-8679189423397017/1841551438")
             resValue("string", "ads_interstitial_id", "ca-app-pub-8679189423397017/9803145397")
-
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
                     def formattedDate = new Date().format('yyyyMMddHHmmss')
@@ -73,6 +70,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src/main/res'
+            }
+            java {
+                srcDirs 'src/main/java'
+            }
+        }
+    }
 
     androidExtensions {
         experimental = true
@@ -82,37 +89,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation deps.kotlin
-    implementation deps.androidx.appcompat
-    implementation deps.androidx.material
-    implementation deps.androidx.constraintlayout
-    implementation deps.androidx.core_ktx
-    implementation deps.androidx.viewpager2
-    implementation deps.androidx.paging_runtime
-    implementation deps.androidx.paging_rxjava2
-    implementation deps.androidx.lifecycle_extensions
-    implementation deps.androidx.lifecycle_viewmodel_ktx
-    implementation deps.androidx.annotation
-    implementation deps.androidx.legacy_preference_v14
-    implementation deps.androidx.paging_runtime
-    implementation deps.androidx.paging_rxjava2
-    implementation deps.androidx.fragment
-    implementation deps.androidx.fragment_ktx
-    implementation deps.androidx.activity
-    implementation deps.androidx.activity_ktx
+    implementation deps.androidx.values()
 
     implementation deps.jetbrains.kotlin_reflect
 
     implementation deps.firebase.ads
 
-    implementation deps.rx.rxjava2
-    implementation deps.rx.rxandroid
-    implementation deps.rx.rxkotlin2
+    implementation deps.rx.values()
 
-    implementation deps.coroutines.core
-    implementation deps.coroutines.android
+    implementation deps.coroutines.values()
 
     implementation deps.jsoup
-
     implementation deps.easydeviceinfo
     implementation deps.licensedialog
     implementation deps.timber
@@ -123,15 +110,11 @@ dependencies {
     implementation deps.glide.runtime
     kapt deps.glide.compiler
 
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.retrofit.rxjava2
-    implementation deps.okhttp.runtime
-    implementation deps.okhttp.logging_interceptor
+    implementation deps.retrofit.values()
+    implementation deps.okhttp.values()
 
     testImplementation deps.atsl.junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.espressocore
+    androidTestImplementation deps.atsl.values()
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -7,12 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath class_path.android_gradle
-        classpath class_path.kotlin_plugin
-        classpath class_path.google_service
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath class_path.values()
     }
 }
 
