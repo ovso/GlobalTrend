@@ -96,6 +96,9 @@ dependencies {
     implementation deps.androidx.paging_runtime
     implementation deps.androidx.paging_rxjava2
     implementation deps.androidx.fragment
+    implementation deps.androidx.fragment_ktx
+    implementation deps.androidx.activity
+    implementation deps.androidx.activity_ktx
 
     implementation deps.jetbrains.kotlin_reflect
 
@@ -118,7 +121,7 @@ dependencies {
     implementation deps.lottie
 
     implementation deps.glide.runtime
-    annotationProcessor deps.glide.compiler
+    kapt deps.glide.compiler
 
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
