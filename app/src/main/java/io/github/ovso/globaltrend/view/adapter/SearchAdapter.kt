@@ -11,14 +11,13 @@ import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.api.model.Item
 import io.github.ovso.globaltrend.extension.startActivity
-import io.github.ovso.globaltrend.view.adapter.SearchAdapter2.SearchViewHolder
+import io.github.ovso.globaltrend.view.adapter.SearchAdapter.SearchViewHolder
 import io.github.ovso.globaltrend.view.ui.web.WebActivity
 import io.github.ovso.globaltrend.view.ui.web.WebViewModel.RxBusWeb
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_search.imageview_search_item
-import kotlinx.android.synthetic.main.item_search.textview_search_item_title
+import kotlinx.android.synthetic.main.item_search.*
 
-class SearchAdapter2 : PagedListAdapter<Item, SearchViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter : PagedListAdapter<Item, SearchViewHolder>(DIFF_CALLBACK) {
 
   companion object {
     private val DIFF_CALLBACK = object : ItemCallback<Item>() {

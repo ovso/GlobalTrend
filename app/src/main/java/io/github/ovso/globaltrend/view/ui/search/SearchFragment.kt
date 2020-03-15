@@ -11,11 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentSearchBinding
-import io.github.ovso.globaltrend.view.adapter.SearchAdapter2
+import io.github.ovso.globaltrend.view.adapter.SearchAdapter
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : Fragment() {
-  private val adapter2 = SearchAdapter2()
+  private val adapter2 = SearchAdapter()
 
   companion object {
     fun newInstance() = SearchFragment()
