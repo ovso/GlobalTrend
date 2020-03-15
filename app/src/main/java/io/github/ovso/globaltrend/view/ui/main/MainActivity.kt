@@ -22,7 +22,7 @@ import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.utils.PrefsKey
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
-import io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendFragment
+import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber

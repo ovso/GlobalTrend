@@ -6,7 +6,7 @@
   <data>
     <variable
         name="viewModel"
-        type="io.github.ovso.globaltrend.view.ui.main.dailytrend.DailyTrendViewModel"
+        type="io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendViewModel"
         />
   </data>
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

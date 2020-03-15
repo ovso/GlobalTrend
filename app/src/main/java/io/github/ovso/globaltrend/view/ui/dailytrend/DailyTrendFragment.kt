@@ -1,4 +1,4 @@
-package io.github.ovso.globaltrend.view.ui.main.dailytrend
+package io.github.ovso.globaltrend.view.ui.dailytrend
 
 import android.os.Bundle
 import android.view.LayoutInflater
