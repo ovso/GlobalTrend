@@ -6,13 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
 import de.psdev.licensesdialog.LicensesDialog
@@ -30,13 +29,12 @@ import kotlinx.android.synthetic.main.layout_banner_container.*
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-  private lateinit var viewModel: MainViewModel
+  private val viewModel: MainViewModel by viewModels()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val binding =
       DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-    viewModel = provideViewModel()
     binding.viewModel = viewModel
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayShowCustomEnabled(true)
@@ -62,12 +60,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
       DailyTrendFragment::class.simpleName
     ).commitNow()
   }
-
-  @Suppress("UNCHECKED_CAST")
-  private fun provideViewModel(): MainViewModel =
-    ViewModelProvider(this, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel> create(modelClass: Class<T>) = MainViewModel() as T
-    }).get(MainViewModel::class.java)
 
   override fun onBackPressed() =
     when (drawer_layout.isDrawerOpen(GravityCompat.START)) {
