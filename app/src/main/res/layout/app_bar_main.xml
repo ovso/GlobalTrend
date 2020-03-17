@@ -42,7 +42,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <include layout="@layout/layout_all_ads_banner" />
+            <FrameLayout
+                android:id="@+id/ads_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <!--            <include layout="@layout/layout_all_ads_banner" />-->
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
