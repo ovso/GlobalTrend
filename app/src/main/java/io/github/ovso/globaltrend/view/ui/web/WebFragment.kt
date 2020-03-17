@@ -6,8 +6,10 @@ import android.webkit.WebSettings
 import androidx.lifecycle.Observer
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentWebBinding
+import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.view.base.DataBindingFragment
 import kotlinx.android.synthetic.main.fragment_web.*
+import kotlinx.android.synthetic.main.layout_banner_container.*
 import kotlinx.android.synthetic.main.layout_web_navigation.*
 
 class WebFragment :
@@ -23,6 +25,7 @@ class WebFragment :
     setupTitle()
     setupWebView()
     setupWebViewNavi()
+    loadAdaptiveBanner(ff_all_banner_container, getString(R.string.ads_banner_unit_id))
   }
 
   private fun setupWebViewNavi() {

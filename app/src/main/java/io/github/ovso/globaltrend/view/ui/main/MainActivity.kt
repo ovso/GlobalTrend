@@ -26,6 +26,7 @@ import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.layout_banner_container.*
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     nav_view.setNavigationItemSelectedListener(this)
     replaceFragment()
 
-    loadAdaptiveBanner(ads_container, getString(R.string.ads_banner_unit_id))
+    loadAdaptiveBanner(ff_all_banner_container, getString(R.string.ads_banner_unit_id))
   }
 
   private fun replaceFragment() {
