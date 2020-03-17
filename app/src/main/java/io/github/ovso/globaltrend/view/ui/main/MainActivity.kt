@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,9 +13,6 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
 import de.psdev.licensesdialog.LicensesDialog
@@ -24,6 +20,7 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
 import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
+import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.utils.PrefsKey
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
@@ -33,24 +30,6 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
   private lateinit var viewModel: MainViewModel
-
-  private val adSize: AdSize
-    get() {
-      val display = windowManager.defaultDisplay
-      val outMetrics = DisplayMetrics()
-      display.getMetrics(outMetrics)
-
-      val density = outMetrics.density
-
-      var adWidthPixels = ads_container.width.toFloat()
-      if (adWidthPixels == 0f) {
-        adWidthPixels = outMetrics.widthPixels.toFloat()
-      }
-
-      val adWidth = (adWidthPixels / density).toInt()
-      return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
-    }
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -72,26 +51,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     nav_view.setNavigationItemSelectedListener(this)
     replaceFragment()
 
-    showBanner()
-    // https://groups.google.com/forum/#!topic/google-admob-ads-sdk/N02N_ftO7xk
-    // blogging
+    loadAdaptiveBanner(ads_container, getString(R.string.ads_banner_unit_id))
   }
-
-  private fun showBanner() {
-    adView = AdView(this)
-    ads_container.addView(adView)
-
-    fun loadBanner() {
-      adView.adUnitId = getString(string.ads_banner_unit_id)
-      adView.adSize = adSize
-      val adRequest = AdRequest.Builder().build()
-      adView.loadAd(adRequest)
-    }
-
-    loadBanner()
-  }
-
-  private lateinit var adView: AdView;
 
   private fun replaceFragment() {
     supportFragmentManager.beginTransaction().replace(
