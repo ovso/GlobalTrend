@@ -30,7 +30,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <include layout="@layout/layout_all_ads_banner" />
+        <include layout="@layout/layout_banner_container" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
