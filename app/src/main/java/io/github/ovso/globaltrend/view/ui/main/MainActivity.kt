@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     nav_view.setNavigationItemSelectedListener(this)
     replaceFragment()
 
-    loadAdaptiveBanner(ff_all_banner_container, getString(R.string.ads_banner_unit_id))
+    loadAdaptiveBanner(ff_all_banner_container, getString(string.ads_banner_unit_id))
   }
 
   private fun replaceFragment() {
