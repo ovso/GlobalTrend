@@ -22,10 +22,6 @@ abstract class SimpleActivityLifecycleCallbacks : Application.ActivityLifecycleC
     // no-op
   }
 
-  override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
-    // no-op
-  }
-
   override fun onActivityStopped(activity: Activity) {
     // no-op
   }

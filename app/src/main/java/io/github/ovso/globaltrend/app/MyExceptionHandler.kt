@@ -36,6 +36,10 @@ class MyExceptionHandler(
           lastActivity = activity
         }
 
+        override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {
+
+        }
+
         override fun onActivityStopped(activity: Activity) {
           if (isSkipActivity(activity)) {
             return
