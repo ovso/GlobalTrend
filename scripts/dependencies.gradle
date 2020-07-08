@@ -52,11 +52,11 @@ androidx.paging_rxjava2 = "androidx.paging:paging-rxjava2:$versions.paging"
 androidx.annotation = "androidx.annotation:annotation:$versions.annotation"
 androidx.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
 androidx.lifecycle_viewmodel_ktx =
-    "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_viewmodel_ktx"
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_viewmodel_ktx"
 androidx.lifecycle_extensions =
-    "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
+        "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
 androidx.legacy_preference_v14 =
-    "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
+        "androidx.legacy:legacy-preference-v14:$versions.legacy_preference_v14"
 androidx.fragment = "androidx.fragment:fragment:$versions.fragment"
 androidx.fragment_ktx = "androidx.fragment:fragment-ktx:$versions.fragment"
 androidx.activity = "androidx.activity:activity:$versions.activity"
@@ -84,6 +84,11 @@ dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
 dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
 dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger = dagger
+
+def hilt = [:]
+hilt.android = 'com.google.dagger:hilt-android:2.28.1-alpha'
+hilt.android_compiler = 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+deps.hilt = hilt
 
 def butterknife = [:]
 butterknife.runtime = "com.jakewharton:butterknife:$versions.butterknife"
@@ -138,14 +143,15 @@ def class_path = [:]
 class_path.android_gradle = "com.android.tools.build:gradle:$versions.android_gradle"
 class_path.kotlin_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 class_path.google_service = "com.google.gms:google-services:$versions.google_service"
+class_path.hilt = "com.google.dagger:hilt-android-gradle-plugin:2.28.1-alpha"
 
 ext.class_path = class_path
 
 def config = [:]
-config.compile_sdk = 28
+config.compile_sdk = 30
 config.app_id = 'io.github.ovso.globaltrend'
 config.min_sdk = 21
-config.target_sdk = 28
+config.target_sdk = 30
 config.version_major = 1
 config.version_minor = 1
 config.version_patch = 0
@@ -153,12 +159,12 @@ config.version_patch = 0
 ext.config = config
 
 static def addRepos(RepositoryHandler handler) {
-  handler.google()
-  handler.jcenter()
-  handler.mavenCentral()
-  handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-  handler.maven { url 'https://maven.fabric.io/public' }
-  handler.maven { url "https://jitpack.io" }
+    handler.google()
+    handler.jcenter()
+    handler.mavenCentral()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven { url 'https://maven.fabric.io/public' }
+    handler.maven { url "https://jitpack.io" }
 }
 
 ext.addRepos = this.&addRepos

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 apply from: '../scripts/ktlint.gradle'
 
@@ -93,6 +94,9 @@ dependencies {
 
     implementation deps.coroutines.values()
 
+    implementation deps.hilt.android
+    kapt deps.hilt.android_compiler
+
     implementation deps.jsoup
     implementation deps.easydeviceinfo
     implementation deps.licensedialog
@@ -109,6 +113,10 @@ dependencies {
 
     testImplementation deps.atsl.junit
     androidTestImplementation deps.atsl.values()
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 apply plugin: 'com.google.gms.google-services'
