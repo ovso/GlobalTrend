@@ -28,12 +28,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_banner_container.*
 import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
   private val viewModel: MainViewModel by viewModels()
 
+  @Inject
+  lateinit var analytics: String
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    Timber.d("analytics = $analytics")
     val binding =
       DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     binding.viewModel = viewModel
