@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
+import dagger.hilt.android.AndroidEntryPoint
 import de.psdev.licensesdialog.LicensesDialog
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.R.id
