@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -22,6 +23,7 @@ import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.utils.PrefsKey
+import io.github.ovso.globaltrend.view.base.DataBindingActivity
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,18 +33,19 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelectedListener {
   private val viewModel: MainViewModel by viewModels()
-
+  private val binding:ActivityMainBinding by binding(R.layout.activity_main)
   @Inject
   lateinit var analytics: String
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Timber.d("analytics = $analytics")
-    val binding =
-      DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-    binding.viewModel = viewModel
+    binding.apply {
+      lifecycleOwner = this@MainActivity
+      viewModel = this@MainActivity.viewModel
+    }
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayShowCustomEnabled(true)
 
