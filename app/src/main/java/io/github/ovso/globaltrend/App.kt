@@ -2,7 +2,7 @@ package io.github.ovso.globaltrend
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
-import io.github.ovso.globaltrend.utils.AppInit
+import io.github.ovso.globaltrend.app.MyExceptionHandler
 import io.github.ovso.globaltrend.utils.rx.RxBus
 import io.github.ovso.globaltrend.utils.rx.RxBusBehavior
 import io.reactivex.internal.functions.Functions
@@ -17,10 +17,23 @@ class App : Application() {
 
   override fun onCreate() {
     super.onCreate()
-    AppInit.timber()
-    AppInit.prefs(this)
-    AppInit.ad(this)
+    Library.init(this)
     RxJavaPlugins.setErrorHandler(Functions.emptyConsumer())
-    AppInit.crashHandling(this)
+    crashHandling(this)
+  }
+
+  private fun crashHandling(app: Application) {
+    val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler { _, _ ->
+      // Crashlytics에서 기본 handler를 호출하기 때문에 이중으로 호출되는것을 막기위해 빈 handler로 설정
+    }
+    val fabricExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler(
+      MyExceptionHandler(
+        app,
+        defaultExceptionHandler,
+        fabricExceptionHandler
+      )
+    )
   }
 }
