@@ -37,7 +37,7 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
 
   @ColorRes
   val swipeLoadingColor = R.color.colorPrimary
-  private lateinit var interstitialAd: InterstitialAd
+
 
   init {
     countryIndex = getCountryIndex()
@@ -49,7 +49,6 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   }
 
   private fun setupInterstitialAd() {
-    interstitialAd = MyAdView.getAdmobInterstitialAd(context)
   }
 
   private fun getCountryIndex(): Int {
@@ -81,20 +80,7 @@ class DailyTrendViewModel(var context: Context) : ViewModel() {
   }
 
   fun onRefresh() {
-    if (interstitialAd.isLoaded) {
-      interstitialAd.show()
-      interstitialAd.adListener = object : AdListener() {
-        override fun onAdClosed() {
-          elementsLiveData.value = null
-          fetchList()
-          reloadInterstitialAd()
-        }
-      }
-    }
-  }
-
-  fun reloadInterstitialAd() {
-    interstitialAd = MyAdView.getAdmobInterstitialAd(context)
+    fetchList()
   }
 
   fun fetchList() {

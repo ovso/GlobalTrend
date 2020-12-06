@@ -4,15 +4,14 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +22,7 @@ import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.utils.PrefsKey
+import io.github.ovso.globaltrend.view.MyAdView
 import io.github.ovso.globaltrend.view.base.DataBindingActivity
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
@@ -35,9 +35,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelectedListener {
   private val viewModel: MainViewModel by viewModels()
-  private val binding:ActivityMainBinding by binding(R.layout.activity_main)
+  private val binding: ActivityMainBinding by binding(R.layout.activity_main)
+
   @Inject
   lateinit var analytics: String
+
+  private lateinit var interstitialAd: InterstitialAd
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -60,6 +63,14 @@ class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelec
     nav_view.setNavigationItemSelectedListener(this)
     replaceFragment()
 
+    interstitialAd = MyAdView.getAdmobInterstitialAd(this)
+    interstitialAd.adListener = object : AdListener() {
+
+      override fun onAdLoaded() {
+        super.onAdLoaded()
+        interstitialAd.show()
+      }
+    }
     loadAdaptiveBanner(ff_all_banner_container, getString(string.ads_banner_unit_id))
   }
 
