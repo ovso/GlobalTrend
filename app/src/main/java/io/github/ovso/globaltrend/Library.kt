@@ -27,7 +27,7 @@ object Library {
       .build()
   }
 
-  fun timber() {
+  private fun timber() {
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
     }

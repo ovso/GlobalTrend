@@ -3,14 +3,12 @@ package io.github.ovso.globaltrend.view.ui.web
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.webkit.WebSettings
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentWebBinding
 import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.view.base.DataBindingFragment
 import kotlinx.android.synthetic.main.fragment_web.*
-import kotlinx.android.synthetic.main.layout_banner_container.*
-import kotlinx.android.synthetic.main.layout_web_navigation.*
 
 class WebFragment :
   DataBindingFragment<FragmentWebBinding>(R.layout.fragment_web, WebViewModel::class.java),
@@ -25,25 +23,30 @@ class WebFragment :
     setupTitle()
     setupWebView()
     setupWebViewNavi()
-    loadAdaptiveBanner(ff_all_banner_container, getString(R.string.ads_banner_unit_id))
+    loadAdaptiveBanner(binding.ffAllBannerContainer, getString(R.string.ads_banner_unit_id))
   }
 
   private fun setupWebViewNavi() {
     val viewModel = binding.viewModel!!
-    button_web_nav_back.setOnClickListener { webview_web.goBack() }
-    button_web_nav_forw.setOnClickListener { webview_web.goForward() }
-    button_web_nav_refresh.setOnClickListener { viewModel.urlObField.set(webview_web.url) }
-    button_web_nav_share.setOnClickListener {
+
+    binding.includeWebNav.buttonWebNavBack.setOnClickListener { webview_web.goBack() }
+    binding.includeWebNav.buttonWebNavForw.setOnClickListener { webview_web.goForward() }
+    binding.includeWebNav.buttonWebNavRefresh.setOnClickListener {
+      viewModel.urlObField.set(
+        webview_web.url
+      )
+    }
+    binding.includeWebNav.buttonWebNavShare.setOnClickListener {
       startActivity(
         viewModel.shareIntent(
-          webview_web.url
+          binding.webviewWeb.url!!
         )
       )
     }
-    button_web_nav_browser.setOnClickListener {
+    binding.includeWebNav.buttonWebNavBrowser.setOnClickListener {
       startActivity(
         viewModel.browserIntent(
-          webview_web.url
+          binding.webviewWeb.url!!
         )
       )
     }
@@ -53,16 +56,16 @@ class WebFragment :
   private fun setupWebView() {
     webview_web.settings.run {
       javaScriptEnabled = true
-      setAppCacheEnabled(true)
       cacheMode = WebSettings.LOAD_NO_CACHE
     }
   }
 
   private fun setupTitle() {
     val viewModel = binding.viewModel!!
-    viewModel.titleLiveData.observe(this, Observer {
+    val owner = viewLifecycleOwner
+    viewModel.titleLiveData.observe(owner) {
       activity?.title = it
-    })
+    }
   }
 
   override fun onBackPressed() {

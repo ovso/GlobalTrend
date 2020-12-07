@@ -37,9 +37,13 @@
                 app:showAndHide="@{viewModel.isLoadingObField}" />
         </FrameLayout>
 
-        <include layout="@layout/layout_banner_container" />
+        <FrameLayout
+            android:id="@+id/ff_all_banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <include
+            android:id="@+id/includeWebNav"
             layout="@layout/layout_web_navigation"
             bind:viewModel="@{viewModel}" />
     </LinearLayout>
