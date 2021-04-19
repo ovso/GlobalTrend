@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.navigation.NavigationView
 import com.pixplicity.easyprefs.library.Prefs
@@ -22,7 +21,6 @@ import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.utils.PrefsKey
-import io.github.ovso.globaltrend.view.MyAdView
 import io.github.ovso.globaltrend.view.base.DataBindingActivity
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
@@ -63,6 +61,7 @@ class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelec
     nav_view.setNavigationItemSelectedListener(this)
     replaceFragment()
 
+/*
     interstitialAd = MyAdView.getAdmobInterstitialAd(this)
     interstitialAd.adListener = object : AdListener() {
 
@@ -71,6 +70,7 @@ class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelec
         interstitialAd.show()
       }
     }
+*/
     loadAdaptiveBanner(ff_all_banner_container, getString(string.ads_banner_unit_id))
   }
 
