@@ -95,7 +95,6 @@ class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelec
       }
     }
 
-
   }
 
   private fun replaceFragment() {
