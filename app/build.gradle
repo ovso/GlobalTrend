@@ -29,6 +29,7 @@ android {
         versionName "${config.version_major}.${config.version_minor}.${config.version_patch}"
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        setProperty("archivesBaseName", "GlobalTrend_${versionCode}_$versionName")
     }
     buildTypes {
         debug {
