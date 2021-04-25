@@ -13,5 +13,4 @@ object MainActivityModule {
   fun provideMainRepository(): String {
     return "HelloWorld"
   }
-
 }
