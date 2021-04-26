@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
+import io.github.ovso.globaltrend.view.ui.dailytrend.ItemListDialogFragment
 import io.github.ovso.globaltrend.view.ui.web.WebActivity
 import io.github.ovso.globaltrend.view.ui.web.WebViewModel
 import kotlinx.android.extensions.LayoutContainer
@@ -57,6 +59,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
         .load(imageUrl)
         .into(imageview_item_thumb)
       itemView.setOnClickListener {
+/*
         with(AlertDialog.Builder(it.context)) {
           setItems(arrayOf("즐겨찾기", "검색하기")) { dialog, which ->
             dialog.dismiss()
@@ -72,6 +75,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
           }
           show()
         }
+*/
       }
     }
 

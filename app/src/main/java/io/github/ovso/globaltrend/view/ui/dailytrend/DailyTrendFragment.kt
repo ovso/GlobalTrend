@@ -37,9 +37,9 @@ class DailyTrendFragment : Fragment() {
   @Suppress("UNCHECKED_CAST")
   private fun provideViewModel(): DailyTrendViewModel {
     return ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>) =
-          DailyTrendViewModel(requireContext().applicationContext) as T
-      })
+      override fun <T : ViewModel?> create(modelClass: Class<T>) =
+        DailyTrendViewModel(requireContext().applicationContext) as T
+    })
       .get(DailyTrendViewModel::class.java)
   }
 
@@ -61,6 +61,10 @@ class DailyTrendFragment : Fragment() {
     setupRev()
     obRevListData()
     viewModel.fetchList()
+
+    ItemListDialogFragment
+      .newInstance(0)
+      .show(childFragmentManager, "ItemListDialogFragment")
   }
 
   private fun setupTitle() {
