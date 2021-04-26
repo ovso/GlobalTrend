@@ -12,13 +12,12 @@ import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
 import io.github.ovso.globaltrend.view.ui.web.WebActivity
-import io.github.ovso.globaltrend.view.ui.web.WebViewModel.RxBusWeb
+import io.github.ovso.globaltrend.view.ui.web.WebViewModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_trend.*
 import kotlinx.android.synthetic.main.item_trend.view.*
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
-import timber.log.Timber
 
 class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
   var elements: Elements? = null
@@ -59,16 +58,15 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
         .into(imageview_item_thumb)
       itemView.setOnClickListener {
         with(AlertDialog.Builder(it.context)) {
-          setSingleChoiceItems(arrayOf("즐겨찾기 추가", "검색하기"), 0) { dialog, which ->
+          setItems(arrayOf("즐겨찾기", "검색하기")) { dialog, which ->
             dialog.dismiss()
-            Timber.d("which: $which")
-            Toast.makeText(it.context, "which:$which", Toast.LENGTH_SHORT).show()
             when (which) {
-              -1 -> {
-                App.rxBus2.send(RxBusWeb(title, "https://google.com/search?q=$title"))
-                it.context.startActivity(Intent(it.context, WebActivity::class.java))
+              0 -> {
+                Toast.makeText(it.context, "즐겨찾기 추가", Toast.LENGTH_SHORT).show()
               }
               else -> {
+                App.rxBus2.send(WebViewModel.RxBusWeb(title, "https://google.com/search?q=$title"))
+                it.context.startActivity(Intent(it.context, WebActivity::class.java))
               }
             }
           }
