@@ -4,6 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.ovso.globaltrend.App
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.item_trend.*
 import kotlinx.android.synthetic.main.item_trend.view.*
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import timber.log.Timber
 
 class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
   var elements: Elements? = null
@@ -30,7 +33,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
     holder: MainViewHolder,
     position: Int
   ) {
-    holder.bind(elements!![position])
+    holder.onBindViewHolder(elements!![position])
     holder.itemView.textview_item_rank.text = "${position.inc()}"
   }
 
@@ -47,7 +50,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       }
     }
 
-    fun bind(element: Element) {
+    fun onBindViewHolder(element: Element) {
       this.element = element
       textview_item_title.text = title
       textview_item_traffic.text = traffic
@@ -55,8 +58,22 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
         .load(imageUrl)
         .into(imageview_item_thumb)
       itemView.setOnClickListener {
-        App.rxBus2.send(RxBusWeb(title, "https://google.com/search?q=$title"))
-        it.context.startActivity(Intent(it.context, WebActivity::class.java))
+        with(AlertDialog.Builder(it.context)) {
+          setSingleChoiceItems(arrayOf("즐겨찾기 추가", "검색하기"), 0) { dialog, which ->
+            dialog.dismiss()
+            Timber.d("which: $which")
+            Toast.makeText(it.context, "which:$which", Toast.LENGTH_SHORT).show()
+            when (which) {
+              -1 -> {
+                App.rxBus2.send(RxBusWeb(title, "https://google.com/search?q=$title"))
+                it.context.startActivity(Intent(it.context, WebActivity::class.java))
+              }
+              else -> {
+              }
+            }
+          }
+          show()
+        }
       }
     }
 
