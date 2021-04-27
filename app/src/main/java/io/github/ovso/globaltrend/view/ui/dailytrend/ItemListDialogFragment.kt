@@ -45,7 +45,9 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     activity?.findViewById<RecyclerView>(R.id.list)?.layoutManager = LinearLayoutManager(context)
     activity?.findViewById<RecyclerView>(R.id.list)?.adapter =
-      arguments?.getInt(ARG_ITEM_COUNT)?.let { ItemAdapter(it) }
+      arguments?.getInt(ARG_ITEM_COUNT)?.let {
+        ItemAdapter(it)
+      }
   }
 
   private inner class ViewHolder internal constructor(binding: FragmentItemListDialogListDialogItemBinding) :
@@ -54,7 +56,7 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
     internal val text: TextView = binding.text
   }
 
-  private inner class ItemAdapter internal constructor(private val mItemCount: Int) :
+  private inner class ItemAdapter(private val mItemCount: Int) :
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -70,11 +72,11 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      holder.text.text = position.toString()
+      holder.text.text = "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
     }
 
     override fun getItemCount(): Int {
-      return mItemCount
+      return 10
     }
   }
 
