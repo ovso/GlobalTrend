@@ -1,6 +1,7 @@
 package io.github.ovso.globaltrend.view.ui.main
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,10 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.navigation.NavigationView
-import com.pixplicity.easyprefs.library.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import de.psdev.licensesdialog.LicensesDialog
 import io.github.ovso.globaltrend.R
@@ -22,7 +20,6 @@ import io.github.ovso.globaltrend.R.string
 import io.github.ovso.globaltrend.databinding.ActivityMainBinding
 import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
 import io.github.ovso.globaltrend.utils.PrefsKey
-import io.github.ovso.globaltrend.view.MyAdView
 import io.github.ovso.globaltrend.view.base.DataBindingActivity
 import io.github.ovso.globaltrend.view.ui.country.CountryActivity
 import io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendFragment
@@ -30,22 +27,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_banner_container.*
 import timber.log.Timber
-import javax.inject.Inject
-import kotlin.coroutines.suspendCoroutine
 
 @AndroidEntryPoint
 class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelectedListener {
   private val viewModel: MainViewModel by viewModels()
   private val binding: ActivityMainBinding by binding(R.layout.activity_main)
 
-  @Inject
-  lateinit var analytics: String
-
-  private lateinit var interstitialAd: InterstitialAd
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    Timber.d("analytics = $analytics")
+
     binding.apply {
       lifecycleOwner = this@MainActivity
       viewModel = this@MainActivity.viewModel
@@ -64,23 +54,6 @@ class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelec
     nav_view.setNavigationItemSelectedListener(this)
     replaceFragment()
     loadAdaptiveBanner(ff_all_banner_container, getString(string.ads_banner_unit_id))
-  }
-
-  private suspend fun loadedAd() = suspendCoroutine<Boolean> {
-    interstitialAd = MyAdView.getAdmobInterstitialAd(this)
-    interstitialAd.adListener = object : AdListener() {
-
-      override fun onAdLoaded() {
-        super.onAdLoaded()
-        it.resumeWith(Result.success(true))
-      }
-
-      override fun onAdFailedToLoad(p0: Int) {
-        super.onAdFailedToLoad(p0)
-        it.resumeWith(Result.failure(Exception("Load fail")))
-      }
-    }
-
   }
 
   private fun replaceFragment() {
@@ -107,12 +80,16 @@ class MainActivity : DataBindingActivity(), NavigationView.OnNavigationItemSelec
   // Handle action bar item clicks here. The action bar will
   // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
+
     when (item.itemId) {
       id.action_countries -> {
         AlertDialog.Builder(this)
           .setSingleChoiceItems(
             R.array.country_names,
-            Prefs.getInt(PrefsKey.COUNTRY_INDEX.key, 0),
+            getSharedPreferences(
+              packageName,
+              Context.MODE_PRIVATE
+            ).getInt(PrefsKey.COUNTRY_INDEX.key, 0),
             viewModel.onDialogClickListener
           ).show()
         true

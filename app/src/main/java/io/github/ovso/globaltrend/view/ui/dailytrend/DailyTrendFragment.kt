@@ -1,72 +1,45 @@
 package io.github.ovso.globaltrend.view.ui.dailytrend
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentDailyTrendBinding
+import io.github.ovso.globaltrend.extension.viewBinding
 import io.github.ovso.globaltrend.view.adapter.MainAdapter
-import kotlinx.android.synthetic.main.fragment_daily_trend.*
 
-class DailyTrendFragment : Fragment() {
+@AndroidEntryPoint
+class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
+
+  private val binding by viewBinding(FragmentDailyTrendBinding::bind)
+  private val viewModel by viewModels<DailyTrendViewModel>()
   private val adapter: MainAdapter = MainAdapter()
 
-  companion object {
-    fun newInstance() = DailyTrendFragment()
-  }
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
 
-  private lateinit var viewModel: DailyTrendViewModel
-
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    val binding = inflateDataBinding(inflater, container)
-    viewModel = provideViewModel()
-    binding.viewModel = viewModel
-    return binding.root
-  }
-
-  @Suppress("UNCHECKED_CAST")
-  private fun provideViewModel(): DailyTrendViewModel {
-    return ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>) =
-        DailyTrendViewModel(requireContext().applicationContext) as T
-    })
-      .get(DailyTrendViewModel::class.java)
-  }
-
-  private fun inflateDataBinding(
-    inflater: LayoutInflater,
-    container: ViewGroup?
-  ): FragmentDailyTrendBinding {
-    return DataBindingUtil.inflate(
-      inflater,
-      R.layout.fragment_daily_trend,
-      container,
-      false
-    )
-  }
-
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
     setupTitle()
     setupRev()
     obRevListData()
     viewModel.fetchList()
 
-    ItemListDialogFragment
-      .newInstance(0)
+/*
+    ComboBoxDialogFragment
+      .newInstance()
       .show(childFragmentManager, "ItemListDialogFragment")
+*/
+
   }
 
+  /*
+        app:colorSchemeResources="@{viewModel.swipeLoadingColor}"
+      app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+      app:refreshing="@{viewModel.isLoading}"
+
+   */
   private fun setupTitle() {
     viewModel.titleLiveData.observe(viewLifecycleOwner, Observer {
       activity?.title = "$it ${getString(R.string.main_title_suffix)}"
@@ -81,6 +54,11 @@ class DailyTrendFragment : Fragment() {
   }
 
   private fun setupRev() {
-    recyclerview_daily_trend.adapter = adapter
+    binding.recyclerviewDailyTrend.adapter = adapter
   }
+
+  companion object {
+    fun newInstance() = DailyTrendFragment()
+  }
+
 }

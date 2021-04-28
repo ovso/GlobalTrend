@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-  <data>
-    <variable
-        name="viewModel"
-        type="io.github.ovso.globaltrend.view.ui.dailytrend.DailyTrendViewModel"
-        />
-  </data>
-  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-      android:id="@+id/refreshlayout_daily_trend"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:colorSchemeResources="@{viewModel.swipeLoadingColor}"
-      app:onRefreshListener="@{() -> viewModel.onRefresh()}"
-      app:refreshing="@{viewModel.isLoading}"
-      >
+    android:id="@+id/refreshlayout_daily_trend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_daily_trend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</layout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

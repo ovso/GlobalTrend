@@ -1,20 +1,12 @@
 package io.github.ovso.globaltrend.view.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
-import io.github.ovso.globaltrend.view.ui.dailytrend.ItemListDialogFragment
-import io.github.ovso.globaltrend.view.ui.web.WebActivity
-import io.github.ovso.globaltrend.view.ui.web.WebViewModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_trend.*
 import kotlinx.android.synthetic.main.item_trend.view.*
