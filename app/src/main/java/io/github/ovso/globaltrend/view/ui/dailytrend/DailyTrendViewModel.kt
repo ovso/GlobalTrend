@@ -3,7 +3,6 @@ package io.github.ovso.globaltrend.view.ui.dailytrend
 import android.content.SharedPreferences
 import android.util.Xml.Encoding
 import androidx.core.content.edit
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +18,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
@@ -35,7 +36,8 @@ class DailyTrendViewModel @Inject constructor(
   val elementsLiveData = MutableLiveData<Elements>()
   private var countryCode: String? = null
   private var countryIndex: Int = 0
-  val isLoading = ObservableBoolean()
+  private val _isLoadingFlow = MutableStateFlow(false)
+  val isLoadingFlow: StateFlow<Boolean> = _isLoadingFlow
   val titleLiveData = MutableLiveData<String>()
 
   init {
@@ -45,6 +47,7 @@ class DailyTrendViewModel @Inject constructor(
     titleLiveData.value = resourceProvider.getStringArray(R.array.country_names)[countryIndex]
     toRxBusObservable()
     setupInterstitialAd()
+    fetchList()
   }
 
   private fun setupInterstitialAd() {
@@ -79,12 +82,12 @@ class DailyTrendViewModel @Inject constructor(
     )
   }
 
-  private fun onRefresh() {
+  fun onRefresh() {
     fetchList()
   }
 
   fun fetchList() {
-    isLoading.set(true)
+    _isLoadingFlow.value = true
     addDisposable(
       Single.fromCallable {
         Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
@@ -98,10 +101,10 @@ class DailyTrendViewModel @Inject constructor(
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeBy(onError = {
           Timber.e(it)
-          isLoading.set(false)
+          _isLoadingFlow.value = false
         }, onSuccess = {
           elementsLiveData.value = it
-          isLoading.set(false)
+          _isLoadingFlow.value = false
         })
     )
   }

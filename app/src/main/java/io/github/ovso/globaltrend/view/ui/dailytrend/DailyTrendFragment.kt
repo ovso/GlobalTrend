@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentDailyTrendBinding
@@ -24,14 +25,20 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
     setupTitle()
     setupRev()
     obRevListData()
-    viewModel.fetchList()
-
+    setupRefresh()
 /*
     ComboBoxDialogFragment
       .newInstance()
       .show(childFragmentManager, "ItemListDialogFragment")
 */
 
+  }
+
+  private fun setupRefresh() {
+    binding.refreshlayoutDailyTrend.setColorSchemeResources(R.color.colorPrimary)
+    binding.refreshlayoutDailyTrend.setOnRefreshListener {
+      viewModel.onRefresh()
+    }
   }
 
   /*
@@ -47,10 +54,15 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
   }
 
   private fun obRevListData() {
-    viewModel.elementsLiveData.observe(viewLifecycleOwner, Observer {
+    val owner = viewLifecycleOwner
+    viewModel.elementsLiveData.observe(owner, {
       adapter.elements = it
       adapter.notifyDataSetChanged()
     })
+
+    viewModel.isLoadingFlow.asLiveData().observe(owner) {
+      binding.refreshlayoutDailyTrend.isRefreshing = it
+    }
   }
 
   private fun setupRev() {
