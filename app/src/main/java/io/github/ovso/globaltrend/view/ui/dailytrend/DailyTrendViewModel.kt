@@ -21,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
 import timber.log.Timber
@@ -121,5 +122,9 @@ class DailyTrendViewModel @Inject constructor(
   override fun onCleared() {
     super.onCleared()
     clearDisposable()
+  }
+
+  fun onItemClick(it: Element?) {
+    Timber.d("it: ${it.toString()}")
   }
 }

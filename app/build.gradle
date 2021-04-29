@@ -125,6 +125,7 @@ dependencies {
 
     implementation deps.glide.runtime
     kapt deps.glide.compiler
+    implementation("io.coil-kt:coil:1.2.1")
 
     implementation deps.retrofit.values()
     implementation deps.okhttp.values()

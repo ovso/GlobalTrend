@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.view.adapter.MainAdapter.MainViewHolder
 import kotlinx.android.extensions.LayoutContainer
@@ -15,6 +15,9 @@ import org.jsoup.select.Elements
 
 class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
   var elements: Elements? = null
+
+  var clickListener: ((Element?) -> Unit)? = null
+
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int
@@ -26,14 +29,17 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
     holder: MainViewHolder,
     position: Int
   ) {
-    holder.onBindViewHolder(elements!![position])
+    holder.onBindViewHolder(elements?.get(position))
     holder.itemView.textview_item_rank.text = "${position.inc()}"
+    holder.itemView.setOnClickListener {
+      clickListener?.invoke(elements?.get(position))
+    }
   }
 
   class MainViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(
     containerView!!
   ), LayoutContainer {
-    private lateinit var element: Element
+    private var element: Element? = null
 
     companion object {
       fun create(parent: ViewGroup): MainViewHolder {
@@ -43,13 +49,11 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       }
     }
 
-    fun onBindViewHolder(element: Element) {
+    fun onBindViewHolder(element: Element?) {
       this.element = element
       textview_item_title.text = title
       textview_item_traffic.text = traffic
-      Glide.with(imageview_item_thumb)
-        .load(imageUrl)
-        .into(imageview_item_thumb)
+      imageview_item_thumb.load(imageUrl)
       itemView.setOnClickListener {
 /*
         with(AlertDialog.Builder(it.context)) {
@@ -71,12 +75,12 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
       }
     }
 
-    private val imageUrl: String
-      get() = element.getElementsByTag("ht:picture").text()
-    private val title: String
-      get() = element.getElementsByTag("title").text()
-    private val traffic: String
-      get() = element.getElementsByTag("ht:approx_traffic").text()
+    private val imageUrl: String?
+      get() = element?.getElementsByTag("ht:picture")?.text()
+    private val title: String?
+      get() = element?.getElementsByTag("title")?.text()
+    private val traffic: String?
+      get() = element?.getElementsByTag("ht:approx_traffic")?.text()
   }
 
   class RxBusElement(val element: Element)

@@ -16,7 +16,11 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
 
   private val binding by viewBinding(FragmentDailyTrendBinding::bind)
   private val viewModel by viewModels<DailyTrendViewModel>()
-  private val adapter: MainAdapter = MainAdapter()
+  private val adapter: MainAdapter = MainAdapter().apply {
+    clickListener = {
+      viewModel.onItemClick(it)
+    }
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -34,9 +38,11 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
   }
 
   private fun setupRefresh() {
-    binding.refreshlayoutDailyTrend.setColorSchemeResources(R.color.colorPrimary)
-    binding.refreshlayoutDailyTrend.setOnRefreshListener {
-      viewModel.onRefresh()
+    with(binding.srlDailyTrend) {
+      setColorSchemeResources(R.color.colorPrimary)
+      setOnRefreshListener {
+        viewModel.onRefresh()
+      }
     }
   }
 
@@ -54,16 +60,16 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
     })
 
     viewModel.isLoadingFlow.asLiveData().observe(owner) {
-      binding.refreshlayoutDailyTrend.isRefreshing = it
+      binding.srlDailyTrend.isRefreshing = it
     }
   }
 
   private fun setupRev() {
-    binding.recyclerviewDailyTrend.adapter = adapter
+    binding.rvDailyTrend.adapter = adapter
   }
 
   companion object {
-    fun newInstance() = DailyTrendFragment()
+    fun newInstance(): DailyTrendFragment = DailyTrendFragment()
   }
 
 }
