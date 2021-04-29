@@ -38,13 +38,14 @@ class DailyTrendViewModel @Inject constructor(
   private var countryIndex: Int = 0
   private val _isLoadingFlow = MutableStateFlow(false)
   val isLoadingFlow: StateFlow<Boolean> = _isLoadingFlow
-  val titleLiveData = MutableLiveData<String>()
+  private val _titleStateFlow = MutableStateFlow("")
+  val titleStateFlow: StateFlow<String> = _titleStateFlow
 
   init {
     countryIndex = getCountryIndex()
     countryCode = resourceProvider.getStringArray(R.array.country_codes)[countryIndex]
     prefs.edit { putInt(PrefsKey.COUNTRY_INDEX.key, countryIndex) }
-    titleLiveData.value = resourceProvider.getStringArray(R.array.country_names)[countryIndex]
+    _titleStateFlow.value = resourceProvider.getStringArray(R.array.country_names)[countryIndex]
     toRxBusObservable()
     setupInterstitialAd()
     fetchList()
@@ -74,7 +75,7 @@ class DailyTrendViewModel @Inject constructor(
       App.rxBus.toObservable().subscribeBy {
         (it as? RxBusCountryIndex)?.let { o ->
           prefs.edit { putInt(PrefsKey.COUNTRY_INDEX.key, o.index) }
-          titleLiveData.value = resourceProvider.getStringArray(R.array.country_names)[o.index]
+          _titleStateFlow.value = resourceProvider.getStringArray(R.array.country_names)[o.index]
           countryCode = resourceProvider.getStringArray(R.array.country_codes)[o.index]
           onRefresh()
         }
@@ -86,7 +87,7 @@ class DailyTrendViewModel @Inject constructor(
     fetchList()
   }
 
-  fun fetchList() {
+  private fun fetchList() {
     _isLoadingFlow.value = true
     addDisposable(
       Single.fromCallable {

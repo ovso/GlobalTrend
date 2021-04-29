@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.ovso.globaltrend.R
@@ -41,16 +40,10 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
     }
   }
 
-  /*
-        app:colorSchemeResources="@{viewModel.swipeLoadingColor}"
-      app:onRefreshListener="@{() -> viewModel.onRefresh()}"
-      app:refreshing="@{viewModel.isLoading}"
-
-   */
   private fun setupTitle() {
-    viewModel.titleLiveData.observe(viewLifecycleOwner, Observer {
+    viewModel.titleStateFlow.asLiveData().observe(viewLifecycleOwner) {
       activity?.title = "$it ${getString(R.string.main_title_suffix)}"
-    })
+    }
   }
 
   private fun obRevListData() {
