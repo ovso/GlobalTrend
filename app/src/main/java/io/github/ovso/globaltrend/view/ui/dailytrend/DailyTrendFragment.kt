@@ -54,10 +54,12 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
 
   private fun obRevListData() {
     val owner = viewLifecycleOwner
-    viewModel.elementsLiveData.observe(owner, {
-      adapter.elements = it
-      adapter.notifyDataSetChanged()
-    })
+    viewModel.items.asLiveData().observe(owner) {
+      with(adapter) {
+        elements = it
+        notifyDataSetChanged()
+      }
+    }
 
     viewModel.isLoadingFlow.asLiveData().observe(owner) {
       binding.srlDailyTrend.isRefreshing = it

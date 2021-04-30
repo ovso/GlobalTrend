@@ -3,8 +3,8 @@ package io.github.ovso.globaltrend.view.ui.dailytrend
 import android.content.SharedPreferences
 import android.util.Xml.Encoding
 import androidx.core.content.edit
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.ovso.globaltrend.App
 import io.github.ovso.globaltrend.R
@@ -12,14 +12,13 @@ import io.github.ovso.globaltrend.utils.LocaleUtils
 import io.github.ovso.globaltrend.utils.PrefsKey
 import io.github.ovso.globaltrend.utils.ResourceProvider
 import io.github.ovso.globaltrend.view.ui.main.MainViewModel.RxBusCountryIndex
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
@@ -34,7 +33,8 @@ class DailyTrendViewModel @Inject constructor(
   private val prefs: SharedPreferences
 ) : ViewModel() {
   private val compositeDisposable = CompositeDisposable()
-  val elementsLiveData = MutableLiveData<Elements>()
+  private val _items = MutableStateFlow<Elements?>(null)
+  val items: StateFlow<Elements?> = _items
   private var countryCode: String? = null
   private var countryIndex: Int = 0
   private val _isLoadingFlow = MutableStateFlow(false)
@@ -48,11 +48,7 @@ class DailyTrendViewModel @Inject constructor(
     prefs.edit { putInt(PrefsKey.COUNTRY_INDEX.key, countryIndex) }
     _titleStateFlow.value = resourceProvider.getStringArray(R.array.country_names)[countryIndex]
     toRxBusObservable()
-    setupInterstitialAd()
     fetchList()
-  }
-
-  private fun setupInterstitialAd() {
   }
 
   private fun getCountryIndex(): Int {
@@ -90,25 +86,16 @@ class DailyTrendViewModel @Inject constructor(
 
   private fun fetchList() {
     _isLoadingFlow.value = true
-    addDisposable(
-      Single.fromCallable {
+    viewModelScope.launch(Dispatchers.IO) {
+      val document =
         Jsoup.connect("https://trends.google.co.kr/trends/trendingsearches/daily/rss")
           .data("geo", URLEncoder.encode(countryCode, Encoding.UTF_8.toString()))
           .parser(Parser.xmlParser())
           .timeout(1000 * 10)
           .get()
-      }.map {
-        it.getElementsByTag("item")
-      }.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeBy(onError = {
-          Timber.e(it)
-          _isLoadingFlow.value = false
-        }, onSuccess = {
-          elementsLiveData.value = it
-          _isLoadingFlow.value = false
-        })
-    )
+      _items.value = document.getElementsByTag("item")
+      _isLoadingFlow.value = false
+    }
   }
 
   private fun addDisposable(disposable: Disposable) {
