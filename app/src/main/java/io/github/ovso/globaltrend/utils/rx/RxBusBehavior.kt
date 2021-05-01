@@ -3,6 +3,7 @@ package io.github.ovso.globaltrend.utils.rx
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
+@Deprecated("")
 class RxBusBehavior {
   private val bus = BehaviorSubject.create<Any>()
 
