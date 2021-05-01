@@ -1,14 +1,14 @@
 <resources>
-  <string name="app_name">Global trend</string>
-  <string name="navigation_drawer_open">Open navigation drawer</string>
-  <string name="navigation_drawer_close">Close navigation drawer</string>
-  <string name="nav_header_desc">Navigation header</string>
-  <string name="action_countries">Select country</string>
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-  <string name="main_title_suffix">trend</string>
-  <string name="country_title">Trend by country</string>
-  <string name="nav_app_share">App share</string>
-  <string name="nav_review">Review write</string>
-  <string name="error_desc">A temporary error has occurred. Click on the screen to restart the app.</string>
-  <string name="all_opensource_license">Opensource license</string>
+    <string name="app_name">Global trend</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_countries">Select country</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_title_suffix">trend</string>
+    <string name="country_title">Trend by country</string>
+    <string name="nav_app_share">App share</string>
+    <string name="nav_review">Review write</string>
+    <string name="error_desc">A temporary error has occurred. Click on the screen to restart the app.</string>
+    <string name="all_opensource_license">Opensource license</string>
 </resources>

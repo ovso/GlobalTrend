@@ -10,6 +10,8 @@ import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentDailyTrendBinding
 import io.github.ovso.globaltrend.extension.viewBinding
 import io.github.ovso.globaltrend.view.adapter.MainAdapter
+import io.github.ovso.globaltrend.view.ui.combobox.ComboBoxDialogFragment
+import org.jsoup.nodes.Element
 
 @AndroidEntryPoint
 class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
@@ -17,9 +19,11 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
   private val binding by viewBinding(FragmentDailyTrendBinding::bind)
   private val viewModel by viewModels<DailyTrendViewModel>()
   private val adapter: MainAdapter = MainAdapter().apply {
-    clickListener = {
-      viewModel.onItemClick(it)
-    }
+    clickListener = onItemClickListener
+  }
+
+  private val onItemClickListener:((Element?) -> Unit) = {
+    viewModel.onItemClick(it)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,11 +33,6 @@ class DailyTrendFragment : Fragment(R.layout.fragment_daily_trend) {
     setupRev()
     obRevListData()
     setupRefresh()
-/*
-    ComboBoxDialogFragment
-      .newInstance()
-      .show(childFragmentManager, "ItemListDialogFragment")
-*/
 
   }
 

@@ -2,6 +2,7 @@ package io.github.ovso.globaltrend.utils
 
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import org.jsoup.nodes.Element
 
 object RxBus {
 
@@ -17,4 +18,5 @@ object RxBus {
 }
 
 object RxBusEvent {
+  data class OnTrendItemClick(val item: Element?)
 }

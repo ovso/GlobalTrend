@@ -4,17 +4,13 @@ import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
 object RxBusBehavior {
-  private val bus = BehaviorSubject.create<Any>()
+  private val publisher = BehaviorSubject.create<Any>()
 
-  fun send(o: Any) {
-    bus.onNext(o)
+  fun publish(event: Any) {
+    publisher.onNext(event)
   }
 
-  fun toObservable(): Observable<Any> {
-    return bus
-  }
-
-  fun hasObservable(): Boolean {
-    return bus.hasObservers()
-  }
+  // Listen should return an Observable and not the publisher
+  // Using ofType we filter only events that match that class type
+  fun <T> listen(eventType: Class<T>): Observable<T> = publisher.ofType(eventType)
 }
