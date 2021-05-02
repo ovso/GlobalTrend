@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jsoup.select.Elements
 import timber.log.Timber
 
 class TrendDetailViewModel : ViewModel() {
@@ -17,6 +18,9 @@ class TrendDetailViewModel : ViewModel() {
   val thumb: StateFlow<String> = _thumb
   private val _desc = MutableStateFlow("")
   val desc: StateFlow<String> = _desc
+
+  private val _items = MutableStateFlow<Elements?>(null)
+  val items: StateFlow<Elements?> = MutableStateFlow<Elements?>(null)
 
   init {
     observe()
@@ -34,14 +38,14 @@ class TrendDetailViewModel : ViewModel() {
         Logger.d(first?.getElementsByTag("ht:news_item_snippet"))
         Logger.d(first?.getElementsByTag("news_item_url"))
         Logger.d(first?.getElementsByTag("ht:news_item_source"))
-
+        _items.value = it.item?.getElementsByTag("ht:news_item")
 /*
         this.imageviewItemThumb.load(item?.getElementsByTag("ht:picture")?.text())
         this.textviewItemTitle.text = item?.getElementsByTag("title")?.text()
         this.textviewItemTraffic.text = item?.getElementsByTag("ht:approx_traffic")?.text()
 */
-      _thumb.value = it.item?.getElementsByTag("ht:picture")?.text() ?: ""
-      _desc.value = first?.getElementsByTag("ht:news_item_snippet")?.text() ?: ""
+        _thumb.value = it.item?.getElementsByTag("ht:picture")?.text() ?: ""
+        _desc.value = first?.getElementsByTag("ht:news_item_snippet")?.text() ?: ""
 
       }.addTo(compositeDisposable)
   }

@@ -4,20 +4,32 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.orhanobut.logger.Logger
 import io.github.ovso.globaltrend.databinding.ActivityTrendDetailBinding
 import io.github.ovso.globaltrend.view.base.viewBinding
 import org.jsoup.nodes.Element
+import javax.inject.Inject
 
 class TrendDetailActivity : AppCompatActivity() {
   private val binding by viewBinding(ActivityTrendDetailBinding::inflate)
   private val viewModel by viewModels<TrendDetailViewModel>()
 
+  @Inject
+  lateinit var adapter: TrendDetailAdapter
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setupOb()
+    setupRv()
+  }
+
+  private fun setupRv() {
+    with(binding.rvTrendDetail) {
+      adapter = this@TrendDetailActivity.adapter
+    }
   }
 
   private fun setupOb() {
@@ -27,6 +39,9 @@ class TrendDetailActivity : AppCompatActivity() {
     }
     viewModel.desc.asLiveData().observe(owner) {
       binding.tvTrendDetailDesc.text = it
+    }
+    viewModel.items.asLiveData().observe(owner) {
+      adapter.submitList(it)
     }
   }
 
