@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.ovso.globaltrend.databinding.ActivityTrendDetailBinding
 import io.github.ovso.globaltrend.view.base.viewBinding
 import org.jsoup.nodes.Element
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TrendDetailActivity : AppCompatActivity() {
   private val binding by viewBinding(ActivityTrendDetailBinding::inflate)
   private val viewModel by viewModels<TrendDetailViewModel>()
@@ -41,7 +42,7 @@ class TrendDetailActivity : AppCompatActivity() {
       binding.tvTrendDetailDesc.text = it
     }
     viewModel.items.asLiveData().observe(owner) {
-      adapter.submitList(it)
+      if (it.isNullOrEmpty().not()) adapter.submitList(it)
     }
   }
 

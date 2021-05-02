@@ -2,10 +2,12 @@ package io.github.ovso.globaltrend.view.ui.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.globaltrend.databinding.ItemTrendDetailBinding
+import io.github.ovso.globaltrend.extension.toHtml
 import org.jsoup.nodes.Element
 import javax.inject.Inject
 
@@ -25,8 +27,16 @@ class TrendDetailAdapter @Inject constructor() :
     RecyclerView.ViewHolder(binding.root) {
 
     fun onBindViewHolder(item: Element) {
-      binding.tvTrendDetailDesc.text = "ddd"
-      binding.tvTrendDetailSource.text = "한겨레"
+      binding.tvTrendDetailDesc.text =
+        item.getElementsByTag("ht:news_item_snippet")?.text().toHtml()
+      binding.tvTrendDetailSource.text = item.getElementsByTag("ht:news_item_source")?.text()
+      itemView.setOnClickListener {
+        Toast.makeText(
+          it.context,
+          item.getElementsByTag("ht:news_item_url")?.text(),
+          Toast.LENGTH_SHORT
+        ).show()
+      }
     }
 
     companion object {
