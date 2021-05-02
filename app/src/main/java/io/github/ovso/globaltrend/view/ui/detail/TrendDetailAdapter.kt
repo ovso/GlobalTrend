@@ -18,21 +18,32 @@ import javax.inject.Inject
 class TrendDetailFooterAdapter @Inject constructor() :
   RecyclerView.Adapter<TrendDetailFooterAdapter.TrendDetailFooterViewHolder>() {
 
+  var keyword: String? = null
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendDetailFooterViewHolder {
     return TrendDetailFooterViewHolder.create(parent)
   }
 
   override fun onBindViewHolder(holder: TrendDetailFooterViewHolder, position: Int) {
     holder.onBindViewHolder()
+    holder.keyword = keyword
   }
 
   override fun getItemCount(): Int = 1
 
   class TrendDetailFooterViewHolder private constructor(private val binding: ItemTrendDetailFooterBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
+    var keyword: String? = null
     fun onBindViewHolder() {
-      binding.root
+      binding.ivTrendDetailItemGoogle.setOnClickListener {
+
+      }
+      binding.ivTrendDetailItemDaum.setOnClickListener {
+
+      }
+      binding.ivTrendDetailItemNaver.setOnClickListener {
+
+      }
     }
 
     companion object {

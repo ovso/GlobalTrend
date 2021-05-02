@@ -62,6 +62,10 @@ class TrendDetailActivity : AppCompatActivity() {
     }
     viewModel.title.asLiveData().observe(owner) {
       title = it.toHtml()
+      footerAdapter.apply {
+        keyword = it
+        notifyDataSetChanged()
+      }
     }
   }
 }
