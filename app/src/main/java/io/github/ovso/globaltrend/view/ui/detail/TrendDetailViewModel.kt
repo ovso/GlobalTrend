@@ -22,6 +22,9 @@ class TrendDetailViewModel : ViewModel() {
   private val _items = MutableStateFlow<Elements?>(null)
   val items: StateFlow<Elements?> = _items
 
+  private val _title = MutableStateFlow<String?>(null)
+  val title:StateFlow<String?> = _title
+
   init {
     observe()
   }
@@ -38,6 +41,7 @@ class TrendDetailViewModel : ViewModel() {
         Logger.d(first?.getElementsByTag("ht:news_item_snippet"))
         Logger.d(first?.getElementsByTag("news_item_url"))
         Logger.d(first?.getElementsByTag("ht:news_item_source"))
+        _title.value = it.item?.getElementsByTag("title")?.text()
         _thumb.value = it.item?.getElementsByTag("ht:picture")?.text() ?: ""
         _items.value = it.item?.getElementsByTag("ht:news_item")
 /*

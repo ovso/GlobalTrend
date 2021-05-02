@@ -1,6 +1,7 @@
 package io.github.ovso.globaltrend.view.ui.detail
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
@@ -23,6 +24,7 @@ class TrendDetailActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
     setupOb()
     setupRv()
   }
@@ -33,16 +35,24 @@ class TrendDetailActivity : AppCompatActivity() {
     }
   }
 
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    finish()
+    return super.onOptionsItemSelected(item)
+  }
+
   private fun setupOb() {
     val owner = this
     viewModel.thumb.asLiveData().observe(owner) {
-      binding.ivTrendDetailThumb.load(it)
+      binding.ivTrendDetail.load(it)
     }
     viewModel.desc.asLiveData().observe(owner) {
       binding.tvTrendDetailDesc.text = it
     }
     viewModel.items.asLiveData().observe(owner) {
       if (it.isNullOrEmpty().not()) adapter.submitList(it)
+    }
+    viewModel.title.asLiveData().observe(owner) {
+      title = it
     }
   }
 

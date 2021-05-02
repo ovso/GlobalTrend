@@ -67,7 +67,6 @@
         <activity
             android:name=".view.ui.detail.TrendDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
 
     </application>
