@@ -121,6 +121,8 @@ dependencies {
 
     implementation 'com.orhanobut:logger:2.2.0'
 
+    implementation 'com.google.android:flexbox:2.0.1'
+
     implementation deps.jsoup
     implementation deps.easydeviceinfo
     implementation deps.licensedialog

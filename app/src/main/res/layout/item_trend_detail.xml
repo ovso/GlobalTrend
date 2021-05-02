@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/tv_trend_detail_desc"

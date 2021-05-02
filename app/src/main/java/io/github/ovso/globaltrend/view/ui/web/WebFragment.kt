@@ -7,6 +7,7 @@ import androidx.lifecycle.observe
 import io.github.ovso.globaltrend.R
 import io.github.ovso.globaltrend.databinding.FragmentWebBinding
 import io.github.ovso.globaltrend.extension.loadAdaptiveBanner
+import io.github.ovso.globaltrend.extension.toHtml
 import io.github.ovso.globaltrend.view.base.DataBindingFragment
 import kotlinx.android.synthetic.main.fragment_web.*
 
@@ -64,7 +65,7 @@ class WebFragment :
     val viewModel = binding.viewModel!!
     val owner = viewLifecycleOwner
     viewModel.titleLiveData.observe(owner) {
-      activity?.title = it
+      activity?.title = it.toHtml()
     }
   }
 

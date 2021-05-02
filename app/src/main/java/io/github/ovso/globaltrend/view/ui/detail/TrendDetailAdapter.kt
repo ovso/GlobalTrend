@@ -3,16 +3,18 @@ package io.github.ovso.globaltrend.view.ui.detail
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.globaltrend.databinding.ItemTrendDetailBinding
-import io.github.ovso.globaltrend.databinding.ItemTrendDetailFooterBinding
+import io.github.ovso.globaltrend.databinding.ItemTrendDetailFooter2Binding
 import io.github.ovso.globaltrend.extension.toHtml
 import io.github.ovso.globaltrend.utils.RxBusBehavior
 import io.github.ovso.globaltrend.view.ui.web.WebActivity
 import io.github.ovso.globaltrend.view.ui.web.WebViewModel
 import org.jsoup.nodes.Element
+import java.util.*
 import javax.inject.Inject
 
 class TrendDetailFooterAdapter @Inject constructor() :
@@ -31,25 +33,83 @@ class TrendDetailFooterAdapter @Inject constructor() :
 
   override fun getItemCount(): Int = 1
 
-  class TrendDetailFooterViewHolder private constructor(private val binding: ItemTrendDetailFooterBinding) :
+  class TrendDetailFooterViewHolder private constructor(private val binding: ItemTrendDetailFooter2Binding) :
     RecyclerView.ViewHolder(binding.root) {
     var keyword: String? = null
     fun onBindViewHolder() {
+      for (x in 0 until binding.root.childCount) {
+        binding.root.getChildAt(x).setOnClickListener {
+          (it as? TextView)?.text?.toString()?.let { site ->
+            when (site.toLowerCase(Locale.getDefault())) {
+              "Google".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://google.com/search?q=",
+                keyword = keyword
+              )
+              "Daum".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://search.daum.net/search?q=",
+                keyword = keyword
+              )
+              "Naver".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://search.naver.com/search.naver?query=",
+                keyword = keyword
+              )
+              "Zum".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://search.zum.com/search.zum?query=",
+                keyword = keyword
+              )
+              "YouTube".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://www.youtube.com/results?search_query=",
+                keyword = keyword
+              )
+              else -> {
+              }
+            }
+          }
+        }
+      }
+/*
       binding.ivTrendDetailItemGoogle.setOnClickListener {
+        navigateToWeb(
+          url = "https://google.com/search?q=",
+          keyword = keyword
+        )
 
       }
       binding.ivTrendDetailItemDaum.setOnClickListener {
-
+        navigateToWeb(
+          url = "https://search.daum.net/search?q=",
+          keyword = keyword
+        )
       }
       binding.ivTrendDetailItemNaver.setOnClickListener {
-
+        navigateToWeb(
+          url = "https://search.naver.com/search.naver?query=",
+          keyword = keyword
+        )
       }
+      binding.ivTrendDetailItemYoutube.setOnClickListener {
+        navigateToWeb(
+          url = "https://www.youtube.com/results?search_query=",
+          keyword = keyword
+        )
+      }
+*/
+    }
+
+    private fun navigateToWeb(url: String, keyword: String?) {
+      RxBusBehavior.publish(
+        WebViewModel.RxBusWeb(
+          keyword,
+          "$url$keyword"
+        )
+      )
+      itemView.context.startActivity(Intent(itemView.context, WebActivity::class.java))
     }
 
     companion object {
       fun create(parent: ViewGroup): TrendDetailFooterViewHolder {
         return TrendDetailFooterViewHolder(
-          ItemTrendDetailFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+          ItemTrendDetailFooter2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
       }
     }

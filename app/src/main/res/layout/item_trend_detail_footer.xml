@@ -5,25 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal">
-
+    android:orientation="horizontal"
+    android:paddingTop="50dp">
 
     <ImageView
         android:id="@+id/iv_trend_detail_item_google"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:foreground="?attr/selectableItemBackground"
         android:src="@drawable/logo_google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_trend_detail_item_daum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/iv_trend_detail_item_daum"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:foreground="?attr/selectableItemBackground"
         android:src="@drawable/logo_daum"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_trend_detail_item_naver"
@@ -33,12 +34,25 @@
 
     <ImageView
         android:id="@+id/iv_trend_detail_item_naver"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:foreground="?attr/selectableItemBackground"
         android:src="@drawable/logo_naver"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_trend_detail_item_youtube"
         app:layout_constraintStart_toEndOf="@id/iv_trend_detail_item_daum"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/iv_trend_detail_item_youtube"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/logo_youtube"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_trend_detail_item_naver"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
