@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="Google"
         android:textSize="18sp"
-        app:layout_flexBasisPercent="25%"
+        app:layout_flexBasisPercent="33.3%"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:text="Daum"
         android:textSize="18sp"
         app:layout_alignSelf="center"
-        app:layout_flexBasisPercent="25%"
+        app:layout_flexBasisPercent="33.3%"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -37,7 +37,7 @@
         android:text="Naver"
         android:textSize="18sp"
         app:layout_alignSelf="flex_end"
-        app:layout_flexBasisPercent="25%"
+        app:layout_flexBasisPercent="33.3%"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:text="Zum"
         android:textSize="18sp"
         app:layout_alignSelf="auto"
-        app:layout_flexBasisPercent="25%"
+        app:layout_flexBasisPercent="50%"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -59,6 +59,6 @@
         android:text="YouTube"
         android:textSize="18sp"
         app:layout_alignSelf="auto"
-        app:layout_flexBasisPercent="25%"
+        app:layout_flexBasisPercent="50%"
         tools:ignore="HardcodedText" />
 </com.google.android.flexbox.FlexboxLayout>
