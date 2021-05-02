@@ -5,12 +5,15 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.orhanobut.logger.Logger
+import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.ovso.globaltrend.databinding.ActivityTrendDetailBinding
+import io.github.ovso.globaltrend.extension.toHtml
 import io.github.ovso.globaltrend.view.base.viewBinding
-import org.jsoup.nodes.Element
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -19,19 +22,23 @@ class TrendDetailActivity : AppCompatActivity() {
   private val viewModel by viewModels<TrendDetailViewModel>()
 
   @Inject
-  lateinit var adapter: TrendDetailAdapter
+  lateinit var itemsAdapter: TrendDetailAdapter
+
+  @Inject
+  lateinit var footerAdapter: TrendDetailFooterAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    setupOb()
     setupRv()
+    setupOb()
   }
 
   private fun setupRv() {
     with(binding.rvTrendDetail) {
-      adapter = this@TrendDetailActivity.adapter
+      addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
+      adapter = ConcatAdapter(itemsAdapter, footerAdapter)
     }
   }
 
@@ -43,46 +50,18 @@ class TrendDetailActivity : AppCompatActivity() {
   private fun setupOb() {
     val owner = this
     viewModel.thumb.asLiveData().observe(owner) {
-      binding.ivTrendDetail.load(it)
-    }
-    viewModel.desc.asLiveData().observe(owner) {
-      binding.tvTrendDetailDesc.text = it
+      binding.ivTrendDetail.load(it) {
+        transformations(RoundedCornersTransformation(10f))
+      }
     }
     viewModel.items.asLiveData().observe(owner) {
-      if (it.isNullOrEmpty().not()) adapter.submitList(it)
+      if (it.isNullOrEmpty().not()) {
+        itemsAdapter.submitList(it)
+        footerAdapter.notifyDataSetChanged()
+      }
     }
     viewModel.title.asLiveData().observe(owner) {
-      title = it
+      title = it.toHtml()
     }
-  }
-
-  private fun setupItem(item: Element?) {
-/*
-    with(binding.includeTrendDetailItem) {
-      textviewItemRank.text = "1"
-      this.imageviewItemThumb.load(item?.getElementsByTag("ht:picture")?.text())
-      this.textviewItemTitle.text = item?.getElementsByTag("title")?.text()
-      this.textviewItemTraffic.text = item?.getElementsByTag("ht:approx_traffic")?.text()
-    }
-*/
-//    binding.tvTrendDetailItemDesc.text = item?.getElementsByTag("ht:news_item")?
-    val elementsByTag = item?.getElementsByTag("ht:news_item")
-    Logger.d("elementsByTag: ${elementsByTag?.first()}")
-
-    val sb = StringBuilder().apply {
-      append(item?.getElementsByTag("pubDate")?.text())
-      append(
-        item?.getElementsByTag("ht:news_item")?.first()?.getElementsByTag("ht:news_item_snippet")
-          ?.text()
-      )
-
-    }
-
-    Logger.d("sb: $sb")
-
-    //ht:news_item_title
-    //ht:news_item_snippet // description
-    //ht:news_item_url     // 출처웹주소.\ㅋ
-    //ht:news_item_source // 출처
   }
 }

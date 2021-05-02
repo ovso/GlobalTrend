@@ -1,7 +1,6 @@
 package io.github.ovso.globaltrend.view.ui.detail
 
 import androidx.lifecycle.ViewModel
-import com.orhanobut.logger.Logger
 import io.github.ovso.globaltrend.utils.RxBusBehavior
 import io.github.ovso.globaltrend.utils.RxBusEvent
 import io.reactivex.disposables.CompositeDisposable
@@ -16,14 +15,12 @@ class TrendDetailViewModel : ViewModel() {
 
   private val _thumb = MutableStateFlow<String?>(null)
   val thumb: StateFlow<String?> = _thumb
-  private val _desc = MutableStateFlow<String?>(null)
-  val desc: StateFlow<String?> = _desc
 
   private val _items = MutableStateFlow<Elements?>(null)
   val items: StateFlow<Elements?> = _items
 
   private val _title = MutableStateFlow<String?>(null)
-  val title:StateFlow<String?> = _title
+  val title: StateFlow<String?> = _title
 
   init {
     observe()
@@ -33,24 +30,9 @@ class TrendDetailViewModel : ViewModel() {
     RxBusBehavior.listen(RxBusEvent.OnTrendItemClick::class.java)
       .subscribe {
         Timber.d(it.toString())
-//        setupItem(it.item)
-        val items = it.item?.getElementsByTag("ht:news_item")
-        Logger.d("elementsByTag: ${items?.first()}")
-        val first = items?.first()
-        Logger.d(first?.getElementsByTag("ht:news_item_title"))
-        Logger.d(first?.getElementsByTag("ht:news_item_snippet"))
-        Logger.d(first?.getElementsByTag("news_item_url"))
-        Logger.d(first?.getElementsByTag("ht:news_item_source"))
         _title.value = it.item?.getElementsByTag("title")?.text()
-        _thumb.value = it.item?.getElementsByTag("ht:picture")?.text() ?: ""
         _items.value = it.item?.getElementsByTag("ht:news_item")
-/*
-        this.imageviewItemThumb.load(item?.getElementsByTag("ht:picture")?.text())
-        this.textviewItemTitle.text = item?.getElementsByTag("title")?.text()
-        this.textviewItemTraffic.text = item?.getElementsByTag("ht:approx_traffic")?.text()
-*/
         _thumb.value = it.item?.getElementsByTag("ht:picture")?.text()
-        _desc.value = first?.getElementsByTag("ht:news_item_snippet")?.text()
 
       }.addTo(compositeDisposable)
   }

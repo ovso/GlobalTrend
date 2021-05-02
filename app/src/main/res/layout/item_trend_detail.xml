@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:foreground="?attr/selectableItemBackground"
-    >
+    android:background="?attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/tv_trend_detail_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:textSize="22sp"
+        android:includeFontPadding="false"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,9 +22,11 @@
         android:id="@+id/tv_trend_detail_source"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:gravity="end"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_trend_detail_desc"
-        tools:text="매일경제" />
+        tools:text="- 매일경제 -" />
 </androidx.constraintlayout.widget.ConstraintLayout>

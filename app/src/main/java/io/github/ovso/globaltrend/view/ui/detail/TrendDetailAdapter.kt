@@ -1,15 +1,51 @@
 package io.github.ovso.globaltrend.view.ui.detail
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.globaltrend.databinding.ItemTrendDetailBinding
+import io.github.ovso.globaltrend.databinding.ItemTrendDetailFooterBinding
 import io.github.ovso.globaltrend.extension.toHtml
+import io.github.ovso.globaltrend.utils.RxBusBehavior
+import io.github.ovso.globaltrend.view.ui.web.WebActivity
+import io.github.ovso.globaltrend.view.ui.web.WebViewModel
 import org.jsoup.nodes.Element
 import javax.inject.Inject
+
+class TrendDetailFooterAdapter @Inject constructor() :
+  RecyclerView.Adapter<TrendDetailFooterAdapter.TrendDetailFooterViewHolder>() {
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendDetailFooterViewHolder {
+    return TrendDetailFooterViewHolder.create(parent)
+  }
+
+  override fun onBindViewHolder(holder: TrendDetailFooterViewHolder, position: Int) {
+    holder.onBindViewHolder()
+  }
+
+  override fun getItemCount(): Int = 1
+
+  class TrendDetailFooterViewHolder private constructor(private val binding: ItemTrendDetailFooterBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun onBindViewHolder() {
+      binding.root
+    }
+
+    companion object {
+      fun create(parent: ViewGroup): TrendDetailFooterViewHolder {
+        return TrendDetailFooterViewHolder(
+          ItemTrendDetailFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
+      }
+    }
+
+  }
+
+}
 
 class TrendDetailAdapter @Inject constructor() :
   ListAdapter<Element, TrendDetailAdapter.TrendDetailViewHolder>(DIFF_UTIL) {
@@ -23,7 +59,7 @@ class TrendDetailAdapter @Inject constructor() :
   }
 
 
-  class TrendDetailViewHolder(private val binding: ItemTrendDetailBinding) :
+  class TrendDetailViewHolder private constructor(private val binding: ItemTrendDetailBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun onBindViewHolder(item: Element) {
@@ -31,11 +67,15 @@ class TrendDetailAdapter @Inject constructor() :
         item.getElementsByTag("ht:news_item_snippet")?.text().toHtml()
       binding.tvTrendDetailSource.text = item.getElementsByTag("ht:news_item_source")?.text()
       itemView.setOnClickListener {
-        Toast.makeText(
-          it.context,
-          item.getElementsByTag("ht:news_item_url")?.text(),
-          Toast.LENGTH_SHORT
-        ).show()
+        RxBusBehavior.publish(
+          WebViewModel.RxBusWeb(
+            title = item.getElementsByTag("ht:news_item_title")?.text(),
+            url = item.getElementsByTag("ht:news_item_url")?.text(),
+          )
+        )
+        Intent(it.context, WebActivity::class.java).apply {
+          it.context.startActivity(this)
+        }
       }
     }
 
