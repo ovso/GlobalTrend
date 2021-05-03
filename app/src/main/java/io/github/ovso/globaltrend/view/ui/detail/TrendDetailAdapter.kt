@@ -61,6 +61,14 @@ class TrendDetailFooterAdapter @Inject constructor() :
                 url = "https://www.youtube.com/results?search_query=",
                 keyword = keyword
               )
+              "Yahoo".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://search.yahoo.com/search?p=",
+                keyword = keyword
+              )
+              "Bing".toLowerCase(Locale.getDefault()) -> navigateToWeb(
+                url = "https://www.bing.com/search?q=",
+                keyword = keyword
+              )
               else -> {
               }
             }

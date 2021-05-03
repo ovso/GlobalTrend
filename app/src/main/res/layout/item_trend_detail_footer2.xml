@@ -48,7 +48,29 @@
         android:text="Zum"
         android:textSize="18sp"
         app:layout_alignSelf="auto"
-        app:layout_flexBasisPercent="50%"
+        app:layout_flexBasisPercent="25%"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Bing"
+        android:textSize="18sp"
+        app:layout_alignSelf="auto"
+        app:layout_flexBasisPercent="25%"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Yahoo"
+        android:textSize="18sp"
+        app:layout_alignSelf="auto"
+        app:layout_flexBasisPercent="25%"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -59,6 +81,6 @@
         android:text="YouTube"
         android:textSize="18sp"
         app:layout_alignSelf="auto"
-        app:layout_flexBasisPercent="50%"
+        app:layout_flexBasisPercent="25%"
         tools:ignore="HardcodedText" />
 </com.google.android.flexbox.FlexboxLayout>
