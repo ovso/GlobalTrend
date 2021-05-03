@@ -9,6 +9,11 @@ apply from: '../scripts/ktlint.gradle'
 def keystorePropertiesFile = rootProject.file("../jks/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+def configFile = rootProject.file("properties/config_debug.properties")
+def configProperties = new Properties()
+configProperties.load(new FileInputStream(configFile))
+
 android {
 
     signingConfigs {
@@ -31,12 +36,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "GlobalTrend_${versionCode}_$versionName")
     }
+    println(configProperties["admob_opening_unit_id"].toString())
     buildTypes {
         debug {
             minifyEnabled false
             resValue("string", "ads_app_id", "ca-app-pub-3940256099942544~3347511713")
             resValue("string", "ads_banner_unit_id", "ca-app-pub-3940256099942544/6300978111")
             resValue("string", "ads_interstitial_id", "ca-app-pub-3940256099942544/1033173712")
+            buildConfigField("String", "ADS_OPENING_UNIT_ID", configProperties["admob_opening_unit_id"].toString())
         }
         release {
 
@@ -122,6 +129,17 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
 
     implementation 'com.google.android:flexbox:2.0.1'
+
+    // 라이프사이클 추적에 필요한 기본 라이브러리를 추가합니다.
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+    // 애플리케이션 프로세스 라이프사이클 추적용 라이브러리르 추가합니다.
+    implementation 'androidx.lifecycle:lifecycle-process:2.3.1'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
+    // 라이프사이클 추적용 어노테이션을 처리하는 어노테이션 프로세서를 추가합니다.
+
+    implementation "com.google.android.gms:play-services-ads:20.1.0"
 
     implementation deps.jsoup
     implementation deps.easydeviceinfo
