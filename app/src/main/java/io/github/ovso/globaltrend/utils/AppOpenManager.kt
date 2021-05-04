@@ -48,7 +48,6 @@ class AppOpenManager(app: Application) {
     val request: AdRequest = adRequest
     AppOpenAd.load(
       application,
-//      Keys.ADMOB_APP_OPENING.value,
       BuildConfig.ADS_OPENING_UNIT_ID,
       request,
       AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
