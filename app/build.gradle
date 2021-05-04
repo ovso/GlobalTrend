@@ -14,6 +14,13 @@ def configFile = rootProject.file("properties/config_debug.properties")
 def configProperties = new Properties()
 configProperties.load(new FileInputStream(configFile))
 
+String getAdsUnitId(String key, String buildType) {
+    File file = rootProject.file("properties/config_${buildType}.properties")
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(file))
+    return properties[key].toString()
+}
+
 android {
 
     signingConfigs {
@@ -25,6 +32,8 @@ android {
         }
     }
 
+    println(getAdsUnitId("ads_opening_unit_id", "debug"))
+    println(getAdsUnitId("ads_opening_unit_id", "release"))
     compileSdkVersion config.compile_sdk
     defaultConfig {
         applicationId config.app_id
@@ -36,7 +45,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "GlobalTrend_${versionCode}_$versionName")
     }
-    println(configProperties["admob_opening_unit_id"].toString())
     buildTypes {
         debug {
             minifyEnabled false
