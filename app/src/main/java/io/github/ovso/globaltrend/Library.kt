@@ -15,7 +15,9 @@ object Library {
   }
 
   private fun ads(context: Context) {
-    MobileAds.initialize(context, context.getString(R.string.ads_app_id))
+    MobileAds.initialize(context) {
+
+    }
   }
 
   private fun timber() {

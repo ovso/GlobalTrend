@@ -51,6 +51,7 @@ android {
             resValue("string", "ads_app_id", "ca-app-pub-3940256099942544~3347511713")
             resValue("string", "ads_banner_unit_id", "ca-app-pub-3940256099942544/6300978111")
             resValue("string", "ads_interstitial_id", "ca-app-pub-3940256099942544/1033173712")
+//            resValue("string", "ads_opening_unit_id", getAdsUnitId("ads_opening_unit_id", "debug"))
             buildConfigField("String", "ADS_OPENING_UNIT_ID", getAdsUnitId("ads_opening_unit_id", "debug"))
         }
         release {
@@ -67,6 +68,7 @@ android {
             resValue("string", "ads_app_id", "ca-app-pub-8679189423397017~8521853317")
             resValue("string", "ads_banner_unit_id", "ca-app-pub-8679189423397017/1841551438")
             resValue("string", "ads_interstitial_id", "ca-app-pub-8679189423397017/9803145397")
+//            resValue("string", "ads_opening_unit_id", getAdsUnitId("ads_opening_unit_id", "release"))
             buildConfigField("String", "ADS_OPENING_UNIT_ID", getAdsUnitId("ads_opening_unit_id", "release"))
         }
 
@@ -105,7 +107,9 @@ dependencies {
 
     implementation deps.jetbrains.kotlin_reflect
 
-    implementation deps.firebase.ads
+    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+    implementation 'com.google.firebase:firebase-ads'
+//    implementation deps.firebase.ads
 
     implementation deps.rx.values()
 
@@ -140,7 +144,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
     // 라이프사이클 추적용 어노테이션을 처리하는 어노테이션 프로세서를 추가합니다.
 
-    implementation "com.google.android.gms:play-services-ads:20.1.0"
+    implementation "com.google.android.gms:play-services-ads:20.0.0"
 
     implementation deps.jsoup
     implementation deps.easydeviceinfo

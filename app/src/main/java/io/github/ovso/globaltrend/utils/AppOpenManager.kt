@@ -6,6 +6,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 import com.orhanobut.logger.Logger
+import io.github.ovso.globaltrend.BuildConfig
 
 
 class AppOpenManager(app: Application) {
@@ -48,7 +49,7 @@ class AppOpenManager(app: Application) {
     AppOpenAd.load(
       application,
 //      Keys.ADMOB_APP_OPENING.value,
-      "",
+      BuildConfig.ADS_OPENING_UNIT_ID,
       request,
       AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
       loadCallback
