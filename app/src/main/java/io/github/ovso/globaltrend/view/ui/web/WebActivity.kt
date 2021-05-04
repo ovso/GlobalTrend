@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import io.github.ovso.globaltrend.R
+import io.github.ovso.globaltrend.extension.showInterstitialAds
 import kotlinx.android.synthetic.main.activity_web.*
 
 class WebActivity : AppCompatActivity() {
@@ -19,6 +20,9 @@ class WebActivity : AppCompatActivity() {
         .replace(R.id.container, WebFragment.newInstance(), WebFragment::class.java.simpleName)
         .commitAllowingStateLoss()
     }
+
+    showInterstitialAds()
+
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

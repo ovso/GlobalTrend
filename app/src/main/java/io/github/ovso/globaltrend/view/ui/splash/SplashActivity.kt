@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
-import io.github.ovso.globaltrend.utils.AppOpenManager
+import io.github.ovso.globaltrend.extension.showOpeningAds
 import io.github.ovso.globaltrend.view.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -17,22 +17,18 @@ class SplashActivity : AppCompatActivity() {
   }
 
   private fun showOpeningAd() {
-    with(AppOpenManager(this.application)) {
-      callback = { ad ->
-        ad?.fullScreenContentCallback = object : FullScreenContentCallback() {
-          override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-            launchMain()
-          }
 
-          override fun onAdDismissedFullScreenContent() {
-            launchMain()
-          }
-        }
-        ad?.show(this@SplashActivity)
+    showOpeningAds(object : FullScreenContentCallback() {
+      override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+        super.onAdFailedToShowFullScreenContent(p0)
+        launchMain()
       }
-      fetchAd()
-    }
 
+      override fun onAdDismissedFullScreenContent() {
+        super.onAdDismissedFullScreenContent()
+        launchMain()
+      }
+    })
   }
 
   private fun launchMain() {
