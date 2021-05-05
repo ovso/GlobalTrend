@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.*
+import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import io.github.ovso.globaltrend.R
@@ -71,12 +72,20 @@ fun Fragment.loadAdaptiveBanner(container: ViewGroup, unitId: String) {
   load()
 }
 
+/*
 fun Activity.showOpeningAds(fullScreenContentCallback: FullScreenContentCallback) {
   AppOpenManager(this.application).also { manager ->
     manager.callback = { ad ->
       ad?.fullScreenContentCallback = fullScreenContentCallback
       ad?.show(this@showOpeningAds)
     }
+    manager.fetchAd()
+  }
+}
+*/
+fun Activity.showOpeningAds(callback: (AppOpenAd?) -> Unit) {
+  AppOpenManager(this.application).also { manager ->
+    manager.callback = callback
     manager.fetchAd()
   }
 }

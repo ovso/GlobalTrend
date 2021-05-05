@@ -17,18 +17,22 @@ class SplashActivity : AppCompatActivity() {
   }
 
   private fun showOpeningAd() {
+    showOpeningAds { appOpenAd ->
+      appOpenAd?.let {
+        it.fullScreenContentCallback = object : FullScreenContentCallback() {
+          override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+            super.onAdFailedToShowFullScreenContent(p0)
+            launchMain()
+          }
 
-    showOpeningAds(object : FullScreenContentCallback() {
-      override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-        super.onAdFailedToShowFullScreenContent(p0)
-        launchMain()
-      }
-
-      override fun onAdDismissedFullScreenContent() {
-        super.onAdDismissedFullScreenContent()
-        launchMain()
-      }
-    })
+          override fun onAdDismissedFullScreenContent() {
+            super.onAdDismissedFullScreenContent()
+            launchMain()
+          }
+        }
+        it.show(this)
+      } ?: launchMain()
+    }
   }
 
   private fun launchMain() {

@@ -24,7 +24,7 @@ class CountryViewModel(private var context: Context) : DisposableViewModel() {
     private val timeout = 1000 * 10
     val isLoading = ObservableField<Boolean>()
     private val elements = Elements()
-    val elementsLiveData = MutableLiveData<Elements>()
+    val elementsLiveData = MutableLiveData<Elements?>()
     private var startTime = 0L
     @ColorRes
     val swipeLoadingColor = R.color.colorPrimary

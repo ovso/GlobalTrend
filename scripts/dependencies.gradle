@@ -153,7 +153,7 @@ config.min_sdk = 21
 config.target_sdk = 30
 config.version_major = 1
 config.version_minor = 1
-config.version_patch = 3
+config.version_patch = 4
 
 ext.config = config
 

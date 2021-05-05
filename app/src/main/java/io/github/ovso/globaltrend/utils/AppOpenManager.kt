@@ -1,6 +1,8 @@
 package io.github.ovso.globaltrend.utils
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
@@ -28,8 +30,10 @@ class AppOpenManager(app: Application) {
        *
        * @param ad the loaded app open ad.
        */
+      @SuppressLint("LogNotTimber")
       override fun onAdLoaded(ad: AppOpenAd?) {
         appOpenAd = ad
+        Log.d("GlobalTrend", "onAdLoaded ad: $ad")
         callback?.invoke(ad)
       }
 
@@ -38,8 +42,10 @@ class AppOpenManager(app: Application) {
        *
        * @param loadAdError the error.
        */
+      @SuppressLint("LogNotTimber")
       override fun onAdFailedToLoad(loadAdError: LoadAdError?) {
         // Handle the error.
+        Log.d("GlobalTrend", "onAdFailedToLoad")
         Logger.e(loadAdError?.message ?: "")
         callback?.invoke(null)
       }

@@ -58,7 +58,7 @@ class CountryFragment : Fragment() {
   }
 
   private fun obRevListData() {
-    viewModel.elementsLiveData.observe(viewLifecycleOwner, Observer {
+    viewModel.elementsLiveData.observe(viewLifecycleOwner, {
       adapter.elements = it
       adapter.notifyDataSetChanged()
     })
