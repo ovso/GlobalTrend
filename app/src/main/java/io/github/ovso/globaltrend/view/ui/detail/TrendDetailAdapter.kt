@@ -1,7 +1,5 @@
 package io.github.ovso.globaltrend.view.ui.detail
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -10,10 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.ovso.globaltrend.databinding.ItemTrendDetailBinding
 import io.github.ovso.globaltrend.databinding.ItemTrendDetailFooter2Binding
+import io.github.ovso.globaltrend.extension.navigateToChrome
 import io.github.ovso.globaltrend.extension.toHtml
-import io.github.ovso.globaltrend.utils.RxBusBehavior
-import io.github.ovso.globaltrend.view.ui.web.WebActivity
-import io.github.ovso.globaltrend.view.ui.web.WebViewModel
 import org.jsoup.nodes.Element
 import java.util.*
 import javax.inject.Inject
@@ -41,83 +37,25 @@ class TrendDetailFooterAdapter @Inject constructor() :
       for (x in 0 until binding.root.childCount) {
         binding.root.getChildAt(x).setOnClickListener {
           (it as? TextView)?.text?.toString()?.let { site ->
+            val context = itemView.context
             when (site.toLowerCase(Locale.getDefault())) {
-              "Google".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://google.com/search?q=",
-                keyword = keyword
-              )
-              "Daum".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://search.daum.net/search?q=",
-                keyword = keyword
-              )
-              "Naver".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://search.naver.com/search.naver?query=",
-                keyword = keyword
-              )
-              "Zum".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://search.zum.com/search.zum?query=",
-                keyword = keyword
-              )
-              "YouTube".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://www.youtube.com/results?search_query=",
-                keyword = keyword
-              )
-              "Yahoo".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://search.yahoo.com/search?p=",
-                keyword = keyword
-              )
-              "Bing".toLowerCase(Locale.getDefault()) -> navigateToWeb(
-                url = "https://www.bing.com/search?q=",
-                keyword = keyword
-              )
-              else -> {
-              }
+              "Google".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://google.com/search?q=$keyword")
+              "Daum".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://search.daum.net/search?q=$keyword")
+              "Naver".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://search.naver.com/search.naver?query=$keyword")
+              "Zum".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://search.zum.com/search.zum?query=$keyword")
+              "YouTube".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://www.youtube.com/results?search_query=$keyword")
+              "Yahoo".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://search.yahoo.com/search?p=$keyword")
+              "Bing".toLowerCase(Locale.getDefault()) ->
+                context.navigateToChrome("https://www.bing.com/search?q=$keyword")
             }
           }
         }
-      }
-/*
-      binding.ivTrendDetailItemGoogle.setOnClickListener {
-        navigateToWeb(
-          url = "https://google.com/search?q=",
-          keyword = keyword
-        )
-
-      }
-      binding.ivTrendDetailItemDaum.setOnClickListener {
-        navigateToWeb(
-          url = "https://search.daum.net/search?q=",
-          keyword = keyword
-        )
-      }
-      binding.ivTrendDetailItemNaver.setOnClickListener {
-        navigateToWeb(
-          url = "https://search.naver.com/search.naver?query=",
-          keyword = keyword
-        )
-      }
-      binding.ivTrendDetailItemYoutube.setOnClickListener {
-        navigateToWeb(
-          url = "https://www.youtube.com/results?search_query=",
-          keyword = keyword
-        )
-      }
-*/
-    }
-
-    private fun navigateToWeb(url: String, keyword: String?) {
-/*
-      RxBusBehavior.publish(
-        WebViewModel.RxBusWeb(
-          keyword,
-          "$url$keyword"
-        )
-      )
-      itemView.context.startActivity(Intent(itemView.context, WebActivity::class.java))
-*/
-
-      Intent(Intent.ACTION_VIEW, Uri.parse("$url$keyword")).apply {
-        itemView.context.startActivity(this)
       }
     }
 
@@ -153,15 +91,9 @@ class TrendDetailAdapter @Inject constructor() :
         item.getElementsByTag("ht:news_item_snippet")?.text().toHtml()
       binding.tvTrendDetailSource.text = item.getElementsByTag("ht:news_item_source")?.text()
       itemView.setOnClickListener {
-        RxBusBehavior.publish(
-          WebViewModel.RxBusWeb(
-            title = item.getElementsByTag("ht:news_item_title")?.text(),
-            url = item.getElementsByTag("ht:news_item_url")?.text(),
-          )
+        itemView.context.navigateToChrome(
+          url = item.getElementsByTag("ht:news_item_url")?.text()
         )
-        Intent(it.context, WebActivity::class.java).apply {
-          it.context.startActivity(this)
-        }
       }
     }
 
