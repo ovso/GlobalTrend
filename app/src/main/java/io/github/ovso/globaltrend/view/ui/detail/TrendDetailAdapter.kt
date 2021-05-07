@@ -1,6 +1,7 @@
 package io.github.ovso.globaltrend.view.ui.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -105,6 +106,7 @@ class TrendDetailFooterAdapter @Inject constructor() :
     }
 
     private fun navigateToWeb(url: String, keyword: String?) {
+/*
       RxBusBehavior.publish(
         WebViewModel.RxBusWeb(
           keyword,
@@ -112,6 +114,11 @@ class TrendDetailFooterAdapter @Inject constructor() :
         )
       )
       itemView.context.startActivity(Intent(itemView.context, WebActivity::class.java))
+*/
+
+      Intent(Intent.ACTION_VIEW, Uri.parse("$url$keyword")).apply {
+        itemView.context.startActivity(this)
+      }
     }
 
     companion object {
